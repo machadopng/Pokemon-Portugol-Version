@@ -13,9 +13,9 @@ programa
 	funcao inicio() //Aqui é a parte "principal" do jogo, cada função será utilizada.
 	{
 		regepokemon()
-	     escrevaLento("Qual o seu pokemon?\n", 100)
-	     leia(seupkmn)
-		regeseu()        		
+		genero_personagem()
+		definanome()
+	            		
 	}
 	
 	
@@ -42,12 +42,13 @@ programa
 		
 		 enquanto(genero != 2 e genero !=1)
 		 {
-			escrevaLento("Você é uma garota ou um garoto?\n(1) - Garota\n(2) - Garoto\n", 100)
+			escrevaLento("Você é uma garota ou um garoto?\n", 50)
+			escreva("(1) - Garota\n(2) - Garoto\n")
 			leia(genero)
 
 			se(genero != 2 e genero !=1)
 		     {
-				escrevaLento("Essa opção não existe.\n", 100)
+				escrevaLento("Essa opção não existe.\n", 50)
 		     }
 		
 	     	escolha(genero)
@@ -55,11 +56,11 @@ programa
 
 			   caso 1: 
 			   
-			   escrevaLento("Certo. Você é uma garota então.\n", 100)
+			   escrevaLento("Certo. Você é uma garota então.\n", 50)
 			   pare
 			   caso 2:
 			   
-			   escrevaLento("Certo. Você é um garoto então.\n", 100)
+			   escrevaLento("Certo. Você é um garoto então.\n", 50)
 			   pare
 			   caso contrario:
 			   pare
@@ -70,10 +71,12 @@ programa
      funcao definanome()//Essa função define o nome do personagem.
      {
      	
-     	escrevaLento("Agora me diga seu nome.\n", 100)
+     	escrevaLento("Agora me diga seu nome.\n", 50)
      	leia(nome_personagem)
-     	escrevaLento("Entendo. Olá, " + nome_personagem + "!", 100)
+     	escrevaLento("Entendo. Olá, " + nome_personagem + "!", 50)
      }
+
+     
 
      funcao regepokemon() //Aqui é definido os atributos de cada pokemon.
 	{
@@ -107,7 +110,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 458; 
+ * @POSICAO-CURSOR = 464; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
