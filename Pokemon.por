@@ -15,7 +15,9 @@ programa
 		regepokemon()
 		genero_personagem()
 		definanome()
-	            		
+	     escreva("Que pokemon voce deseja?\n")      
+	     leia(seupkmn)
+	     regeseu() 		
 	}
 	
 	
@@ -110,7 +112,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 464; 
+ * @POSICAO-CURSOR = 543; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
