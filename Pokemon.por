@@ -2,13 +2,14 @@ programa
 {
 	inclua biblioteca Texto
 	inclua biblioteca Util 
-     cadeia  nome_pkmn[3], seu_pkmn, inimigo
+     cadeia  nome_pkmn[3], nomeseu_pkmn, inimigo
      real    vida_pkmn[3], vida_seu_pkmn, vida_inimigo
      real    ataq_pkmn[3], ataq_seu_pkmn, ataq_inimigo
      inteiro seupkmn
      inteiro genero = -1
      cadeia  nome_personagem
 	inteiro quantidade_carac
+	inteiro escolha_
 	
 	funcao inicio() //Aqui é a parte "principal" do jogo, cada função será utilizada.
 	{
@@ -17,7 +18,9 @@ programa
 		definanome()
 	     escreva("\nQue pokemon voce deseja?\n")      
 	     leia(seupkmn)
-	     regeseu() 		
+	     regeseu()
+
+	     BatalhaPokemon(1)
 	}
 	
 	
@@ -26,7 +29,7 @@ programa
 
      funcao regeseu()//Aqui vai regir seu pokémon, com base nos atributos da otra função la
      {
-           seu_pkmn=nome_pkmn[seupkmn]
+           nomeseu_pkmn=nome_pkmn[seupkmn]
            vida_seu_pkmn=vida_pkmn[seupkmn]
            ataq_seu_pkmn=ataq_pkmn[seupkmn]
      }
@@ -85,6 +88,7 @@ programa
 			        nome_pkmn[1] = "Bulbassaur"
 			        vida_pkmn[1] = 20.0
 			        ataq_pkmn[1] = 5.0
+			        
 		
 			        nome_pkmn[2] = "Squirtle"
 			        vida_pkmn[2] = 15.0
@@ -103,6 +107,39 @@ programa
 			letra = Texto.obter_caracter(palavra, i)
 			escreva(letra) Util.aguarde(velocidade)
 		}
+
+	}
+	funcao BatalhaPokemon(inteiro turno){//batalha
+
+		turno = 1
+		se(turno %2 == 0){
+			regeenemy(2)
+			escreva("\nNome do pokemon inimigo: ",inimigo)
+			escreva("\nVida do pokemon inimigo: ",vida_inimigo, "\n")
+			escreva("\nNome do seu pokemon: ", nomeseu_pkmn)
+			escreva("\nVida do seu pokemon: ", vida_seu_pkmn)
+		}
+		se(turno %2 != 0){
+			escreva("\nO que voce quer fazer?\n")
+			escreva("1 - Atacar\n")
+			escreva("2 - Trocar\n")
+			escreva("3 - Itens\n")
+			escreva("4 - Fugir\n")
+			leia(escolha_)
+
+		
+			escolha(escolha_){
+				caso 1:
+				escreva("        ATAQUES        ")
+				escreva("\nTackle        Growl\n")
+				escreva("Leech seed    Vine whip\n")
+				
+				
+				
+			}
+		}
+		
+		
 	}
      		
 }
@@ -112,7 +149,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 543; 
+ * @POSICAO-CURSOR = 3121; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
