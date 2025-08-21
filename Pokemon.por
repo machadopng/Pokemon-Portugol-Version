@@ -15,7 +15,7 @@ programa
 		regepokemon()
 		genero_personagem()
 		definanome()
-	     escreva("Que pokemon voce deseja?\n")      
+	     escreva("\nQue pokemon voce deseja?\n")      
 	     leia(seupkmn)
 	     regeseu() 		
 	}
