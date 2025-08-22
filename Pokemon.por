@@ -10,6 +10,8 @@ programa
      cadeia  nome_personagem
 	inteiro quantidade_carac
 	inteiro escolha_
+	cadeia poder_p[4][2]
+	inteiro media = 10 
 	
 	funcao inicio() //Aqui é a parte "principal" do jogo, cada função será utilizada.
 	{
@@ -27,7 +29,7 @@ programa
 	
 
 
-     funcao regeseu()//Aqui vai regir seu pokémon, com base nos atributos da otra função la
+     funcao regeseu()//Aqui vai regir seu pokémon, com base nos atributos da outra função la
      {
            nomeseu_pkmn=nome_pkmn[seupkmn]
            vida_seu_pkmn=vida_pkmn[seupkmn]
@@ -47,13 +49,13 @@ programa
 		
 		 enquanto(genero != 2 e genero !=1)
 		 {
-			escrevaLento("Você é uma garota ou um garoto?\n", 50)
+			escrevaLento("Você é uma garota ou um garoto?\n", media)
 			escreva("(1) - Garota\n(2) - Garoto\n")
 			leia(genero)
 
 			se(genero != 2 e genero !=1)
 		     {
-				escrevaLento("Essa opção não existe.\n", 50)
+				escrevaLento("Essa opção não existe.\n", media)
 		     }
 		
 	     	escolha(genero)
@@ -61,11 +63,11 @@ programa
 
 			   caso 1: 
 			   
-			   escrevaLento("Certo. Você é uma garota então.\n", 50)
+			   escrevaLento("Certo. Você é uma garota então.\n", media)
 			   pare
 			   caso 2:
 			   
-			   escrevaLento("Certo. Você é um garoto então.\n", 50)
+			   escrevaLento("Certo. Você é um garoto então.\n", media)
 			   pare
 			   caso contrario:
 			   pare
@@ -76,9 +78,9 @@ programa
      funcao definanome()//Essa função define o nome do personagem.
      {
      	
-     	escrevaLento("Agora me diga seu nome.\n", 50)
+     	escrevaLento("Agora me diga seu nome.\n", media)
      	leia(nome_personagem)
-     	escrevaLento("Entendo. Olá, " + nome_personagem + "!", 50)
+     	escrevaLento("Entendo. Olá, " + nome_personagem + "!", media)
      }
 
      
@@ -88,11 +90,20 @@ programa
 			        nome_pkmn[1] = "Bulbassaur"
 			        vida_pkmn[1] = 20.0
 			        ataq_pkmn[1] = 5.0
+			        poder_p[0][1] = "Tackle"
+			        poder_p[1][1] = "Growl"
+			        poder_p[2][1] = "Leech Seed"
+			        poder_p[3][1] = "Vine Whip"
+			        
 			        
 		
 			        nome_pkmn[2] = "Squirtle"
 			        vida_pkmn[2] = 15.0
-			        ataq_pkmn[2] = 7.5	
+			        ataq_pkmn[2] = 7.5
+
+			       
+				
+			      
 	}
 
 	funcao escrevaLento(cadeia palavra, inteiro velocidade)//funcao pra escreve devagarinho
@@ -127,13 +138,16 @@ programa
 			escreva("4 - Fugir\n")
 			leia(escolha_)
 
+
 		
 			escolha(escolha_){
 				caso 1:
-				escreva("        ATAQUES        ")
-				escreva("\nTackle        Growl\n")
-				escreva("Leech seed    Vine whip\n")
+				para(inteiro i = 0; i < 3; i++){
+					
 				
+				escreva(poder_p[i][seupkmn])
+				
+				}
 				
 				
 			}
@@ -149,9 +163,9 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 3121; 
+ * @POSICAO-CURSOR = 3351; 
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {poder_p, 13, 8, 7};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
