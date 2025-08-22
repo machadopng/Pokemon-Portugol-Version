@@ -142,10 +142,11 @@ programa
 		
 			escolha(escolha_){
 				caso 1:
-				para(inteiro i = 0; i < 3; i++){
+				escreva("                Ataques        \n\n")
+				para(inteiro i = 0; i < 4; i++){
 					
 				
-				escreva(poder_p[i][seupkmn])
+				escreva(poder_p[i][seupkmn],"   ")
 				
 				}
 				
@@ -157,15 +158,3 @@ programa
 	}
      		
 }
-
-/* $$$ Portugol Studio $$$ 
- * 
- * Esta seção do arquivo guarda informações do Portugol Studio.
- * Você pode apagá-la se estiver utilizando outro editor.
- * 
- * @POSICAO-CURSOR = 3351; 
- * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {poder_p, 13, 8, 7};
- * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
- * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
- */
