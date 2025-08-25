@@ -7,27 +7,30 @@ programa
      real    vida_pkmn[3], vida_seu_pkmn, vida_inimigo
      real    ataq_pkmn[3], ataq_seu_pkmn, ataq_inimigo
      real    defesa_pkmn[3], defesa_seu_pkmn, defesa_inimigo 
-     real    basepower[4][9], dano
-     inteiro seupkmn
+     real    basepower[4][9], dano = 0.0
+     inteiro seupkmn, inipkmn
      inteiro genero = -1
      cadeia  nome_personagem
 	inteiro quantidade_carac
 	inteiro escolha_
 	cadeia  poder_p[8][3]
 	inteiro media = 10 
+	logico acabou 
 	
 	funcao inicio() //Aqui é a parte "principal" do jogo, cada função será utilizada.
 	{
 		regepokemon()
 		regeenemy(2)
-		//genero_personagem()
-		//definanome()
-	     //escreva("\nQue pokemon voce deseja?\n")      
+		genero_personagem()
+		definanome()
+	     escreva("\nQue pokemon voce deseja?\n")      
 	     leia(seupkmn)
-	     
+	     limpa()
 	     regeseu()
-
+          acabou = falso
 	     BatalhaPokemon(1)
+	     regepokemon()
+	     escrevaLento("hhhhhhhhhhhhhhhhhhhhhhh", media)
 	}
 	
 	
@@ -44,6 +47,7 @@ programa
 
      funcao regeenemy(inteiro quale)//mesmo que de cima, só que pro seu inimigo nas batalhas.
      {
+     	 inipkmn = quale
            inimigo=nome_pkmn[quale]
            vida_inimigo=vida_pkmn[quale]
            ataq_inimigo=ataq_pkmn[quale]
@@ -95,8 +99,9 @@ programa
      funcao regepokemon() //Aqui é definido os atributos de cada pokemon.
 	{
 			        nome_pkmn[1] = "Bulbassaur"
-			        vida_pkmn[1] = 20.0
-			        ataq_pkmn[1] = 5.0
+			        vida_pkmn[1] = 45.0
+			        ataq_pkmn[1] = 49.0
+			        defesa_pkmn[1] = 49.0
 			        poder_p[0][1] = "Tackle"
 			        basepower[0][1] = 40.0
 			        poder_p[1][1] = "Growl"
@@ -108,12 +113,15 @@ programa
 			        nome_pkmn[2] = "Squirtle"
 			        vida_pkmn[2] = 44.0
 			        ataq_pkmn[2] = 48.0
-			        defesa_pkmn[2] = 45.0
+			        defesa_pkmn[2] = 65.0
 			        poder_p[0][2] = "Tackle"
+			        basepower[0][2] = 40.0
 			        poder_p[1][2] = "Bubble"
+			        basepower[1][2] = 30.0
 			        poder_p[2][2] = "Water Gun"
+			        basepower[2][2] = 20.0
 			        poder_p[3][2] = "Hydro Pump"
-
+                       basepower[3][2] = 25.0
 			       
 				
 			      
@@ -135,15 +143,28 @@ programa
 	}
 	funcao BatalhaPokemon(inteiro turno)
 	{//batalha
+		turno =Util.sorteia(0, 1)
+          enquanto(acabou == falso)
+          {
+          	
           
-		turno = 1
+		
 		se(turno %2 == 0)
 		{
 			regeenemy(2)
-			escreva("\nNome do pokemon inimigo: ",inimigo)
-			escreva("\nVida do pokemon inimigo: ",vida_inimigo, "\n")
-			escreva("\nNome do seu pokemon: ", nomeseu_pkmn)
-			escreva("\nVida do seu pokemon: ", vida_seu_pkmn)
+			escrevaLento("...", 1000)
+			inteiro qual = Util.sorteia(0, 3)
+			regedanoinimigo(basepower[qual][inipkmn])
+			vida_seu_pkmn = vida_seu_pkmn - dano
+			escrevaLento("Inimigo usou: " + poder_p[qual][inipkmn] + ".\nCom o dano de:" + Matematica.arredondar(dano, 0), media)
+			Util.aguarde(2000)limpa()
+			se(vida_seu_pkmn <= 0){
+					escrevaLento("\nVoce perdeu.", media)
+				acabou = verdadeiro
+			}senao{
+				escrevaLento("A vida do inimigo atual: " + vida_inimigo, 100)
+				turno++
+			}
 		}
 		se(turno %2 != 0)
 		{
@@ -169,18 +190,35 @@ programa
 		     } 
 		     escreva("\n                 Qual ataque?\n")
 		     leia(escolha_)
+		
+				
 			regedano(basepower[escolha_][seupkmn])
-	
+			vida_inimigo = vida_inimigo - dano
+			escrevaLento(nome_personagem + " usou: " + poder_p[escolha_][inipkmn] + ".\nCom o dano de:" + Matematica.arredondar(dano, 0), media)
+			Util.aguarde(2000)limpa()
+			se(vida_inimigo <= 0){
+				escrevaLento("\nVoce ganhou.", media)
+				acabou = verdadeiro
+			}senao{
+				escrevaLento("Voce deu de dano: " + Matematica.arredondar(dano, 0), 100)
+				turno++
 			}
-		}
+				
+			
+			}
+		}//TURNO
 		
 		
-	}
+	     }//BATALHA
 
-
+	}//FUNCAO
 	funcao regedano(real quale)
 	{
 		dano = (ataq_seu_pkmn / defesa_inimigo) * quale
+	}
+	funcao regedanoinimigo(real quale)
+	{
+		dano = (ataq_inimigo / defesa_seu_pkmn) * quale
 	}
      		
 }
@@ -190,9 +228,9 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 2759; 
+ * @POSICAO-CURSOR = 5183; 
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {ataq_seu_pkmn, 8, 27, 13}-{defesa_inimigo, 9, 46, 14}-{basepower, 10, 13, 9}-{dano, 10, 30, 4}-{seupkmn, 11, 13, 7}-{escolha_, 15, 9, 8}-{poder_p, 16, 9, 7}-{quale, 181, 22, 5};
+ * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
