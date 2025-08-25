@@ -10,7 +10,7 @@ programa
      cadeia  nome_personagem
 	inteiro quantidade_carac
 	inteiro escolha_
-	cadeia poder_p[4][2]
+	cadeia poder_p[8][3]
 	inteiro media = 10 
 	
 	funcao inicio() //Aqui é a parte "principal" do jogo, cada função será utilizada.
@@ -100,6 +100,10 @@ programa
 			        nome_pkmn[2] = "Squirtle"
 			        vida_pkmn[2] = 15.0
 			        ataq_pkmn[2] = 7.5
+			        poder_p[4][2] = "Tackle"
+			        poder_p[5][2] = "Bubble"
+			        poder_p[6][2] = "Water Gun"
+			        poder_p[7][2] = "Hydro Pump"
 
 			       
 				
@@ -158,3 +162,15 @@ programa
 	}
      		
 }
+
+/* $$$ Portugol Studio $$$ 
+ * 
+ * Esta seção do arquivo guarda informações do Portugol Studio.
+ * Você pode apagá-la se estiver utilizando outro editor.
+ * 
+ * @POSICAO-CURSOR = 2577; 
+ * @PONTOS-DE-PARADA = ;
+ * @SIMBOLOS-INSPECIONADOS = {poder_p, 13, 8, 7};
+ * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
+ * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
+ */
