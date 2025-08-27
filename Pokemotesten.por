@@ -23,8 +23,16 @@ programa
 		regeenemy(2)
 		genero_personagem()
 		definanome()
-	     escreva("\nQue pokemon voce deseja?\n")      
+	     escreva("\nQue pokemon voce deseja?")
+	     escreva("\n", "1 - ",nome_pkmn[1],"\n", "2 - ",nome_pkmn[2]," \n")    
 	     leia(seupkmn)
+
+          se(seupkmn != 2 e seupkmn !=1)
+		{
+			escrevaLento("Essa opção não existe, diga outro pokemon.\n", media)
+			leia(seupkmn)
+		}
+	     
 	     limpa()
 	     regeseu()
           acabou = falso
@@ -89,9 +97,9 @@ programa
      funcao definanome()//Essa função define o nome do personagem.
      {
      	
-     	escrevaLento("Agora me diga seu nome.\n", media)
+     	escrevaLento("\nAgora me diga seu nome.\n", media)
      	leia(nome_personagem)
-     	escrevaLento("Entendo. Olá, " + nome_personagem + "!", media)
+     	escrevaLento("Entendo. Olá, " + nome_personagem + "!\n", media)
      }
 
      
@@ -156,7 +164,7 @@ programa
 			inteiro qual = Util.sorteia(0, 3)
 			regedanoinimigo(basepower[qual][inipkmn])
 			vida_seu_pkmn = vida_seu_pkmn - dano
-			escrevaLento("Inimigo usou: " + poder_p[qual][inipkmn] + ".\nCom o dano de:" + Matematica.arredondar(dano, 0), media)
+			escrevaLento("Inimigo usou: " + poder_p[qual][inipkmn] + ".\nCom o dano de: " + Matematica.arredondar(dano, 0), media)
 			Util.aguarde(2000)limpa()
 			se(vida_seu_pkmn <= 0){
 					escrevaLento("\nVoce perdeu.", media)
@@ -174,6 +182,11 @@ programa
 			escreva("3 - Itens\n")
 			escreva("4 - Fugir\n")
 			leia(escolha_)
+
+			se(escolha_ != 1 e escolha_ !=2 e escolha_ != 3 e escolha_ != 4)
+		     {
+				escrevaLento("Essa opção não existe.\n", media)
+		     }
 
 
 		
@@ -194,7 +207,7 @@ programa
 				
 			regedano(basepower[escolha_][seupkmn])
 			vida_inimigo = vida_inimigo - dano
-			escrevaLento(nome_personagem + " usou: " + poder_p[escolha_][inipkmn] + ".\nCom o dano de:" + Matematica.arredondar(dano, 0), media)
+			escrevaLento(nome_personagem + " usou: " + poder_p[escolha_][inipkmn] + ".\nCom o dano de: " + Matematica.arredondar(dano, 0), media)
 			Util.aguarde(2000)limpa()
 			se(vida_inimigo <= 0){
 				escrevaLento("\nVoce ganhou.", media)
@@ -228,7 +241,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 5183; 
+ * @POSICAO-CURSOR = 4519; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
