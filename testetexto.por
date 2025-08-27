@@ -8,18 +8,29 @@ programa
 	
 	funcao inicio()
 	{
-		inteiro mapa[9][9]
+
 		inteiro caminho = arq.abrir_arquivo("./teste.txt", arq.MODO_LEITURA)
 		cadeia linha = arq.ler_linha(caminho)
+		inteiro nLinha=0
+		inteiro vida=5
+		inteiro vidatotal=10
 
 		enquanto(linha != ""){
-
-			para(inteiro i =0 ; i<10; i++){
-				escreva("		")
+			se(nLinha=10){
+				escreva"		"
+				para(){
+					
+				}
+			}senao{
+				escreva("													")
 			}
+			
+			nLinha++
 			escreva(linha)
 			escreva("\n")
 			linha = arq.ler_linha(caminho)
+			
+		
 			
 		}
 
@@ -44,9 +55,9 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 383; 
+ * @POSICAO-CURSOR = 390; 
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {nLinha, 14, 10, 6};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
