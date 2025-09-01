@@ -203,6 +203,10 @@ programa
 		     } 
 		     escreva("\n                 Qual ataque?\n")
 		     leia(escolha_)
+		     se(escolha_ != 1 e escolha_ !=2 e escolha_ != 3){
+		     	escreva("Esse ataque não existe, selecione um dos quatro ataques:\n")
+		     	leia(escolha_)
+		     }
 		
 				
 			regedano(basepower[escolha_][seupkmn])
@@ -241,7 +245,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 4519; 
+ * @POSICAO-CURSOR = 5163; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
