@@ -9,17 +9,17 @@ programa
 	funcao inicio()
 	{
 		cadeia PokemonE = "bulbasaur"
-		desenharEnimigo(PokemonE)
+		desenharEnimigo(PokemonE,2,20)
 		//escreva("													")
 		//escreva("   ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■           ")
 
 	}
-	funcao desenharEnimigo(cadeia nome){
-		inteiro caminho = arq.abrir_arquivo("./"+nome+"Front.txt", arq.MODO_LEITURA)
+	funcao desenharEnimigo(cadeia nome,inteiro lp, inteiro lpt){
+		inteiro caminho = arq.abrir_arquivo("./sprites/"+nome+"/"+nome+"Front.txt", arq.MODO_LEITURA)
 		cadeia linha = arq.ler_linha(caminho)
 		inteiro nLinha=0
-		inteiro vida=70
-		inteiro vidatotal=100
+		inteiro vida=lp
+		inteiro vidatotal=lpt
 		
 		enquanto(linha != ""){
 			se( nLinha==6 ){
@@ -32,11 +32,11 @@ programa
 
 			
 				escreva("   ")
-				para(inteiro i=0;i<vidaGrafica;i++){
+				para(inteiro i=0;i<=vidaGrafica;i++){
 					escreva("█")
 					
 				}
-				para(inteiro i=0;i<50-vidaGrafica;i++){
+				para(inteiro i=0;i<=50-vidaGrafica;i++){
 					escreva("░")
 					
 				}escreva("	",vida,"/",vidatotal,"			")
@@ -72,7 +72,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 1175; 
+ * @POSICAO-CURSOR = 583; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
