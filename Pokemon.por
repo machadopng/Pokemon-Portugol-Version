@@ -1,28 +1,92 @@
 programa
 {
+	inclua biblioteca Matematica
 	inclua biblioteca Texto
 	inclua biblioteca Util 
      cadeia  nome_pkmn[3], nomeseu_pkmn, inimigo
      real    vida_pkmn[3], vida_seu_pkmn, vida_inimigo
      real    ataq_pkmn[3], ataq_seu_pkmn, ataq_inimigo
-     inteiro seupkmn
+     real    defesa_pkmn[3], defesa_seu_pkmn, defesa_inimigo 
+     real    basepower[4][9], dano = 0.0
+     inteiro seupkmn, inipkmn
      inteiro genero = -1
      cadeia  nome_personagem
 	inteiro quantidade_carac
 	inteiro escolha_
-	cadeia poder_p[8][3]
+	cadeia  poder_p[8][3]
 	inteiro media = 10 
+	logico acabou
+	cadeia start
+     inteiro tipos[18]={0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}
+	inteiro tipoataq [18]={0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}
+
+	//consultur o aquivo do tal do g                           
+	real tabela_fraquezas[18][18] = {
+	   //nor, lut, voa, ven, ter, ped, ins, fan, aço, fog, agu, pla, ele, psi, gel, dra, som, fad
+	    {1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 0.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
+	    {2.0, 1.0, 0.5, 0.5, 1.0, 2.0, 0.5, 0.0, 2.0, 1.0, 1.0, 1.0, 1.0, 0.5, 2.0, 1.0, 2.0, 0.5},
+	    {1.0, 2.0, 1.0, 1.0, 1.0, 0.5, 2.0, 1.0, 0.5, 1.0, 1.0, 2.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0},
+	    {1.0, 1.0, 1.0, 0.5, 0.5, 0.5, 1.0, 0.5, 0.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0},
+	    {1.0, 1.0, 0.0, 2.0, 1.0, 2.0, 0.5, 1.0, 2.0, 2.0, 1.0, 0.5, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0},
+	    {1.0, 0.5, 2.0, 1.0, 0.5, 1.0, 2.0, 1.0, 0.5, 2.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0},
+	    {1.0, 0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 0.5, 0.5, 0.5, 1.0, 2.0, 1.0, 2.0, 1.0, 1.0, 2.0, 0.5},
+	    {0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 0.5, 1.0},
+	    {1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 0.5, 0.5, 0.5, 1.0, 0.5, 1.0, 2.0, 1.0, 1.0, 2.0},
+	    {1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 2.0, 1.0, 2.0, 0.5, 0.5, 2.0, 1.0, 1.0, 2.0, 0.5, 1.0, 1.0},
+	    {1.0, 1.0, 1.0, 1.0, 2.0, 2.0, 1.0, 1.0, 1.0, 2.0, 0.5, 0.5, 1.0, 1.0, 1.0, 0.5, 1.0, 1.0},
+	    {1.0, 1.0, 0.5, 0.5, 2.0, 2.0, 0.5, 1.0, 0.5, 0.5, 2.0, 0.5, 1.0, 1.0, 1.0, 0.5, 1.0, 1.0},
+	    {1.0, 1.0, 2.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 0.5, 0.5, 1.0, 1.0, 0.5, 1.0, 1.0},
+	    {1.0, 2.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 1.0, 0.0, 1.0},
+	    {1.0, 1.0, 2.0, 1.0, 2.0, 1.0, 1.0, 1.0, 0.5, 0.5, 0.5, 2.0, 1.0, 1.0, 0.5, 2.0, 1.0, 0.0},
+	    {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 0.0},
+	    {1.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 0.5, 0.5},
+	    {1.0, 2.0, 1.0, 0.5, 1.0, 1.0, 1.0, 1.0, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 2.0, 1.0}
+	}
 	
 	funcao inicio() //Aqui é a parte "principal" do jogo, cada função será utilizada.
 	{
+escreva("                                                                                   ▗▄▄▖      ▗▄▖     ▗▖ ▗▖    ▗▄▄▄▖    ▗▖  ▗▖     ▗▄▖     ▗▖  ▗▖\n")
+escreva("                                                                                   ▐▌ ▐▌    ▐▌ ▐▌    ▐▌▗▞▘    ▐▌       ▐▛▚▞▜▌    ▐▌ ▐▌    ▐▛▚▖▐▌\n")
+escreva("                                                                                   ▐▛▀▘     ▐▌ ▐▌    ▐▛▚▖     ▐▛▀▀▘    ▐▌  ▐▌    ▐▌ ▐▌    ▐▌ ▝▜▌\n")
+escreva("                                                                                   ▐▌       ▝▚▄▞▘    ▐▌ ▐▌    ▐▙▄▄▖    ▐▌  ▐▌    ▝▚▄▞▘    ▐▌  ▐▌\n")
+
+escreva("\n\n\n                                                                                       ▗▄▄▖ ▗▄▄▖ ▗▄▄▄▖ ▗▄▄▖ ▗▄▄▖     ▗▄▄▖▗▄▄▄▖▗▄▖ ▗▄▄▖▗▄▄▄▖\n")
+escreva("                                                                                       ▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌   ▐▌       ▐▌     █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
+escreva("                                                                                       ▐▛▀▘ ▐▛▀▚▖▐▛▀▀▘ ▝▀▚▖ ▝▀▚▖     ▝▀▚▖  █ ▐▛▀▜▌▐▛▀▚▖ █  \n")
+escreva("                                                                                       ▐▌   ▐▌ ▐▌▐▙▄▄▖▗▄▄▞▘▗▄▄▞▘    ▗▄▄▞▘  █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
+		
 		regepokemon()
+		regeenemy(2)
+		leia(start)
+		limpa()
 		genero_personagem()
 		definanome()
-	     escreva("\nQue pokemon voce deseja?\n")      
+	     escreva("\nQue pokemon voce deseja?")
+	     escreva("\n", "1 - ",nome_pkmn[1],"\n", "2 - ",nome_pkmn[2]," \n")    
 	     leia(seupkmn)
-	     regeseu()
+	     se(seupkmn != 1 e seupkmn !=2)
+		     {
+				escrevaLento("Essa opção não existe.\n", media)
+		     }
 
+          enquanto(seupkmn != 1 e seupkmn !=2)
+		 {
+			escrevaLento("\nQue pokemon voce deseja?", media)
+			escreva("\n", "1 - ",nome_pkmn[1],"\n", "2 - ",nome_pkmn[2]," \n")
+			leia(seupkmn)
+
+			se(seupkmn != 1 e seupkmn !=2)
+		     {
+				escrevaLento("Essa opção não existe.\n", media)
+		     }
+		 }
+	     
+	     limpa()
+	     regeseu()
+          acabou = falso
 	     BatalhaPokemon(1)
+	     regepokemon()
+	     escrevaLento("hhhhhhhhhhhhhhhhhhhhhhh", media)
 	}
 	
 	
@@ -34,13 +98,16 @@ programa
            nomeseu_pkmn=nome_pkmn[seupkmn]
            vida_seu_pkmn=vida_pkmn[seupkmn]
            ataq_seu_pkmn=ataq_pkmn[seupkmn]
+           defesa_seu_pkmn=defesa_pkmn[seupkmn]
      }
 
      funcao regeenemy(inteiro quale)//mesmo que de cima, só que pro seu inimigo nas batalhas.
      {
+     	 inipkmn = quale
            inimigo=nome_pkmn[quale]
            vida_inimigo=vida_pkmn[quale]
            ataq_inimigo=ataq_pkmn[quale]
+           defesa_inimigo=defesa_pkmn[quale]
      }
 
      funcao genero_personagem()//Essa função vai definir o genero do personagem.
@@ -78,9 +145,9 @@ programa
      funcao definanome()//Essa função define o nome do personagem.
      {
      	
-     	escrevaLento("Agora me diga seu nome.\n", media)
+     	escrevaLento("\nAgora me diga seu nome.\n", media)
      	leia(nome_personagem)
-     	escrevaLento("Entendo. Olá, " + nome_personagem + "!", media)
+     	escrevaLento("Entendo. Olá, " + nome_personagem + "!\n", media)
      }
 
      
@@ -88,9 +155,11 @@ programa
      funcao regepokemon() //Aqui é definido os atributos de cada pokemon.
 	{
 			        nome_pkmn[1] = "Bulbassaur"
-			        vida_pkmn[1] = 20.0
-			        ataq_pkmn[1] = 5.0
+			        vida_pkmn[1] = 45.0
+			        ataq_pkmn[1] = 49.0
+			        defesa_pkmn[1] = 49.0
 			        poder_p[0][1] = "Tackle"
+			        basepower[0][1] = 40.0
 			        poder_p[1][1] = "Growl"
 			        poder_p[2][1] = "Leech Seed"
 			        poder_p[3][1] = "Vine Whip"
@@ -98,13 +167,17 @@ programa
 			        
 		
 			        nome_pkmn[2] = "Squirtle"
-			        vida_pkmn[2] = 15.0
-			        ataq_pkmn[2] = 7.5
-			        poder_p[4][2] = "Tackle"
-			        poder_p[5][2] = "Bubble"
-			        poder_p[6][2] = "Water Gun"
-			        poder_p[7][2] = "Hydro Pump"
-
+			        vida_pkmn[2] = 44.0
+			        ataq_pkmn[2] = 48.0
+			        defesa_pkmn[2] = 65.0
+			        poder_p[0][2] = "Tackle"
+			        basepower[0][2] = 40.0
+			        poder_p[1][2] = "Bubble"
+			        basepower[1][2] = 30.0
+			        poder_p[2][2] = "Water Gun"
+			        basepower[2][2] = 20.0
+			        poder_p[3][2] = "Hydro Pump"
+                       basepower[3][2] = 25.0
 			       
 				
 			      
@@ -124,17 +197,33 @@ programa
 		}
 
 	}
-	funcao BatalhaPokemon(inteiro turno){//batalha
-
-		turno = 1
-		se(turno %2 == 0){
+	funcao BatalhaPokemon(inteiro turno)
+	{//batalha
+		turno =Util.sorteia(0, 1)
+          enquanto(acabou == falso)
+          {
+          	
+          
+		
+		se(turno %2 == 0)
+		{
 			regeenemy(2)
-			escreva("\nNome do pokemon inimigo: ",inimigo)
-			escreva("\nVida do pokemon inimigo: ",vida_inimigo, "\n")
-			escreva("\nNome do seu pokemon: ", nomeseu_pkmn)
-			escreva("\nVida do seu pokemon: ", vida_seu_pkmn)
+			escrevaLento("...", 1000)
+			inteiro qual = Util.sorteia(0, 3)
+			regedanoinimigo(basepower[qual][inipkmn])
+			vida_seu_pkmn = vida_seu_pkmn - dano
+			escrevaLento("Inimigo usou: " + poder_p[qual][inipkmn] + ".\nCom o dano de: " + Matematica.arredondar(dano, 0), media)
+			Util.aguarde(2000)limpa()
+			se(vida_seu_pkmn <= 0){
+					escrevaLento("\nVoce perdeu.", media)
+				acabou = verdadeiro
+			}senao{
+				escrevaLento("A vida do inimigo atual: " + vida_inimigo, 100)
+				turno++
+			}
 		}
-		se(turno %2 != 0){
+		se(turno %2 != 0)
+		{
 			escreva("\nO que voce quer fazer?\n")
 			escreva("1 - Atacar\n")
 			escreva("2 - Trocar\n")
@@ -142,23 +231,64 @@ programa
 			escreva("4 - Fugir\n")
 			leia(escolha_)
 
+			se(escolha_ != 1 e escolha_ !=2 e escolha_ != 3 e escolha_ != 4)
+		     {
+				escrevaLento("Essa opção não existe.\n", media)
+		     }
+
 
 		
-			escolha(escolha_){
+			escolha(escolha_)
+			{
 				caso 1:
-				escreva("                Ataques        \n\n")
+				escreva("                    Ataques        \n\n")
 				para(inteiro i = 0; i < 4; i++){
 					
 				
-				escreva(poder_p[i][seupkmn],"   ")
-				
-				}
+				escreva(i, " - ", poder_p[i][seupkmn],"   ")
 				
 				
+		     } 
+		     escreva("\n                 Qual ataque?\n")
+		     leia(escolha_)
+		     enquanto(escolha_ != 0 e escolha_ != 1 e escolha_ != 2 e escolha_ != 3)
+		     {
+			escrevaLento("Essa opção não existe.\n", media)
+			leia(escolha_)
+		     }
+		     se(escolha_ != 0 e escolha_ != 1 e escolha_ != 2 e escolha_ != 3)
+		     {
+				escrevaLento("Essa opção não existe.\n", media)
+		     }
+		
+				
+			regedano(basepower[escolha_][seupkmn])
+			vida_inimigo = vida_inimigo - dano
+			escrevaLento(nome_personagem + " usou: " + poder_p[escolha_][inipkmn] + ".\nCom o dano de: " + Matematica.arredondar(dano, 0), media)
+			Util.aguarde(2000)limpa()
+			se(vida_inimigo <= 0){
+				escrevaLento("\nVoce ganhou.", media)
+				acabou = verdadeiro
+			}senao{
+				escrevaLento("Voce deu de dano: " + Matematica.arredondar(dano, 0), 100)
+				turno++
 			}
-		}
+				
+			
+			}
+		}//TURNO
 		
 		
+	     }//BATALHA
+
+	}//FUNCAO
+	funcao regedano(real quale)
+	{
+		dano = (ataq_seu_pkmn / defesa_inimigo) * quale
+	}
+	funcao regedanoinimigo(real quale)
+	{
+		dano = (ataq_inimigo / defesa_seu_pkmn) * quale
 	}
      		
 }
@@ -168,9 +298,9 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 2577; 
+ * @POSICAO-CURSOR = 8575; 
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {poder_p, 13, 8, 7};
+ * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
