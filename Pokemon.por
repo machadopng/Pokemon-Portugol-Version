@@ -246,6 +246,8 @@ escreva("                                                                      
 					
 				
 				escreva(i, " - ", poder_p[i][seupkmn],"   ")
+
+				
 				
 				
 		     } 
@@ -274,6 +276,9 @@ escreva("                                                                      
 				turno++
 			}
 				
+               caso 4:
+               escrevaLento("Você fugiu da batalha...", media)
+               acabou = verdadeiro
 			
 			}
 		}//TURNO
@@ -292,13 +297,12 @@ escreva("                                                                      
 	}
      		
 }
-
 /* $$$ Portugol Studio $$$ 
  * 
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 8575; 
+ * @POSICAO-CURSOR = 9668; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
