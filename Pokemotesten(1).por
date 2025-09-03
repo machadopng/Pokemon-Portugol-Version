@@ -7,6 +7,7 @@ programa
      real    vida_pkmn[3], vida_seu_pkmn, vida_inimigo
      real    ataq_pkmn[3], ataq_seu_pkmn, ataq_inimigo
      real    defesa_pkmn[3], defesa_seu_pkmn, defesa_inimigo 
+     inteiro tipo_pkmn[3], tipo_seu_pkmn, tipo_inimigo
      real    basepower[4][9], dano = 0.0
      inteiro seupkmn, inipkmn
      inteiro genero = -1
@@ -14,14 +15,12 @@ programa
 	inteiro quantidade_carac
 	inteiro escolha_
 	cadeia  poder_p[8][3]
-	inteiro media = 10 
-	logico acabou 
-	inteiro tipos[18]={0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}
-	inteiro tipoataq [18]={0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}
-
-	//consultur o aquivo do tal do g                           
-	real tabela_fraquezas[18][18] = {
-	   //nor, lut, voa, ven, ter, ped, ins, fan, aço, fog, agu, pla, ele, psi, gel, dra, som, fad
+	inteiro media = 1
+	logico  acabou 
+	real    multiplicador
+	inteiro tipo_ataq[8][3]                    
+	real    tabela_fraquezas[18][18] = {
+	   //nor0 lut1 voa2 ven3 ter4 ped5 ins6 fan7 aço8 fog9 agu0 pla1 ele2 psi3 gel4 dra5 som6 fad7
 	    {1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 0.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
 	    {2.0, 1.0, 0.5, 0.5, 1.0, 2.0, 0.5, 0.0, 2.0, 1.0, 1.0, 1.0, 1.0, 0.5, 2.0, 1.0, 2.0, 0.5},
 	    {1.0, 2.0, 1.0, 1.0, 1.0, 0.5, 2.0, 1.0, 0.5, 1.0, 1.0, 2.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0},
@@ -45,7 +44,7 @@ programa
 	funcao inicio() //Aqui é a parte "principal" do jogo, cada função será utilizada.
 	{
 		regepokemon()
-		regeenemy(2)
+		regeenemy(1)
 		genero_personagem()
 		definanome()
 	     escreva("\nQue pokemon voce deseja?")
@@ -76,6 +75,7 @@ programa
            vida_seu_pkmn=vida_pkmn[seupkmn]
            ataq_seu_pkmn=ataq_pkmn[seupkmn]
            defesa_seu_pkmn=defesa_pkmn[seupkmn]
+           tipo_seu_pkmn=tipo_pkmn[seupkmn]
      }
 
      funcao regeenemy(inteiro quale)//mesmo que de cima, só que pro seu inimigo nas batalhas.
@@ -85,6 +85,7 @@ programa
            vida_inimigo=vida_pkmn[quale]
            ataq_inimigo=ataq_pkmn[quale]
            defesa_inimigo=defesa_pkmn[quale]
+           tipo_inimigo=tipo_pkmn[quale]
      }
 
      funcao genero_personagem()//Essa função vai definir o genero do personagem.
@@ -132,19 +133,29 @@ programa
      funcao regepokemon() //Aqui é definido os atributos de cada pokemon.
 	{
 			        nome_pkmn[1] = "Bulbassaur"
+			        tipo_pkmn[1] = 11
 			        vida_pkmn[1] = 45.0
 			        ataq_pkmn[1] = 49.0
 			        defesa_pkmn[1] = 49.0
+			        //ataques
 			        poder_p[0][1] = "Tackle"
 			        basepower[0][1] = 40.0
-			        tipoataq
-			        poder_p[1][1] = "Growl"
-			        poder_p[2][1] = "Leech Seed"
-			        poder_p[3][1] = "Vine Whip"
+			        tipo_ataq[0][1] = 0
 			        
+			        poder_p[1][1] = "Growl"
+			        
+			        poder_p[2][1] = "Leech Seed"
+			        basepower[2][1] = 20.0
+			        tipo_ataq[2][1] = 11
+			        
+			        poder_p[3][1] = "Vine Whip"
+			        basepower[3][1] = 40.0
+			        tipo_ataq[3][1] = 11
+			        //fim
 			        
 		
 			        nome_pkmn[2] = "Squirtle"
+			        tipo_pkmn[2] = 10
 			        vida_pkmn[2] = 44.0
 			        ataq_pkmn[2] = 48.0
 			        defesa_pkmn[2] = 65.0
@@ -186,7 +197,7 @@ programa
 		se(turno %2 == 0)
 		{
 			regeenemy(2)
-			escrevaLento("...", 1000)
+			escrevaLento("...", media)
 			inteiro qual = Util.sorteia(0, 3)
 			regedanoinimigo(basepower[qual][inipkmn])
 			vida_seu_pkmn = vida_seu_pkmn - dano
@@ -196,7 +207,7 @@ programa
 					escrevaLento("\nVoce perdeu.", media)
 				acabou = verdadeiro
 			}senao{
-				escrevaLento("A vida do inimigo atual: " + vida_inimigo, 100)
+				escrevaLento("A vida do inimigo atual: " + vida_inimigo, media)
 				turno++
 			}
 		}
@@ -231,15 +242,15 @@ programa
 		     leia(escolha_)
 		
 				
-			regedano(basepower[escolha_][seupkmn])
+			regedano(basepower[escolha_][seupkmn], tipo_inimigo, tipo_ataq[escolha_][seupkmn])
 			vida_inimigo = vida_inimigo - dano
-			escrevaLento(nome_personagem + " usou: " + poder_p[escolha_][inipkmn] + ".\nCom o dano de: " + Matematica.arredondar(dano, 0), media)
+			escrevaLento(nome_personagem + " usou: " + poder_p[escolha_][seupkmn] + ".\nCom o dano de: " + Matematica.arredondar(dano, 0), media)
 			Util.aguarde(2000)limpa()
 			se(vida_inimigo <= 0){
 				escrevaLento("\nVoce ganhou.", media)
 				acabou = verdadeiro
 			}senao{
-				escrevaLento("Voce deu de dano: " + Matematica.arredondar(dano, 0), 100)
+				escrevaLento("Voce deu de dano: " + Matematica.arredondar(dano, 0), media)
 				turno++
 			}
 				
@@ -251,16 +262,17 @@ programa
 	     }//BATALHA
 
 	}//FUNCAO
-	funcao regedano(real quale)
+	funcao regedano(real quale, inteiro tipo, inteiro tipoataq)
 	{
+		multiplicador = tabela_fraquezas[tipoataq][tipo]
+		dano = ((ataq_seu_pkmn / defesa_inimigo) * quale) * multiplicador
 		
-		dano = (ataq_seu_pkmn / defesa_inimigo) * quale
 	}
 	funcao regedanoinimigo(real quale)
 	{
 		dano = (ataq_inimigo / defesa_seu_pkmn) * quale
 	}
-     funcao fraqueza(		
+    
 }
 
 /* $$$ Portugol Studio $$$ 
@@ -268,10 +280,10 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 5018; 
- * @DOBRAMENTO-CODIGO = [44, 163];
+ * @POSICAO-CURSOR = 2662; 
+ * @DOBRAMENTO-CODIGO = [174];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {tipo_pkmn, 10, 13, 9}-{tipo_inimigo, 10, 42, 12}-{multiplicador, 20, 9, 13}-{tipo_ataq, 21, 9, 9};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
