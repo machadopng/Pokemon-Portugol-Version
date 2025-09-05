@@ -11,6 +11,7 @@ programa
      real    basepower[100][100], dano = 0.0
      inteiro seupkmn, inipkmn
      inteiro genero = -1
+     cadeia  start
      cadeia  nome_personagem
 	inteiro quantidade_carac
 	inteiro escolha_
@@ -45,14 +46,16 @@ programa
 	funcao inicio() //Aqui é a parte "principal" do jogo, cada função será utilizada.
 	{
 		escreva("                                                                                   ▗▄▄▖      ▗▄▖     ▗▖ ▗▖    ▗▄▄▄▖    ▗▖  ▗▖     ▗▄▖     ▗▖  ▗▖\n")
-escreva("                                                                                   ▐▌ ▐▌    ▐▌ ▐▌    ▐▌▗▞▘    ▐▌       ▐▛▚▞▜▌    ▐▌ ▐▌    ▐▛▚▖▐▌\n")
-escreva("                                                                                   ▐▛▀▘     ▐▌ ▐▌    ▐▛▚▖     ▐▛▀▀▘    ▐▌  ▐▌    ▐▌ ▐▌    ▐▌ ▝▜▌\n")
-escreva("                                                                                   ▐▌       ▝▚▄▞▘    ▐▌ ▐▌    ▐▙▄▄▖    ▐▌  ▐▌    ▝▚▄▞▘    ▐▌  ▐▌\n")
+		escreva("                                                                                   ▐▌ ▐▌    ▐▌ ▐▌    ▐▌▗▞▘    ▐▌       ▐▛▚▞▜▌    ▐▌ ▐▌    ▐▛▚▖▐▌\n")
+		escreva("                                                                                   ▐▛▀▘     ▐▌ ▐▌    ▐▛▚▖     ▐▛▀▀▘    ▐▌  ▐▌    ▐▌ ▐▌    ▐▌ ▝▜▌\n")
+		escreva("                                                                                   ▐▌       ▝▚▄▞▘    ▐▌ ▐▌    ▐▙▄▄▖    ▐▌  ▐▌    ▝▚▄▞▘    ▐▌  ▐▌\n")
 
-escreva("\n\n\n                                                                                       ▗▄▄▖ ▗▄▄▖ ▗▄▄▄▖ ▗▄▄▖ ▗▄▄▖     ▗▄▄▖▗▄▄▄▖▗▄▖ ▗▄▄▖▗▄▄▄▖\n")
-escreva("                                                                                       ▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌   ▐▌       ▐▌     █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
-escreva("                                                                                       ▐▛▀▘ ▐▛▀▚▖▐▛▀▀▘ ▝▀▚▖ ▝▀▚▖     ▝▀▚▖  █ ▐▛▀▜▌▐▛▀▚▖ █  \n")
-escreva("                                                                                       ▐▌   ▐▌ ▐▌▐▙▄▄▖▗▄▄▞▘▗▄▄▞▘    ▗▄▄▞▘  █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
+		escreva("\n\n\n                                                                                       ▗▄▄▖ ▗▄▄▖ ▗▄▄▄▖ ▗▄▄▖ ▗▄▄▖     ▗▄▄▖▗▄▄▄▖▗▄▖ ▗▄▄▖▗▄▄▄▖\n")
+		escreva("                                                                                       ▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌   ▐▌       ▐▌     █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
+		escreva("                                                                                       ▐▛▀▘ ▐▛▀▚▖▐▛▀▀▘ ▝▀▚▖ ▝▀▚▖     ▝▀▚▖  █ ▐▛▀▜▌▐▛▀▚▖ █  \n")
+		escreva("                                                                                       ▐▌   ▐▌ ▐▌▐▙▄▄▖▗▄▄▞▘▗▄▄▞▘    ▗▄▄▞▘  █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
+		leia(start)
+		limpa()
 		regepokemon()
 		regeataques()
 		regeenemy(1)
@@ -241,7 +244,7 @@ escreva("                                                                      
 		
 		se(turno %2 == 0)
 		{
-			regeenemy(2)
+			regeenemy(1)
 			
 			escrevaLento("...", media)
 			
@@ -306,7 +309,13 @@ escreva("                                                                      
 				turno++
 			}
 				
-			
+			   caso 2: escreva("eitaaa")
+			           pare
+			   caso 3: escreva("puuuutz")
+			   		 pare
+			   caso 4: escrevaLento("Voce fugiu da batalha...", media)
+			   		 acabou = verdadeiro
+			   		 pare
 			}
 		}//TURNO
 		
@@ -333,10 +342,9 @@ escreva("                                                                      
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 7724; 
- * @DOBRAMENTO-CODIGO = [92, 124, 210];
+ * @POSICAO-CURSOR = 8659; 
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {tipo_pkmn, 10, 13, 9}-{tipo_inimigo, 10, 42, 12}-{multiplicador, 20, 9, 13}-{tipo_ataq, 21, 9, 9}-{tipoataq, 308, 51, 8};
+ * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
