@@ -13,12 +13,14 @@ programa
      cadeia  nome_personagem
 	inteiro quantidade_carac
 	inteiro escolha_
+	inteiro escolha_ataque
 	cadeia  poder_p[8][3]
 	inteiro media = 10 
-	logico acabou
 	cadeia start
      inteiro tipos[18]={0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}
 	inteiro tipoataq [18]={0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}
+	cadeia nomes[2] = {nome_pkmn[1], nome_pkmn[2]}
+     logico acabou = falso
 
 	//consultur o aquivo do tal do g                           
 	real tabela_fraquezas[18][18] = {
@@ -83,7 +85,6 @@ escreva("                                                                      
 	     
 	     limpa()
 	     regeseu()
-          acabou = falso
 	     BatalhaPokemon(1)
 	     regepokemon()
 	     escrevaLento("hhhhhhhhhhhhhhhhhhhhhhh", media)
@@ -154,6 +155,7 @@ escreva("                                                                      
 
      funcao regepokemon() //Aqui é definido os atributos de cada pokemon.
 	{
+			        
 			        nome_pkmn[1] = "Bulbassaur"
 			        vida_pkmn[1] = 45.0
 			        ataq_pkmn[1] = 49.0
@@ -246,19 +248,16 @@ escreva("                                                                      
 					
 				
 				escreva(i, " - ", poder_p[i][seupkmn],"   ")
-
-				
-				
-				
-		     } 
+				} 
+		     
 		     escreva("\n                 Qual ataque?\n")
-		     leia(escolha_)
-		     enquanto(escolha_ != 0 e escolha_ != 1 e escolha_ != 2 e escolha_ != 3)
+		     leia(escolha_ataque)
+		     enquanto(escolha_ataque != 0 e escolha_ataque != 1 e escolha_ataque != 2 e escolha_ataque != 3)
 		     {
 			escrevaLento("Essa opção não existe.\n", media)
-			leia(escolha_)
+			leia(escolha_ataque)
 		     }
-		     se(escolha_ != 0 e escolha_ != 1 e escolha_ != 2 e escolha_ != 3)
+		     se(escolha_ataque != 0 e escolha_ataque != 1 e escolha_ataque != 2 e escolha_ataque != 3)
 		     {
 				escrevaLento("Essa opção não existe.\n", media)
 		     }
@@ -275,11 +274,19 @@ escreva("                                                                      
 				escrevaLento("Voce deu de dano: " + Matematica.arredondar(dano, 0), 100)
 				turno++
 			}
-				
+			pare
+
+               
+               caso 2:
+               	escrevaLento("Para qual pokemon você quer trocar?", media)
+               	
+               	pare
                caso 4:
-               escrevaLento("Você fugiu da batalha...", media)
-               acabou = verdadeiro
-			
+               	escrevaLento("Você fugiu da batalha...", media)
+               	acabou = verdadeiro
+               	pare
+               
+
 			}
 		}//TURNO
 		
@@ -302,7 +309,7 @@ escreva("                                                                      
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 9668; 
+ * @POSICAO-CURSOR = 9796; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
