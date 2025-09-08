@@ -2,7 +2,8 @@ programa
 {
 	inclua biblioteca Matematica
 	inclua biblioteca Texto
-	inclua biblioteca Util 
+	inclua biblioteca Util
+	inclua biblioteca Arquivos --> arq
      cadeia  nome_pkmn[7], nomeseu_pkmn, inimigo
      real    vida_pkmn[7], vida_seu_pkmn, vida_inimigo
      real    ataq_pkmn[7], ataq_seu_pkmn, ataq_inimigo
@@ -238,22 +239,19 @@ programa
 	{//batalha
 		turno =Util.sorteia(0, 1)
           enquanto(acabou == falso)
+          
           {
           	
-          
+          desenharInimigo(inimigo,0,10)
+          desenharPokemon(nomeseu_pkmn,0,10)
 		
 		se(turno %2 == 0)
 		{
 			regeenemy(1)
-			
-			escrevaLento("...", media)
-			
-			inteiro qual = Util.sorteia(0, 3)
-			
+			inteiro qual = Util.sorteia(0, 3)			
 			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn, tipo_ataq[qual][inipkmn])
 			vida_seu_pkmn = vida_seu_pkmn - dano
-			escrevaLento("Inimigo usou: " + poder_p[qual][inipkmn] + ".\nCom o dano de: " + Matematica.arredondar(dano, 0), media)
-			Util.aguarde(2000)limpa()
+			
 			se(vida_seu_pkmn <= 0)
 			{
 				escrevaLento("\nVoce perdeu.", media)
@@ -267,11 +265,6 @@ programa
 		}
 		se(turno %2 != 0)
 		{
-			escreva("\nO que voce quer fazer?\n")
-			escreva("1 - Atacar\n")
-			escreva("2 - Trocar\n")
-			escreva("3 - Itens\n")
-			escreva("4 - Fugir\n")
 			leia(escolha_)
 
 			se(escolha_ != 1 e escolha_ !=2 e escolha_ != 3 e escolha_ != 4)
@@ -334,7 +327,124 @@ programa
 		multiplicador = tabela_fraquezas[tipoataq][tipo]
 		dano = (ataq_inimigo / defesa_seu_pkmn) * quale * multiplicador
 	}
-    
+     funcao desenharInimigo(cadeia nome,inteiro lp, inteiro lpt){
+		inteiro caminho = arq.abrir_arquivo("./sprites/"+nome+"/"+nome+"Front.txt", arq.MODO_LEITURA)
+		cadeia linha = arq.ler_linha(caminho)
+		inteiro nLinha=0
+		inteiro vida=lp
+		inteiro vidatotal=lpt
+		
+		enquanto(linha != ""){
+			se( nLinha==6 ){
+				escreva("	",nome,"								")
+			}
+			se( nLinha==7 ){
+				se(vida>vidatotal){
+					vida=vidatotal
+				}inteiro vidaGrafica=RegraD3(vida,vidatotal,50)
+
+			
+				escreva("   ")
+				para(inteiro i=0;i<=vidaGrafica;i++){
+					escreva("█")
+					
+				}
+				para(inteiro i=0;i<=50-vidaGrafica;i++){
+					escreva("░")
+					
+				}escreva("	",vida,"/",vidatotal,"			")
+				
+			}se(nLinha!=7 e nLinha!=6){
+				para(inteiro i=0;i<10;i++){
+					escreva("	")
+				}
+				
+			}
+				
+			nLinha++
+			escreva(linha)
+			
+			escreva("\n")
+			linha = arq.ler_linha(caminho)
+			
+		}
+		arq.fim_arquivo(caminho)
+	}
+	funcao desenharPokemon(cadeia nome,inteiro lp,inteiro lpt){
+		inteiro caminho = arq.abrir_arquivo("./sprites/"+nome+"/"+nome+"Back.txt", arq.MODO_LEITURA)
+		cadeia linha = arq.ler_linha(caminho)
+		inteiro nLinha=0
+		inteiro vida=lp
+		inteiro vidatotal=lpt
+		
+		enquanto(linha!=""){
+			nLinha++
+			escreva(linha)
+			se( nLinha==6 ){
+				escreva("  ",nome)
+			}
+			se( nLinha==7 ){
+				se(vida>vidatotal){
+					vida=vidatotal
+				}inteiro vidaGrafica= RegraD3(vida,vidatotal,50)
+
+				escreva(" ")
+				para(inteiro i=0;i<=vidaGrafica;i++){
+					escreva("█")
+					
+				}
+				para(inteiro i=0;i<=50-vidaGrafica;i++){
+					escreva("░")
+					
+				}escreva(" ",vida,"/",vidatotal)
+			}
+			interface(nLinha,escolha_)
+			
+			escreva("\n")
+			linha = arq.ler_linha(caminho)
+		}
+		arq.fechar_arquivo(caminho)
+	}
+	funcao interface(inteiro linha, inteiro Escolha){
+		inteiro Menu=Escolha
+		
+		se(Menu==0){
+			se(linha==9){
+				escreva("[1]Ataque")
+			}
+			se(linha==10){
+				escreva("[2]Item")
+			}
+			se(linha==11){
+				escreva("[3]Pokemon")
+			}
+			se(linha==12){
+				escreva("[4]Fugiu")
+			}
+		}
+		se(Menu==1){
+			se(linha==9){
+				escreva("[0]"+poder_p[0][seupkmn])
+			}
+			se(linha==10){
+				escreva("[1]"+poder_p[1][seupkmn])
+			}
+			se(linha==11){
+				escreva("[2]"+poder_p[2][seupkmn])
+			}
+			se(linha==12){
+				escreva("[3]"+poder_p[3][seupkmn])
+			}
+		}
+		
+	}
+	funcao inteiro RegraD3(inteiro a,inteiro b, inteiro y)
+	{
+		inteiro n
+		
+		retorne (a*y)/b
+
+	}
 }
 
 /* $$$ Portugol Studio $$$ 
@@ -342,9 +452,9 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 8659; 
+ * @POSICAO-CURSOR = 8946; 
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {nomeseu_pkmn, 7, 27, 12}-{inimigo, 7, 41, 7};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
