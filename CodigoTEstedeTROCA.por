@@ -2,7 +2,8 @@ programa
 {
 	
 	funcao inicio()
-	{    
+	{
+    
 	     inteiro inventario
           inteiro escolha_
           cadeia pokemons[5] = {"Erik", "Jorge", "Matheus", "Miotti","Fonseca"}
@@ -40,6 +41,7 @@ programa
 		
 	}
 }
+
 /* $$$ Portugol Studio $$$ 
  * 
  * Esta seção do arquivo guarda informações do Portugol Studio.
