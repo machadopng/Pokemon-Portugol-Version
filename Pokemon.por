@@ -17,7 +17,7 @@ programa
 	inteiro quantidade_carac
 	inteiro escolha_, escolha_1
 	cadeia  poder_p[100][100]
-	inteiro media = 1
+	inteiro media = 30
 	logico  acabou 
 	real    multiplicador
 	inteiro tipo_ataq[4][18]                    
@@ -46,14 +46,14 @@ programa
 	
 	funcao inicio() //Aqui é a parte "principal" do jogo, cada função será utilizada.
 	{
-		escreva("                                                                                   ▗▄▄▖      ▗▄▖     ▗▖ ▗▖    ▗▄▄▄▖    ▗▖  ▗▖     ▗▄▖     ▗▖  ▗▖\n")
-		escreva("                                                                                   ▐▌ ▐▌    ▐▌ ▐▌    ▐▌▗▞▘    ▐▌       ▐▛▚▞▜▌    ▐▌ ▐▌    ▐▛▚▖▐▌\n")
-		escreva("                                                                                   ▐▛▀▘     ▐▌ ▐▌    ▐▛▚▖     ▐▛▀▀▘    ▐▌  ▐▌    ▐▌ ▐▌    ▐▌ ▝▜▌\n")
-		escreva("                                                                                   ▐▌       ▝▚▄▞▘    ▐▌ ▐▌    ▐▙▄▄▖    ▐▌  ▐▌    ▝▚▄▞▘    ▐▌  ▐▌\n")
-		escreva("\n\n\n                                                                                       ▗▄▄▖ ▗▄▄▖ ▗▄▄▄▖ ▗▄▄▖ ▗▄▄▖     ▗▄▄▖▗▄▄▄▖▗▄▖ ▗▄▄▖▗▄▄▄▖\n")
-		escreva("                                                                                       ▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌   ▐▌       ▐▌     █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
-		escreva("                                                                                       ▐▛▀▘ ▐▛▀▚▖▐▛▀▀▘ ▝▀▚▖ ▝▀▚▖     ▝▀▚▖  █ ▐▛▀▜▌▐▛▀▚▖ █  \n")
-		escreva("                                                                                       ▐▌   ▐▌ ▐▌▐▙▄▄▖▗▄▄▞▘▗▄▄▞▘    ▗▄▄▞▘  █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
+		escreva("▗▄▄▖      ▗▄▖     ▗▖ ▗▖    ▗▄▄▄▖    ▗▖  ▗▖     ▗▄▖     ▗▖  ▗▖\n")
+		escreva("▐▌ ▐▌    ▐▌ ▐▌    ▐▌▗▞▘    ▐▌       ▐▛▚▞▜▌    ▐▌ ▐▌    ▐▛▚▖▐▌\n")
+		escreva("▐▛▀▘     ▐▌ ▐▌    ▐▛▚▖     ▐▛▀▀▘    ▐▌  ▐▌    ▐▌ ▐▌    ▐▌ ▝▜▌\n")
+		escreva("▐▌       ▝▚▄▞▘    ▐▌ ▐▌    ▐▙▄▄▖    ▐▌  ▐▌    ▝▚▄▞▘    ▐▌  ▐▌\n")
+		escreva("\n\n\n     ▗▄▄▖ ▗▄▄▖ ▗▄▄▄▖ ▗▄▄▖ ▗▄▄▖     ▗▄▄▖▗▄▄▄▖▗▄▖ ▗▄▄▖▗▄▄▄▖\n")
+		escreva("     ▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌   ▐▌       ▐▌     █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
+		escreva("     ▐▛▀▘ ▐▛▀▚▖▐▛▀▀▘ ▝▀▚▖ ▝▀▚▖     ▝▀▚▖  █ ▐▛▀▜▌▐▛▀▚▖ █  \n")
+		escreva("     ▐▌   ▐▌ ▐▌▐▙▄▄▖▗▄▄▞▘▗▄▄▞▘    ▗▄▄▞▘  █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
 		leia(start)
 		limpa()
 
@@ -63,10 +63,15 @@ programa
 		introducaoprofessor()
 	     limpa()
 	     regeseu()
+	     
           acabou = falso
-	     BatalhaPokemon()
+	     //BatalhaPokemon() aqui vai ser a batalha do rival
 	     regepokemon()
-	     escrevaLento("Acabou a batalha", media)
+	     pospallet()
+	     //aqui vai te q ter uma funcao pra pokemon selvagem
+	     regepokemon()
+	     posprimeiroimpacto()
+
 	}
 	
 	
@@ -667,7 +672,8 @@ vida_pkmn[18] = 83.0
     escrevaLento(rival + ": Heh! Eu vou escolher depois de você, " + nome_personagem + "!\n", media)
     escrevaLento("Agora é sua escolha...\n", media)
 	escreva("\nQue pokemon voce deseja?")
-	     escreva("\n", "1 - ",nome_pkmn[1],"\n", "2 - ",nome_pkmn[4]," \n", "3 - ",nome_pkmn[7], "\n")    
+	laboratorio()
+	    
 	     leia(escolha_1)
 		escolha(escolha_1){
 
@@ -682,6 +688,47 @@ vida_pkmn[18] = 83.0
 		}
 
 	}
+		funcao laboratorio()
+		{
+escreva("\n==================================================================================\n")
+escreva("                           ESCOLHA SEU POKÉMON INICIAL\n")
+escreva("==================================================================================\n")
+escreva("\n")
+escreva("   [1] BULBASAUR                 [2] CHARMANDER                 [3] SQUIRTLE\n")
+escreva("\n")
+escreva("        *GRAMA*                        ^FOGO^                        ~ÁGUA~\n")
+escreva("==================================================================================\n")
+escreva("Digite o número do Pokémon escolhido:\n")
+
+		}
+		funcao pospallet()
+		{
+    escrevaLento("Após derrotar " + rival + ", você sai do laboratório confiante.\n", media)
+    escrevaLento("Sua jornada finalmente começou!\n", media)
+    escrevaLento("Você segue em direção ao norte da cidade, rumo à próxima rota.\n", media)
+    escrevaLento("O vento sopra levemente, e o mato alto balança à sua frente.\n", media)
+    escrevaLento("Você dá alguns passos para dentro da grama...\n", media)
+    escrevaLento("...\n", 500)
+    escrevaLento("Um Pokémon selvagem apareceu!\n", media)
+    escrevaLento("Prepare-se para a batalha!\n", media)			
+		}
+		funcao posprimeiroimpacto()
+		{
+
+    escrevaLento("Após atravessar o mato e enfrentar seu primeiro Pokémon selvagem...\n", media)
+    escrevaLento(nome_personagem + " segue viagem pela rota até alcançar uma nova cidade.\n", media)
+    escrevaLento("Você chegou a Viridian City!\n", media)
+    escrevaLento("A cidade é tranquila, com casas simples, um Centro Pokémon e até um Ginásio misterioso.\n", media)
+    escrevaLento("Você olha em volta e percebe que o Ginásio está fechado.\n", media)
+    escrevaLento("Uma placa na porta diz: 'Volte mais tarde.'\n", media)
+    escrevaLento("Ao explorar a cidade, você encontra o Centro Pokémon.\n", media)
+    escrevaLento("Dentro, a enfermeira Joy sorri: 'Bem-vindo ao Centro Pokémon! Quer que eu cuide dos seus Pokémon?'\n", media)
+    escrevaLento(". . .", 700)
+    escrevaLento("Após recuperar sua equipe, você percebe a estrada que segue ao norte.\n", media)
+    escrevaLento("Essa é a rota para a sua próxima aventura...\n", media)
+
+
+		}
 }
 
 /* $$$ Portugol Studio $$$ 
@@ -689,8 +736,8 @@ vida_pkmn[18] = 83.0
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 14215; 
- * @DOBRAMENTO-CODIGO = [94, 221, 365, 522, 590, 597];
+ * @POSICAO-CURSOR = 20448; 
+ * @DOBRAMENTO-CODIGO = [99, 226, 370, 527, 595];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
