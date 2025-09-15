@@ -17,7 +17,7 @@ programa
 	inteiro quantidade_carac
 	inteiro escolha_, escolha_1
 	cadeia  poder_p[100][100]
-	inteiro media = 30
+	inteiro media = 3
 	logico  acabou 
 	real    multiplicador
 	inteiro tipo_ataq[4][18]                    
@@ -60,12 +60,14 @@ programa
 		regepokemon()
 		regeataques()
 		
-		introducaoprofessor()
+		//introducaoprofessor()
 	     limpa()
+	     seupkmn=1
 	     regeseu()
 	     
           acabou = falso
-	     //BatalhaPokemon() aqui vai ser a batalha do rival
+          regeenemy(1)
+	     BatalhaPokemon()
 	     regepokemon()
 	     pospallet()
 	     //aqui vai te q ter uma funcao pra pokemon selvagem
@@ -100,7 +102,7 @@ programa
      funcao regepokemon() //Aqui é definido os atributos de cada pokemon, como se fosse a "pokedex".
 	{
 // Pokémon 1 - Bulbasaur
-nome_pkmn[1] = "Bulbasaur"
+nome_pkmn[1] = "Bulbassaur"
 tipo_pkmn[1] = 11 // Planta/Veneno
 vida_pkmn[1] = 45.0
 ataq_pkmn[1] = 49.0
@@ -386,16 +388,16 @@ vida_pkmn[18] = 83.0
 	{
 		
 		inteiro turno = Util.sorteia(0, 1)
-		
+          desenharInimigo(inimigo,0,10)
+          desenharPokemon(nomeseu_pkmn,0,10)		
           enquanto(acabou == falso)
           {
           	
-          //desenharInimigo(inimigo,0,10)
-          //desenharPokemon(nomeseu_pkmn,0,10)
+
 		
 		se(turno %2 == 0)
 		{//Turno inimigo.
-			regeenemy(7)
+			
 		
 			inteiro qual = Util.sorteia(0, 3)											//
 			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn, tipo_ataq[qual][inipkmn])   //Ataque inimigo.
@@ -408,7 +410,7 @@ vida_pkmn[18] = 83.0
 			}
 			senao
 			{
-				escrevaLento("A vida do inimigo atual: " + vida_inimigo, media)
+				escrevaLento("A vida do inimigo atual: " + vida_inimigo+ "\n", media)
 				turno++
 			}
 		}//Fim turno inimigo
@@ -440,8 +442,8 @@ vida_pkmn[18] = 83.0
 				
 				regedano(basepower[escolha_][seupkmn], tipo_inimigo , tipo_ataq[escolha_][seupkmn])  // Calculo seu dano
 				vida_inimigo = vida_inimigo - dano											//
-				escrevaLento(nome_personagem + " usou: " + poder_p[escolha_][seupkmn] + ".\nCom o dano de: " + Matematica.arredondar(dano, 0), media)
-				Util.aguarde(2000)limpa()
+				escrevaLento(nome_personagem + " usou: " + poder_p[escolha_][seupkmn] + ".\nCom o dano de: " + Matematica.arredondar(dano, 0)+ "\n", media)
+				Util.aguarde(2000)
 			
 				se(vida_inimigo <= 0)
 				{
@@ -450,7 +452,7 @@ vida_pkmn[18] = 83.0
 				}
 				senao
 				{
-					escrevaLento("Voce deu de dano: " + Matematica.arredondar(dano, 0), media)
+					escrevaLento("Voce deu de dano: " + Matematica.arredondar(dano, 0) + "\n", media)
 					turno++
 				}
 					pare
@@ -736,10 +738,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 20448; 
- * @DOBRAMENTO-CODIGO = [99, 226, 370, 527, 595];
+ * @POSICAO-CURSOR = 12399; 
+ * @DOBRAMENTO-CODIGO = [228, 372, 597];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {tipo, 476, 37, 4}-{tipoataq, 476, 51, 8};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
