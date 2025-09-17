@@ -4,6 +4,7 @@ programa
 	inclua biblioteca Texto
 	inclua biblioteca Util
 	inclua biblioteca Arquivos --> arq
+	inteiro Menu
      cadeia  nome_pkmn[151], nomeseu_pkmn, inimigo
      real    vida_pkmn[151], vida_seu_pkmn, vida_inimigo
      real    ataq_pkmn[151], ataq_seu_pkmn, ataq_inimigo
@@ -20,7 +21,8 @@ programa
 	inteiro media = 3
 	logico  acabou 
 	real    multiplicador
-	inteiro tipo_ataq[4][18]                    
+	inteiro tipo_ataq[4][18] 
+	inteiro qual = Util.sorteia(0, 3)                   
 	real    tabela_fraquezas[18][18] = {
 	   //nor0 lut1 voa2 ven3 ter4 ped5 ins6 fan7 aço8 fog9 agu0 pla1 ele2 psi3 gel4 dra5 som6 fad7
 	    {1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 0.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
@@ -62,11 +64,12 @@ programa
 		
 		//introducaoprofessor()
 	     limpa()
-	     seupkmn=1
+	     seupkmn=4
 	     regeseu()
 	     
           acabou = falso
           regeenemy(1)
+          	
 	     BatalhaPokemon()
 	     regepokemon()
 	     pospallet()
@@ -388,34 +391,35 @@ vida_pkmn[18] = 83.0
 	{
 		
 		inteiro turno = Util.sorteia(0, 1)
-          desenharInimigo(inimigo,0,10)
-          desenharPokemon(nomeseu_pkmn,0,10)		
+		Menu=0
           enquanto(acabou == falso)
           {
           	
-
-		
 		se(turno %2 == 0)
 		{//Turno inimigo.
-			
 		
-			inteiro qual = Util.sorteia(0, 3)											//
 			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn, tipo_ataq[qual][inipkmn])   //Ataque inimigo.
-			vida_seu_pkmn = vida_seu_pkmn - dano										//
+			vida_seu_pkmn = vida_seu_pkmn - dano
 			
 			se(vida_seu_pkmn <= 0)
 			{
 				escrevaLento("\nVoce perdeu.", media)
 				acabou = verdadeiro
+				
 			}
 			senao
 			{
+				Menu=2
+				AttGraficos()
 				escrevaLento("A vida do inimigo atual: " + vida_inimigo+ "\n", media)
+				Util.aguarde(5000)
 				turno++
 			}
 		}//Fim turno inimigo
 		se(turno %2 != 0)
 		{//Seu turno
+			Menu=0
+			AttGraficos()
 			leia(escolha_)
 
 			se(escolha_ != 1 e escolha_ !=2 e escolha_ != 3 e escolha_ != 4)
@@ -429,21 +433,14 @@ vida_pkmn[18] = 83.0
 			{
 			
 				caso 1:
-				escreva("                Ataques        \n\n")
-				para(inteiro i = 0; i < 4; i++)
-				{
-					
+				Menu=1
+				AttGraficos()
 				
-				escreva(i, " - ", poder_p[i][seupkmn],"   ")
-				
-				}
-		          leia(escolha_)
-		
-				
+				leia(escolha_)
 				regedano(basepower[escolha_][seupkmn], tipo_inimigo , tipo_ataq[escolha_][seupkmn])  // Calculo seu dano
 				vida_inimigo = vida_inimigo - dano											//
-				escrevaLento(nome_personagem + " usou: " + poder_p[escolha_][seupkmn] + ".\nCom o dano de: " + Matematica.arredondar(dano, 0)+ "\n", media)
-				Util.aguarde(2000)
+				
+				
 			
 				se(vida_inimigo <= 0)
 				{
@@ -453,6 +450,7 @@ vida_pkmn[18] = 83.0
 				senao
 				{
 					escrevaLento("Voce deu de dano: " + Matematica.arredondar(dano, 0) + "\n", media)
+					Util.aguarde(2000)
 					turno++
 				}
 					pare
@@ -460,6 +458,8 @@ vida_pkmn[18] = 83.0
 		     
 				
 			   caso 2: escreva("Iten")
+			   	limpa()
+			   	
 			           pare
 			   caso 3: escreva("Troca")
 			   		 pare
@@ -502,20 +502,17 @@ vida_pkmn[18] = 83.0
 
 			
 				escreva("   ")
-				para(inteiro i=0;i<=vidaGrafica;i++){
+				para(inteiro i=0;i<vidaGrafica;i++){
 					escreva("█")
 					
 				}
-				para(inteiro i=0;i<=50-vidaGrafica;i++){
+				para(inteiro i=0;i<50-vidaGrafica;i++){
 					escreva("░")
 					
 				}escreva("	",vida,"/",vidatotal,"			")
 				
 			}se(nLinha!=7 e nLinha!=6){
-				para(inteiro i=0;i<10;i++){
-					escreva("	")
-				}
-				
+					escreva("										")
 			}
 				
 			nLinha++
@@ -524,8 +521,8 @@ vida_pkmn[18] = 83.0
 			escreva("\n")
 			linha = arq.ler_linha(caminho)
 			
-		}
-		arq.fim_arquivo(caminho)
+		}arq.fechar_arquivo(caminho)
+
 	}
 	funcao desenharPokemon(cadeia nome,inteiro lp,inteiro lpt){
 		inteiro caminho = arq.abrir_arquivo("./sprites/"+nomeseu_pkmn+"/"+nomeseu_pkmn+"Back.txt", arq.MODO_LEITURA)
@@ -546,24 +543,24 @@ vida_pkmn[18] = 83.0
 				}inteiro vidaGrafica= RegraD3(vida,vidatotal,50)
 
 				escreva(" ")
-				para(inteiro i=0;i<=vidaGrafica;i++){
+				para(inteiro i=0;i<vidaGrafica;i++){
 					escreva("█")
 					
 				}
-				para(inteiro i=0;i<=50-vidaGrafica;i++){
+				para(inteiro i=0;i<50-vidaGrafica;i++){
 					escreva("░")
 					
 				}escreva(" ",vida,"/",vidatotal)
 			}
-			interface(nLinha,escolha_)
+				
+			interface(nLinha)
 			
 			escreva("\n")
 			linha = arq.ler_linha(caminho)
-		}
-		arq.fechar_arquivo(caminho)
+			
+		}arq.fechar_arquivo(caminho)
 	}
-	funcao interface(inteiro linha, inteiro Escolha){
-		inteiro Menu=Escolha
+	funcao interface(inteiro linha){
 		
 		se(Menu==0){
 			se(linha==9){
@@ -591,6 +588,11 @@ vida_pkmn[18] = 83.0
 			}
 			se(linha==12){
 				escreva("[3]"+poder_p[3][seupkmn])
+			}
+		}
+		se(Menu==2){
+			se(linha==12){
+			escrevaLento("Inimigo usou "+poder_p[qual][inipkmn],1)
 			}
 		}
 		
@@ -731,6 +733,12 @@ escreva("Digite o número do Pokémon escolhido:\n")
 
 
 		}
+	funcao AttGraficos()
+	{
+		limpa()
+		desenharInimigo(inimigo,vida_inimigo,vida_pkmn[inipkmn])
+          desenharPokemon(nomeseu_pkmn,vida_seu_pkmn,vida_pkmn[seupkmn])
+	}
 }
 
 /* $$$ Portugol Studio $$$ 
@@ -738,10 +746,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 12399; 
- * @DOBRAMENTO-CODIGO = [228, 372, 597];
+ * @POSICAO-CURSOR = 3471; 
+ * @DOBRAMENTO-CODIGO = [85, 94, 104, 231, 375, 475, 481, 486, 564, 578, 592, 562, 599, 606, 694, 707, 718];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {tipo, 476, 37, 4}-{tipoataq, 476, 51, 8};
+ * @SIMBOLOS-INSPECIONADOS = {turno, 393, 10, 5};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
