@@ -14,6 +14,8 @@ programa
      inteiro seupkmn = 0, inipkmn
      inteiro genero = -1
      cadeia  start
+     inteiro inventario[6] // inventario da batalha
+     inteiro pokemoncapturado // pokemon que vc capturou
      cadeia  nome_personagem = "nulo", rival = "nulo"
 	inteiro quantidade_carac
 	inteiro escolha_, escolha_1
@@ -462,6 +464,7 @@ vida_pkmn[18] = 83.0
 			   	
 			           pare
 			   caso 3: escreva("Troca")
+			           escreva("\nPara qual pokemon voce quer trocar?\n")
 			   		 pare
 			   caso 4: escrevaLento("Voce fugiu da batalha...", media)
 			   		 acabou = verdadeiro
@@ -746,10 +749,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 3471; 
- * @DOBRAMENTO-CODIGO = [85, 94, 104, 231, 375, 475, 481, 486, 564, 578, 592, 562, 599, 606, 694, 707, 718];
+ * @POSICAO-CURSOR = 657; 
+ * @DOBRAMENTO-CODIGO = [87, 96, 233, 377, 478, 484, 489, 567, 581, 595, 565, 602, 609, 697, 710, 721];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {turno, 393, 10, 5};
+ * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
