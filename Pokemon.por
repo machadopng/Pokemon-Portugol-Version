@@ -11,7 +11,7 @@ programa
      real    defesa_pkmn[151], defesa_seu_pkmn[6], defesa_inimigo
      inteiro tipo_pkmn[161], tipo_seu_pkmn[6], tipo_inimigo
      real    basepower[100][100], dano = 0.0
-     inteiro seupkmn = 0, inipkmn
+     inteiro inipkmn
      inteiro genero = -1
      cadeia  start
      inteiro seupkmn0 = 1, seupkmn1 = 1, seupkmn2 = 1, seupkmn3 = 1, seupkmn4 = 1, seupkmn5 = 1
@@ -69,7 +69,7 @@ programa
 		
 		//introducaoprofessor()
 	     limpa()
-	     seupkmn=4
+	    
 	     regeseu()
 	     
           acabou = falso
@@ -472,7 +472,7 @@ vida_pkmn[18] = 83.0
 			{
 				Menu=2
 				AttGraficos()
-				escrevaLento("A vida do inimigo atual: " + vida_inimigo+ "\n", media)
+				
 				Util.aguarde(5000)
 				turno++
 			}
@@ -498,7 +498,7 @@ vida_pkmn[18] = 83.0
 				AttGraficos()
 				
 				leia(escolha_)
-				regedano(basepower[escolha_][seupkmn], tipo_inimigo , tipo_ataq[escolha_][seupkmn])  // Calculo seu dano
+				regedano(basepower[escolha_][seupkmn_atual], tipo_inimigo , tipo_ataq[escolha_][seupkmn_atual])  // Calculo seu dano
 				vida_inimigo = vida_inimigo - dano											//
 				
 				
@@ -682,16 +682,16 @@ vida_pkmn[18] = 83.0
 		}
 		se(Menu==1){
 			se(linha==9){
-				escreva("[0]"+poder_p[0][seupkmn])
+				escreva("[0]"+poder_p[0][seupkmn_atual])
 			}
 			se(linha==10){
-				escreva("[1]"+poder_p[1][seupkmn])
+				escreva("[1]"+poder_p[1][seupkmn_atual])
 			}
 			se(linha==11){
-				escreva("[2]"+poder_p[2][seupkmn])
+				escreva("[2]"+poder_p[2][seupkmn_atual])
 			}
 			se(linha==12){
-				escreva("[3]"+poder_p[3][seupkmn])
+				escreva("[3]"+poder_p[3][seupkmn_atual])
 			}
 		}
 		se(Menu==2){
@@ -785,11 +785,11 @@ vida_pkmn[18] = 83.0
 	     leia(escolha_1)
 		escolha(escolha_1){
 
-			caso 1: seupkmn = 1
+			caso 1: seupkmn0 = 1
 			pare
-			caso 2: seupkmn = 4
+			caso 2: seupkmn0 = 4
 			pare
-			caso 3: seupkmn = 7
+			caso 3: seupkmn0 = 7
 			pare
 			caso contrario: escrevaLento("Essa opção não existe, diga outro pokemon.\n", media)
 			pare
@@ -850,8 +850,8 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 19132; 
- * @DOBRAMENTO-CODIGO = [668, 682, 696];
+ * @POSICAO-CURSOR = 23863; 
+ * @DOBRAMENTO-CODIGO = [668, 696];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
