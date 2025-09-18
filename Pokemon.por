@@ -15,7 +15,7 @@ programa
      inteiro genero = -1
      cadeia  start
      inteiro seupkmn0 = 1, seupkmn1 = 1, seupkmn2 = 1, seupkmn3 = 1, seupkmn4 = 1, seupkmn5 = 1
-     inteiro inventario[6] = {seupkmn0, seupkmn1, seupkmn2, seupkmn3, seupkmn4, seupkmn5}// inventario da batalha
+     cadeia inventario[6]// inventario da batalha
      inteiro seupkmn_atual = seupkmn0
      inteiro escolha_pokemon = 0
      inteiro pokemoncapturado // pokemon que vc capturou
@@ -151,6 +151,14 @@ programa
            ataq_seu_pkmn[5]   = ataq_pkmn		[seupkmn5]
            defesa_seu_pkmn[5] = defesa_pkmn	[seupkmn5]
            tipo_seu_pkmn[5]   = tipo_pkmn		[seupkmn5]
+
+           inventario[0] = nomeseu_pkmn[0]
+           inventario[1] = nomeseu_pkmn[1]
+           inventario[2] = nomeseu_pkmn[2]
+           inventario[3] = nomeseu_pkmn[3]
+           inventario[4] = nomeseu_pkmn[4]
+           inventario[5] = nomeseu_pkmn[5]
+           
      }
 
      funcao regeenemy(inteiro quale)//Mesmo que de cima, só que pro seu inimigo nas batalhas.
@@ -524,7 +532,11 @@ vida_pkmn[18] = 83.0
 			           pare
 			   caso 3: escreva("Troca")
 			           escreva("\nPara qual pokemon voce quer trocar?\n")
-			           escreva(inventario[6],"\n")
+			           para(inteiro b=0; b < 6; b++){
+			           	escreva(inventario[b],"\n")
+
+		                }
+		                leia(escolha_pokemon)
 			           se(escolha_pokemon == 1){
 			           	escreva("O pokemon escolhido foi o ", seupkmn0)
 			           	seupkmn0 = seupkmn0
@@ -850,8 +862,8 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 23863; 
- * @DOBRAMENTO-CODIGO = [668, 696];
+ * @POSICAO-CURSOR = 16106; 
+ * @DOBRAMENTO-CODIGO = [680, 708];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
