@@ -14,8 +14,9 @@ programa
      inteiro seupkmn = 0, inipkmn
      inteiro genero = -1
      cadeia  start
-     inteiro seupkmn0 = 0, seupkmn1 = 0, seupkmn2 = 0, seupkmn3 = 0, seupkmn4 = 0, seupkmn5 = 0
+     inteiro seupkmn0 = 1, seupkmn1 = 1, seupkmn2 = 1, seupkmn3 = 1, seupkmn4 = 1, seupkmn5 = 1
      inteiro inventario[6] = {seupkmn0, seupkmn1, seupkmn2, seupkmn3, seupkmn4, seupkmn5}// inventario da batalha
+     inteiro seupkmn_atual = seupkmn0
      inteiro escolha_pokemon = 0
      inteiro pokemoncapturado // pokemon que vc capturou
      cadeia  nome_personagem = "nulo", rival = "nulo"
@@ -458,10 +459,10 @@ vida_pkmn[18] = 83.0
 		se(turno %2 == 0)
 		{//Turno inimigo.
 		
-			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn[6], tipo_ataq[qual][inipkmn])   //Ataque inimigo.
-			vida_seu_pkmn[6] = vida_seu_pkmn[6] - dano
+			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn[seupkmn_atual], tipo_ataq[qual][inipkmn])   //Ataque inimigo.
+			vida_seu_pkmn[seupkmn_atual] = vida_seu_pkmn[seupkmn_atual] - dano
 			
-			se(vida_seu_pkmn[6] <= 0)
+			se(vida_seu_pkmn[seupkmn_atual] <= 0)
 			{
 				escrevaLento("\nVoce perdeu.", media)
 				acabou = verdadeiro
@@ -579,13 +580,13 @@ vida_pkmn[18] = 83.0
 	funcao regedano(real quale, inteiro tipo, inteiro tipoataq)
 	{
 		multiplicador = tabela_fraquezas[tipoataq][tipo]
-		dano = ((ataq_seu_pkmn[6] / defesa_inimigo) * quale) * multiplicador
+		dano = ((ataq_seu_pkmn[seupkmn_atual] / defesa_inimigo) * quale) * multiplicador
 		
 	}
 	funcao regedanoinimigo(real quale, inteiro tipo, inteiro tipoataq)
 	{
 		multiplicador = tabela_fraquezas[tipoataq][tipo]
-		dano = (ataq_inimigo / defesa_seu_pkmn[6]) * quale * multiplicador
+		dano = (ataq_inimigo / defesa_seu_pkmn[seupkmn_atual]) * quale * multiplicador
 	}
      funcao desenharInimigo(cadeia nome,inteiro lp, inteiro lpt){
 		inteiro caminho = arq.abrir_arquivo("./sprites/"+nome+"/"+nome+"Front.txt", arq.MODO_LEITURA)
@@ -628,7 +629,7 @@ vida_pkmn[18] = 83.0
 
 	}
 	funcao desenharPokemon(cadeia nome,inteiro lp,inteiro lpt){
-		inteiro caminho = arq.abrir_arquivo("./sprites/"+nomeseu_pkmn[6]+"/"+nomeseu_pkmn[6]+"Back.txt", arq.MODO_LEITURA)
+		inteiro caminho = arq.abrir_arquivo("./sprites/"+nomeseu_pkmn[seupkmn_atual]+"/"+nomeseu_pkmn[seupkmn_atual]+"Back.txt", arq.MODO_LEITURA)
 		cadeia linha = arq.ler_linha(caminho)
 		inteiro nLinha=0
 		inteiro vida=lp
@@ -840,7 +841,7 @@ escreva("Digite o número do Pokémon escolhido:\n")
 	{
 		limpa()
 		desenharInimigo(inimigo,vida_inimigo,vida_pkmn[inipkmn])
-          desenharPokemon(nomeseu_pkmn[6],vida_seu_pkmn[6],vida_pkmn[seupkmn0])
+          desenharPokemon(nomeseu_pkmn[seupkmn_atual],vida_seu_pkmn[seupkmn_atual],vida_pkmn[seupkmn0])
 	}
 }
 
@@ -849,8 +850,8 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 17152; 
- * @DOBRAMENTO-CODIGO = [667, 681, 695];
+ * @POSICAO-CURSOR = 19132; 
+ * @DOBRAMENTO-CODIGO = [668, 682, 696];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
