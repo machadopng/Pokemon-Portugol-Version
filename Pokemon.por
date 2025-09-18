@@ -5,16 +5,18 @@ programa
 	inclua biblioteca Util
 	inclua biblioteca Arquivos --> arq
 	inteiro Menu
-     cadeia  nome_pkmn[151], nomeseu_pkmn, inimigo
-     real    vida_pkmn[151], vida_seu_pkmn, vida_inimigo
-     real    ataq_pkmn[151], ataq_seu_pkmn, ataq_inimigo
-     real    defesa_pkmn[151], defesa_seu_pkmn, defesa_inimigo 
-     inteiro tipo_pkmn[161], tipo_seu_pkmn, tipo_inimigo
+     cadeia  nome_pkmn[151], nomeseu_pkmn[6], inimigo
+     real    vida_pkmn[151], vida_seu_pkmn[6], vida_inimigo
+     real    ataq_pkmn[151], ataq_seu_pkmn[6], ataq_inimigo
+     real    defesa_pkmn[151], defesa_seu_pkmn[6], defesa_inimigo
+     inteiro tipo_pkmn[161], tipo_seu_pkmn[6], tipo_inimigo
      real    basepower[100][100], dano = 0.0
      inteiro seupkmn = 0, inipkmn
      inteiro genero = -1
      cadeia  start
-     inteiro inventario[6] // inventario da batalha
+     inteiro seupkmn0 = 0, seupkmn1 = 0, seupkmn2 = 0, seupkmn3 = 0, seupkmn4 = 0, seupkmn5 = 0
+     inteiro inventario[6] = {seupkmn0, seupkmn1, seupkmn2, seupkmn3, seupkmn4, seupkmn5}// inventario da batalha
+     inteiro escolha_pokemon = 0
      inteiro pokemoncapturado // pokemon que vc capturou
      cadeia  nome_personagem = "nulo", rival = "nulo"
 	inteiro quantidade_carac
@@ -75,11 +77,37 @@ programa
 	     BatalhaPokemon()
 	     regepokemon()
 	     pospallet()
+
+	     
 	     //aqui vai te q ter uma funcao pra pokemon selvagem
 	     regepokemon()
 	     posprimeiroimpacto()
 
 	}
+	
+	funcao capturapokemon()
+	     {
+	     inteiro pegapokemon1 = Util.sorteia(1, 18)
+	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon1])
+	     seupkmn1 = pegapokemon1
+
+	     inteiro pegapokemon2 = Util.sorteia(1, 18)
+	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon2])
+	     seupkmn2 = pegapokemon2
+
+	     inteiro pegapokemon3 = Util.sorteia(1, 18)
+	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon3])
+	     seupkmn3 = pegapokemon3
+
+	     inteiro pegapokemon4 = Util.sorteia(1, 18)
+	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon4])
+	     seupkmn4 = pegapokemon4
+
+	     inteiro pegapokemon5 = Util.sorteia(1, 18)
+	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon5])
+	     seupkmn5 = pegapokemon5
+	     	
+	     }
 	
 	
 	
@@ -87,11 +115,41 @@ programa
 
      funcao regeseu()//Aqui vai regir os seus 6 pokemon, status, nome, tipagem.
      {
-           nomeseu_pkmn    = nome_pkmn		[seupkmn]
-           vida_seu_pkmn   = vida_pkmn		[seupkmn]
-           ataq_seu_pkmn   = ataq_pkmn		[seupkmn]
-           defesa_seu_pkmn = defesa_pkmn	[seupkmn]
-           tipo_seu_pkmn   = tipo_pkmn		[seupkmn]
+           nomeseu_pkmn[0]   = nome_pkmn		[seupkmn0]
+           vida_seu_pkmn[0]   = vida_pkmn		[seupkmn0]
+           ataq_seu_pkmn[0]   = ataq_pkmn		[seupkmn0]
+           defesa_seu_pkmn[0] = defesa_pkmn	[seupkmn0]
+           tipo_seu_pkmn[0]   = tipo_pkmn		[seupkmn0]
+
+           nomeseu_pkmn[1]   = nome_pkmn		[seupkmn1]
+           vida_seu_pkmn[1]   = vida_pkmn		[seupkmn1]
+           ataq_seu_pkmn[1]   = ataq_pkmn		[seupkmn1]
+           defesa_seu_pkmn[1] = defesa_pkmn	[seupkmn1]
+           tipo_seu_pkmn[1]   = tipo_pkmn		[seupkmn1]
+
+           nomeseu_pkmn[2]    = nome_pkmn		[seupkmn2]
+           vida_seu_pkmn[2]   = vida_pkmn		[seupkmn2]
+           ataq_seu_pkmn[2]   = ataq_pkmn		[seupkmn2]
+           defesa_seu_pkmn[2] = defesa_pkmn	[seupkmn2]
+           tipo_seu_pkmn[2]   = tipo_pkmn		[seupkmn2]
+
+           nomeseu_pkmn[3]    = nome_pkmn		[seupkmn3]
+           vida_seu_pkmn[3]   = vida_pkmn		[seupkmn3]
+           ataq_seu_pkmn[3]   = ataq_pkmn		[seupkmn3]
+           defesa_seu_pkmn[3] = defesa_pkmn	[seupkmn3]
+           tipo_seu_pkmn[3]   = tipo_pkmn		[seupkmn3]
+
+           nomeseu_pkmn[4]    = nome_pkmn		[seupkmn4]
+           vida_seu_pkmn[4]   = vida_pkmn		[seupkmn4]
+           ataq_seu_pkmn[4]   = ataq_pkmn		[seupkmn4]
+           defesa_seu_pkmn[4] = defesa_pkmn	[seupkmn4]
+           tipo_seu_pkmn[4]   = tipo_pkmn		[seupkmn4]
+
+           nomeseu_pkmn[5]    = nome_pkmn		[seupkmn5]
+           vida_seu_pkmn[5]   = vida_pkmn		[seupkmn5]
+           ataq_seu_pkmn[5]   = ataq_pkmn		[seupkmn5]
+           defesa_seu_pkmn[5] = defesa_pkmn	[seupkmn5]
+           tipo_seu_pkmn[5]   = tipo_pkmn		[seupkmn5]
      }
 
      funcao regeenemy(inteiro quale)//Mesmo que de cima, só que pro seu inimigo nas batalhas.
@@ -400,10 +458,10 @@ vida_pkmn[18] = 83.0
 		se(turno %2 == 0)
 		{//Turno inimigo.
 		
-			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn, tipo_ataq[qual][inipkmn])   //Ataque inimigo.
-			vida_seu_pkmn = vida_seu_pkmn - dano
+			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn[6], tipo_ataq[qual][inipkmn])   //Ataque inimigo.
+			vida_seu_pkmn[6] = vida_seu_pkmn[6] - dano
 			
-			se(vida_seu_pkmn <= 0)
+			se(vida_seu_pkmn[6] <= 0)
 			{
 				escrevaLento("\nVoce perdeu.", media)
 				acabou = verdadeiro
@@ -465,6 +523,48 @@ vida_pkmn[18] = 83.0
 			           pare
 			   caso 3: escreva("Troca")
 			           escreva("\nPara qual pokemon voce quer trocar?\n")
+			           escreva(inventario[6],"\n")
+			           se(escolha_pokemon == 1){
+			           	escreva("O pokemon escolhido foi o ", seupkmn0)
+			           	seupkmn0 = seupkmn0
+			           	
+			           }
+			           se(escolha_pokemon == 2){
+			           	escreva("O pokemon escolhido foi o ", seupkmn1)
+			           	seupkmn0 = seupkmn1
+			           	
+			           }
+			           se(escolha_pokemon == 3){
+			           	escreva("O pokemon escolhido foi o ", seupkmn2)
+			           	seupkmn0 = seupkmn2
+			           	
+			           }
+			           se(escolha_pokemon == 4){
+			           	escreva("O pokemon escolhido foi o ", seupkmn3)
+			           	seupkmn0 = seupkmn3
+			           	
+			           }
+			           se(escolha_pokemon == 5){
+			           	escreva("O pokemon escolhido foi o ", seupkmn4)
+			           	seupkmn0 = seupkmn4
+			           	
+			           }
+			           se(escolha_pokemon == 6){
+			           	escreva("O pokemon escolhido foi o ", seupkmn5)
+			           	seupkmn0 = seupkmn5
+			           	
+			           }
+
+			          enquanto(escolha_pokemon != 1 e escolha_pokemon !=2 e escolha_pokemon != 3 e escolha_pokemon != 4 e escolha_pokemon != 5 e escolha_pokemon != 6)
+		               {
+		               	
+			          se(escolha_pokemon != 1 e escolha_pokemon !=2 e escolha_pokemon != 3 e escolha_pokemon != 4 e escolha_pokemon != 5 e escolha_pokemon != 6)
+		               {
+				     escrevaLento("Essa opção não existe.\n", media)
+		               }
+		               
+		               }
+			           
 			   		 pare
 			   caso 4: escrevaLento("Voce fugiu da batalha...", media)
 			   		 acabou = verdadeiro
@@ -479,13 +579,13 @@ vida_pkmn[18] = 83.0
 	funcao regedano(real quale, inteiro tipo, inteiro tipoataq)
 	{
 		multiplicador = tabela_fraquezas[tipoataq][tipo]
-		dano = ((ataq_seu_pkmn / defesa_inimigo) * quale) * multiplicador
+		dano = ((ataq_seu_pkmn[6] / defesa_inimigo) * quale) * multiplicador
 		
 	}
 	funcao regedanoinimigo(real quale, inteiro tipo, inteiro tipoataq)
 	{
 		multiplicador = tabela_fraquezas[tipoataq][tipo]
-		dano = (ataq_inimigo / defesa_seu_pkmn) * quale * multiplicador
+		dano = (ataq_inimigo / defesa_seu_pkmn[6]) * quale * multiplicador
 	}
      funcao desenharInimigo(cadeia nome,inteiro lp, inteiro lpt){
 		inteiro caminho = arq.abrir_arquivo("./sprites/"+nome+"/"+nome+"Front.txt", arq.MODO_LEITURA)
@@ -528,7 +628,7 @@ vida_pkmn[18] = 83.0
 
 	}
 	funcao desenharPokemon(cadeia nome,inteiro lp,inteiro lpt){
-		inteiro caminho = arq.abrir_arquivo("./sprites/"+nomeseu_pkmn+"/"+nomeseu_pkmn+"Back.txt", arq.MODO_LEITURA)
+		inteiro caminho = arq.abrir_arquivo("./sprites/"+nomeseu_pkmn[6]+"/"+nomeseu_pkmn[6]+"Back.txt", arq.MODO_LEITURA)
 		cadeia linha = arq.ler_linha(caminho)
 		inteiro nLinha=0
 		inteiro vida=lp
@@ -740,7 +840,7 @@ escreva("Digite o número do Pokémon escolhido:\n")
 	{
 		limpa()
 		desenharInimigo(inimigo,vida_inimigo,vida_pkmn[inipkmn])
-          desenharPokemon(nomeseu_pkmn,vida_seu_pkmn,vida_pkmn[seupkmn])
+          desenharPokemon(nomeseu_pkmn[6],vida_seu_pkmn[6],vida_pkmn[seupkmn0])
 	}
 }
 
@@ -749,8 +849,8 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 657; 
- * @DOBRAMENTO-CODIGO = [87, 96, 233, 377, 478, 484, 489, 567, 581, 595, 565, 602, 609, 697, 710, 721];
+ * @POSICAO-CURSOR = 17152; 
+ * @DOBRAMENTO-CODIGO = [667, 681, 695];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
