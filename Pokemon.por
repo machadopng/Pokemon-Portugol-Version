@@ -14,7 +14,7 @@ programa
      inteiro inipkmn
      inteiro genero = -1
      cadeia  start
-     inteiro seupkmn[6] = {1,1,1,1,1,1}
+     inteiro seupkmn[6] = {1,0,0,0,0,0}
      cadeia inventario[6]// inventario da batalha
      inteiro seupkmn_atual = seupkmn[0]
      inteiro escolha_pokemon = 0
@@ -75,7 +75,7 @@ programa
           acabou = falso
           regeenemy(1)
           regepokemon()
-	     pospallet()
+	     //pospallet()
 	     regepokemon()
 	     posprimeiroimpacto()
 	     BatalhaPokemon()
@@ -531,23 +531,20 @@ vida_pkmn[18] = 83.0
 			   	limpa()
 			   	
 			           pare
-			   caso 3: escreva("Troca")
-			           escreva("\nPara qual pokemon voce quer trocar?\n")
-			           para(inteiro b=0; b < 6; b++){
-			           	escreva(inventario[b],"\n")
-
-		                }
-		                leia(escolha_pokemon)
+			   caso 3:
+			   		limpa() 
+			   		Menu=3
+			          AttGraficos()
+		               leia(escolha_pokemon)
 			           
 			           
-			           Menu=3
-			           AttGraficos()
+			           
 			           
 
-			          enquanto(escolha_pokemon != 1 e escolha_pokemon !=2 e escolha_pokemon != 3 e escolha_pokemon != 4 e escolha_pokemon != 5 e escolha_pokemon != 6)
+			          enquanto(escolha_pokemon != 0 e escolha_pokemon !=1 e escolha_pokemon != 2 e escolha_pokemon != 3 e escolha_pokemon != 4 e escolha_pokemon != 5)
 		               {
 		               	
-			          se(escolha_pokemon != 1 e escolha_pokemon !=2 e escolha_pokemon != 3 e escolha_pokemon != 4 e escolha_pokemon != 5 e escolha_pokemon != 6)
+			          se(escolha_pokemon != 0 e escolha_pokemon !=1 e escolha_pokemon != 2 e escolha_pokemon != 3 e escolha_pokemon != 4 e escolha_pokemon != 5)
 		               {
 				     escrevaLento("Essa opção não existe.\n", media)
 		               }
@@ -580,7 +577,7 @@ vida_pkmn[18] = 83.0
      funcao desenharInimigo(cadeia nome,inteiro lp, inteiro lpt){
 		inteiro caminho = arq.abrir_arquivo("./sprites/"+nome+"/"+nome+"Front.txt", arq.MODO_LEITURA)
 		cadeia linha = arq.ler_linha(caminho)
-		inteiro nLinha=0
+		inteiro nLinha=0 //nlinha é a variavel que define o nuemro da linha, serve para saber que linha o programa esta trabalhando com.
 		inteiro vida=lp
 		inteiro vidatotal=lpt
 		
@@ -655,7 +652,7 @@ vida_pkmn[18] = 83.0
 	}
 	funcao interface(inteiro linha){
 		
-		se(Menu==0){
+		se(Menu==0){ //menu principal
 			se(linha==9){
 				escreva("[1]Ataque")
 			}
@@ -669,7 +666,7 @@ vida_pkmn[18] = 83.0
 				escreva("[4]Fugiu")
 			}
 		}
-		se(Menu==1){
+		se(Menu==1){ //menu dos seus ataques
 			se(linha==9){
 				escreva("[0]"+poder_p[0][seupkmn_atual])
 			}
@@ -683,20 +680,33 @@ vida_pkmn[18] = 83.0
 				escreva("[3]"+poder_p[3][seupkmn_atual])
 			}
 		}
-		se(Menu==2){
+		se(Menu==2){ //menu do ataque do inimigo
 			se(linha==12){
 			escrevaLento("Inimigo usou "+poder_p[qual][inipkmn],1)
 			}
 		}
-		se(Menu==3){
+		se(Menu==3){ //menu de pokemons
 			se(linha==9){
-				escreva(seupkmn[0]," ",seupkmn[3])
-			}
-			se(linha==10){
-				escreva(seupkmn[1]," ",seupkmn[4])
+				escreva("[0]",nomeseu_pkmn[seupkmn[0]])
+				se(nomeseu_pkmn[3]!=""){
+					escreva(" [3]",nomeseu_pkmn[seupkmn[3]])
+				}
 			}
 			se(linha==11){
-				escreva(seupkmn[2]," ",seupkmn[5])
+				se(nomeseu_pkmn[1]!=""){
+					escreva(" [1]",nomeseu_pkmn[seupkmn[1]])
+				}
+				se(nomeseu_pkmn[4]!=""){
+					escreva(" [4]",nomeseu_pkmn[seupkmn[4]])
+				}
+			}
+			se(linha==13){
+				se(nomeseu_pkmn[2]!=""){
+					escreva(" [2]",nomeseu_pkmn[seupkmn[5]])
+				}
+				se(nomeseu_pkmn[5]!=""){
+					escreva(" [5]",nomeseu_pkmn[seupkmn[5]])
+				}
 			}	
 	}
 	}
@@ -849,10 +859,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 588; 
- * @DOBRAMENTO-CODIGO = [658, 657, 671, 685, 690];
+ * @POSICAO-CURSOR = 3837; 
+ * @DOBRAMENTO-CODIGO = [89, 164, 565, 571, 655, 658, 661, 664, 654, 668, 682, 712];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {seupkmn, 17, 13, 7};
+ * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
