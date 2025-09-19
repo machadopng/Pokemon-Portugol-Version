@@ -14,9 +14,9 @@ programa
      inteiro inipkmn
      inteiro genero = -1
      cadeia  start
-     inteiro seupkmn0 = 1, seupkmn1 = 1, seupkmn2 = 1, seupkmn3 = 1, seupkmn4 = 1, seupkmn5 = 1
+     inteiro seupkmn[6] = {1,1,1,1,1,1}
      cadeia inventario[6]// inventario da batalha
-     inteiro seupkmn_atual = seupkmn0
+     inteiro seupkmn_atual = seupkmn[0]
      inteiro escolha_pokemon = 0
      inteiro pokemoncapturado // pokemon que vc capturou
      cadeia  nome_personagem = "nulo", rival = "nulo"
@@ -74,15 +74,16 @@ programa
 	     
           acabou = falso
           regeenemy(1)
-          	
-	     BatalhaPokemon()
-	     regepokemon()
+          regepokemon()
 	     pospallet()
+	     regepokemon()
+	     posprimeiroimpacto()
+	     BatalhaPokemon()
+	     
 
 	     
 	     //aqui vai te q ter uma funcao pra pokemon selvagem
-	     regepokemon()
-	     posprimeiroimpacto()
+	     
 
 	}
 	
@@ -90,23 +91,23 @@ programa
 	     {
 	     inteiro pegapokemon1 = Util.sorteia(1, 18)
 	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon1])
-	     seupkmn1 = pegapokemon1
+	     seupkmn[1] = pegapokemon1
 
 	     inteiro pegapokemon2 = Util.sorteia(1, 18)
 	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon2])
-	     seupkmn2 = pegapokemon2
+	     seupkmn[2] = pegapokemon2
 
 	     inteiro pegapokemon3 = Util.sorteia(1, 18)
 	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon3])
-	     seupkmn3 = pegapokemon3
+	     seupkmn[3] = pegapokemon3
 
 	     inteiro pegapokemon4 = Util.sorteia(1, 18)
 	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon4])
-	     seupkmn4 = pegapokemon4
+	     seupkmn[4] = pegapokemon4
 
 	     inteiro pegapokemon5 = Util.sorteia(1, 18)
 	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon5])
-	     seupkmn5 = pegapokemon5
+	     seupkmn[5] = pegapokemon5
 	     	
 	     }
 	
@@ -116,41 +117,41 @@ programa
 
      funcao regeseu()//Aqui vai regir os seus 6 pokemon, status, nome, tipagem.
      {
-           nomeseu_pkmn[0]   = nome_pkmn		[seupkmn0]
-           vida_seu_pkmn[0]   = vida_pkmn		[seupkmn0]
-           ataq_seu_pkmn[0]   = ataq_pkmn		[seupkmn0]
-           defesa_seu_pkmn[0] = defesa_pkmn	[seupkmn0]
-           tipo_seu_pkmn[0]   = tipo_pkmn		[seupkmn0]
+           nomeseu_pkmn[0]   = nome_pkmn [seupkmn[0]]
+           vida_seu_pkmn[0]   = vida_pkmn [seupkmn[0]]
+           ataq_seu_pkmn[0]   = ataq_pkmn [seupkmn[0]]
+           defesa_seu_pkmn[0] = defesa_pkmn [seupkmn[0]]
+           tipo_seu_pkmn[0]   = tipo_pkmn [seupkmn[0]]
 
-           nomeseu_pkmn[1]   = nome_pkmn		[seupkmn1]
-           vida_seu_pkmn[1]   = vida_pkmn		[seupkmn1]
-           ataq_seu_pkmn[1]   = ataq_pkmn		[seupkmn1]
-           defesa_seu_pkmn[1] = defesa_pkmn	[seupkmn1]
-           tipo_seu_pkmn[1]   = tipo_pkmn		[seupkmn1]
+           nomeseu_pkmn[1]   = nome_pkmn [seupkmn[1]]
+           vida_seu_pkmn[1]   = vida_pkmn [seupkmn[1]]
+           ataq_seu_pkmn[1]   = ataq_pkmn [seupkmn[1]]
+           defesa_seu_pkmn[1] = defesa_pkmn [seupkmn[1]]
+           tipo_seu_pkmn[1]   = tipo_pkmn [seupkmn[1]]
 
-           nomeseu_pkmn[2]    = nome_pkmn		[seupkmn2]
-           vida_seu_pkmn[2]   = vida_pkmn		[seupkmn2]
-           ataq_seu_pkmn[2]   = ataq_pkmn		[seupkmn2]
-           defesa_seu_pkmn[2] = defesa_pkmn	[seupkmn2]
-           tipo_seu_pkmn[2]   = tipo_pkmn		[seupkmn2]
+           nomeseu_pkmn[2]    = nome_pkmn [seupkmn[2]]
+           vida_seu_pkmn[2]   = vida_pkmn [seupkmn[2]]
+           ataq_seu_pkmn[2]   = ataq_pkmn [seupkmn[2]]
+           defesa_seu_pkmn[2] = defesa_pkmn [seupkmn[2]]
+           tipo_seu_pkmn[2]   = tipo_pkmn [seupkmn[2]]
 
-           nomeseu_pkmn[3]    = nome_pkmn		[seupkmn3]
-           vida_seu_pkmn[3]   = vida_pkmn		[seupkmn3]
-           ataq_seu_pkmn[3]   = ataq_pkmn		[seupkmn3]
-           defesa_seu_pkmn[3] = defesa_pkmn	[seupkmn3]
-           tipo_seu_pkmn[3]   = tipo_pkmn		[seupkmn3]
+           nomeseu_pkmn[3]    = nome_pkmn [seupkmn[3]]
+           vida_seu_pkmn[3]   = vida_pkmn [seupkmn[3]]
+           ataq_seu_pkmn[3]   = ataq_pkmn [seupkmn[3]]
+           defesa_seu_pkmn[3] = defesa_pkmn [seupkmn[3]]
+           tipo_seu_pkmn[3]   = tipo_pkmn [seupkmn[3]]
 
-           nomeseu_pkmn[4]    = nome_pkmn		[seupkmn4]
-           vida_seu_pkmn[4]   = vida_pkmn		[seupkmn4]
-           ataq_seu_pkmn[4]   = ataq_pkmn		[seupkmn4]
-           defesa_seu_pkmn[4] = defesa_pkmn	[seupkmn4]
-           tipo_seu_pkmn[4]   = tipo_pkmn		[seupkmn4]
+           nomeseu_pkmn[4]    = nome_pkmn [seupkmn[4]]
+           vida_seu_pkmn[4]   = vida_pkmn [seupkmn[4]]
+           ataq_seu_pkmn[4]   = ataq_pkmn [seupkmn[4]]
+           defesa_seu_pkmn[4] = defesa_pkmn [seupkmn[4]]
+           tipo_seu_pkmn[4]   = tipo_pkmn [seupkmn[4]]
 
-           nomeseu_pkmn[5]    = nome_pkmn		[seupkmn5]
-           vida_seu_pkmn[5]   = vida_pkmn		[seupkmn5]
-           ataq_seu_pkmn[5]   = ataq_pkmn		[seupkmn5]
-           defesa_seu_pkmn[5] = defesa_pkmn	[seupkmn5]
-           tipo_seu_pkmn[5]   = tipo_pkmn		[seupkmn5]
+           nomeseu_pkmn[5]    = nome_pkmn [seupkmn[5]]
+           vida_seu_pkmn[5]   = vida_pkmn [seupkmn[5]]
+           ataq_seu_pkmn[5]   = ataq_pkmn [seupkmn[5]]
+           defesa_seu_pkmn[5] = defesa_pkmn [seupkmn[5]]
+           tipo_seu_pkmn[5]   = tipo_pkmn [seupkmn[5]]
 
            inventario[0] = nomeseu_pkmn[0]
            inventario[1] = nomeseu_pkmn[1]
@@ -537,36 +538,11 @@ vida_pkmn[18] = 83.0
 
 		                }
 		                leia(escolha_pokemon)
-			           se(escolha_pokemon == 1){
-			           	escreva("O pokemon escolhido foi o ", seupkmn0)
-			           	seupkmn0 = seupkmn0
-			           	
-			           }
-			           se(escolha_pokemon == 2){
-			           	escreva("O pokemon escolhido foi o ", seupkmn1)
-			           	seupkmn0 = seupkmn1
-			           	
-			           }
-			           se(escolha_pokemon == 3){
-			           	escreva("O pokemon escolhido foi o ", seupkmn2)
-			           	seupkmn0 = seupkmn2
-			           	
-			           }
-			           se(escolha_pokemon == 4){
-			           	escreva("O pokemon escolhido foi o ", seupkmn3)
-			           	seupkmn0 = seupkmn3
-			           	
-			           }
-			           se(escolha_pokemon == 5){
-			           	escreva("O pokemon escolhido foi o ", seupkmn4)
-			           	seupkmn0 = seupkmn4
-			           	
-			           }
-			           se(escolha_pokemon == 6){
-			           	escreva("O pokemon escolhido foi o ", seupkmn5)
-			           	seupkmn0 = seupkmn5
-			           	
-			           }
+			           
+			           
+			           Menu=3
+			           AttGraficos()
+			           
 
 			          enquanto(escolha_pokemon != 1 e escolha_pokemon !=2 e escolha_pokemon != 3 e escolha_pokemon != 4 e escolha_pokemon != 5 e escolha_pokemon != 6)
 		               {
@@ -578,7 +554,8 @@ vida_pkmn[18] = 83.0
 		               
 		               }
 			           
-			   		 pare
+			   		pare
+			   		 
 			   caso 4: escrevaLento("Voce fugiu da batalha...", media)
 			   		 acabou = verdadeiro
 			   		 pare
@@ -711,7 +688,17 @@ vida_pkmn[18] = 83.0
 			escrevaLento("Inimigo usou "+poder_p[qual][inipkmn],1)
 			}
 		}
-		
+		se(Menu==3){
+			se(linha==9){
+				escreva(seupkmn[0]," ",seupkmn[3])
+			}
+			se(linha==10){
+				escreva(seupkmn[1]," ",seupkmn[4])
+			}
+			se(linha==11){
+				escreva(seupkmn[2]," ",seupkmn[5])
+			}	
+	}
 	}
 	funcao inteiro RegraD3(inteiro a,inteiro b, inteiro y)
 	{
@@ -797,11 +784,11 @@ vida_pkmn[18] = 83.0
 	     leia(escolha_1)
 		escolha(escolha_1){
 
-			caso 1: seupkmn0 = 1
+			caso 1: seupkmn[0] = 1
 			pare
-			caso 2: seupkmn0 = 4
+			caso 2: seupkmn[0] = 4
 			pare
-			caso 3: seupkmn0 = 7
+			caso 3: seupkmn[0] = 7
 			pare
 			caso contrario: escrevaLento("Essa opção não existe, diga outro pokemon.\n", media)
 			pare
@@ -853,7 +840,7 @@ escreva("Digite o número do Pokémon escolhido:\n")
 	{
 		limpa()
 		desenharInimigo(inimigo,vida_inimigo,vida_pkmn[inipkmn])
-          desenharPokemon(nomeseu_pkmn[seupkmn_atual],vida_seu_pkmn[seupkmn_atual],vida_pkmn[seupkmn0])
+          desenharPokemon(nomeseu_pkmn[seupkmn_atual],vida_seu_pkmn[seupkmn_atual],vida_pkmn[seupkmn[0]])
 	}
 }
 
@@ -862,10 +849,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 16106; 
- * @DOBRAMENTO-CODIGO = [680, 708];
+ * @POSICAO-CURSOR = 588; 
+ * @DOBRAMENTO-CODIGO = [658, 657, 671, 685, 690];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {seupkmn, 17, 13, 7};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
