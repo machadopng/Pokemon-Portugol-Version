@@ -14,7 +14,7 @@ programa
      inteiro inipkmn
      inteiro genero = -1
      cadeia  start
-     inteiro seupkmn[6] = {1,0,0,0,0,0}
+     inteiro seupkmn[6] = {1,4,0,0,0,0}
      cadeia inventario[6]// inventario da batalha
      inteiro seupkmn_atual = seupkmn[0]
      inteiro escolha_pokemon = 0
@@ -77,7 +77,7 @@ programa
           regepokemon()
 	     //pospallet()
 	     regepokemon()
-	     posprimeiroimpacto()
+	     //posprimeiroimpacto()
 	     BatalhaPokemon()
 	     
 
@@ -468,8 +468,8 @@ vida_pkmn[18] = 83.0
 		se(turno %2 == 0)
 		{//Turno inimigo.
 		
-			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn[seupkmn_atual], tipo_ataq[qual][inipkmn])   //Ataque inimigo.
-			vida_seu_pkmn[seupkmn_atual] = vida_seu_pkmn[seupkmn_atual] - dano
+			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn[seupkmn_atual-1], tipo_ataq[qual][inipkmn])   //Ataque inimigo.
+			vida_seu_pkmn[seupkmn_atual-1] = vida_seu_pkmn[seupkmn_atual-1] - dano
 			
 			se(vida_seu_pkmn[seupkmn_atual] <= 0)
 			{
@@ -615,7 +615,7 @@ vida_pkmn[18] = 83.0
 
 	}
 	funcao desenharPokemon(cadeia nome,inteiro lp,inteiro lpt){
-		inteiro caminho = arq.abrir_arquivo("./sprites/"+nomeseu_pkmn[seupkmn_atual]+"/"+nomeseu_pkmn[seupkmn_atual]+"Back.txt", arq.MODO_LEITURA)
+		inteiro caminho = arq.abrir_arquivo("./sprites/"+nome+"/"+nome+"Back.txt", arq.MODO_LEITURA)
 		cadeia linha = arq.ler_linha(caminho)
 		inteiro nLinha=0
 		inteiro vida=lp
@@ -682,7 +682,9 @@ vida_pkmn[18] = 83.0
 		}
 		se(Menu==2){ //menu do ataque do inimigo
 			se(linha==12){
-			escrevaLento("Inimigo usou "+poder_p[qual][inipkmn],1)
+				//se(vida_seu_){
+					escrevaLento("Inimigo usou "+poder_p[qual][inipkmn],1)
+				//}
 			}
 		}
 		se(Menu==3){ //menu de pokemons
@@ -850,7 +852,7 @@ escreva("Digite o número do Pokémon escolhido:\n")
 	{
 		limpa()
 		desenharInimigo(inimigo,vida_inimigo,vida_pkmn[inipkmn])
-          desenharPokemon(nomeseu_pkmn[seupkmn_atual],vida_seu_pkmn[seupkmn_atual],vida_pkmn[seupkmn[0]])
+          desenharPokemon(nome_pkmn[seupkmn_atual],vida_seu_pkmn[seupkmn_atual-1],vida_pkmn[seupkmn_atual])
 	}
 }
 
@@ -859,10 +861,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 3837; 
- * @DOBRAMENTO-CODIGO = [89, 164, 565, 571, 655, 658, 661, 664, 654, 668, 682, 712];
+ * @POSICAO-CURSOR = 17674; 
+ * @DOBRAMENTO-CODIGO = [89, 164, 174, 565, 571, 655, 658, 661, 664, 654, 668, 689, 714];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {vida_seu_pkmn, 9, 29, 13}-{tipo_seu_pkmn, 12, 29, 13}-{seupkmn_atual, 19, 13, 13};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
