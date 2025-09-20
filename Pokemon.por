@@ -14,7 +14,7 @@ programa
      inteiro inipkmn
      inteiro genero = -1
      cadeia  start
-     inteiro seupkmn[6] = {1,0,0,0,0,0}
+     inteiro seupkmn[6] = {1,4,7,6,5,0}
      cadeia inventario[6]// inventario da batalha
      inteiro seupkmn_atual = seupkmn[0]
      inteiro escolha_pokemon = 0
@@ -77,7 +77,7 @@ programa
           regepokemon()
 	     //pospallet()
 	     regepokemon()
-	     posprimeiroimpacto()
+	     //posprimeiroimpacto()
 	     BatalhaPokemon()
 	     
 
@@ -468,8 +468,8 @@ vida_pkmn[18] = 83.0
 		se(turno %2 == 0)
 		{//Turno inimigo.
 		
-			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn[seupkmn_atual], tipo_ataq[qual][inipkmn])   //Ataque inimigo.
-			vida_seu_pkmn[seupkmn_atual] = vida_seu_pkmn[seupkmn_atual] - dano
+			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn[seupkmn_atual-1], tipo_ataq[qual][inipkmn])   //Ataque inimigo.
+			vida_seu_pkmn[seupkmn_atual-1] = vida_seu_pkmn[seupkmn_atual-1] - dano
 			
 			se(vida_seu_pkmn[seupkmn_atual] <= 0)
 			{
@@ -535,15 +535,10 @@ vida_pkmn[18] = 83.0
 			   		limpa() 
 			   		Menu=3
 			          AttGraficos()
-		               leia(escolha_pokemon)
-			           
-			           
-			           
-			           
-
-			          enquanto(escolha_pokemon != 0 e escolha_pokemon !=1 e escolha_pokemon != 2 e escolha_pokemon != 3 e escolha_pokemon != 4 e escolha_pokemon != 5)
+			          leia(escolha_pokemon)
+                         enquanto(escolha_pokemon != 0 e escolha_pokemon !=1 e escolha_pokemon != 2 e escolha_pokemon != 3 e escolha_pokemon != 4 e escolha_pokemon != 5)
 		               {
-		               	
+		               
 			          se(escolha_pokemon != 0 e escolha_pokemon !=1 e escolha_pokemon != 2 e escolha_pokemon != 3 e escolha_pokemon != 4 e escolha_pokemon != 5)
 		               {
 				     escrevaLento("Essa opção não existe.\n", media)
@@ -615,7 +610,7 @@ vida_pkmn[18] = 83.0
 
 	}
 	funcao desenharPokemon(cadeia nome,inteiro lp,inteiro lpt){
-		inteiro caminho = arq.abrir_arquivo("./sprites/"+nomeseu_pkmn[seupkmn_atual]+"/"+nomeseu_pkmn[seupkmn_atual]+"Back.txt", arq.MODO_LEITURA)
+		inteiro caminho = arq.abrir_arquivo("./sprites/"+nome+"/"+nome+"Back.txt", arq.MODO_LEITURA)
 		cadeia linha = arq.ler_linha(caminho)
 		inteiro nLinha=0
 		inteiro vida=lp
@@ -682,30 +677,32 @@ vida_pkmn[18] = 83.0
 		}
 		se(Menu==2){ //menu do ataque do inimigo
 			se(linha==12){
-			escrevaLento("Inimigo usou "+poder_p[qual][inipkmn],1)
+				//se(vida_seu_){
+					escrevaLento("Inimigo usou "+poder_p[qual][inipkmn],1)
+				//}
 			}
 		}
 		se(Menu==3){ //menu de pokemons
 			se(linha==9){
-				escreva("[0]",nomeseu_pkmn[seupkmn[0]])
+				escreva("[0]",nome_pkmn[seupkmn_atual])
 				se(nomeseu_pkmn[3]!=""){
-					escreva(" [3]",nomeseu_pkmn[seupkmn[3]])
+					escreva("[3]",nomeseu_pkmn[seupkmn[3]])
 				}
 			}
-			se(linha==11){
+			se(linha==10){
 				se(nomeseu_pkmn[1]!=""){
-					escreva(" [1]",nomeseu_pkmn[seupkmn[1]])
+					escreva("[1]",nome_pkmn[seupkmn[1]])
 				}
 				se(nomeseu_pkmn[4]!=""){
-					escreva(" [4]",nomeseu_pkmn[seupkmn[4]])
+					escreva("[4]",nome_pkmn[seupkmn[4]])
 				}
 			}
 			se(linha==13){
 				se(nomeseu_pkmn[2]!=""){
-					escreva(" [2]",nomeseu_pkmn[seupkmn[5]])
+					escreva("[2]",nome_pkmn[seupkmn[2]])
 				}
 				se(nomeseu_pkmn[5]!=""){
-					escreva(" [5]",nomeseu_pkmn[seupkmn[5]])
+					escreva("[5]",nome_pkmn[seupkmn[5]])
 				}
 			}	
 	}
@@ -850,7 +847,7 @@ escreva("Digite o número do Pokémon escolhido:\n")
 	{
 		limpa()
 		desenharInimigo(inimigo,vida_inimigo,vida_pkmn[inipkmn])
-          desenharPokemon(nomeseu_pkmn[seupkmn_atual],vida_seu_pkmn[seupkmn_atual],vida_pkmn[seupkmn[0]])
+          desenharPokemon(nome_pkmn[seupkmn_atual],vida_seu_pkmn[seupkmn_atual-1],vida_pkmn[seupkmn_atual])
 	}
 }
 
@@ -859,10 +856,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 3837; 
- * @DOBRAMENTO-CODIGO = [89, 164, 565, 571, 655, 658, 661, 664, 654, 668, 682, 712];
+ * @POSICAO-CURSOR = 586; 
+ * @DOBRAMENTO-CODIGO = [89, 164, 174, 560, 566, 650, 653, 656, 659, 649, 663, 709];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {vida_seu_pkmn, 9, 29, 13}-{tipo_seu_pkmn, 12, 29, 13}-{inventario, 18, 12, 10}-{seupkmn_atual, 19, 13, 13};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
