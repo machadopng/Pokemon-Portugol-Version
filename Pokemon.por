@@ -15,9 +15,17 @@ programa
      real    defesa_pkmn[151], defesa_seu_pkmn[6], defesa_inimigo[6]
      inteiro tipo_pkmn[161], tipo_seu_pkmn[6], tipo_inimigo[6]
      real    basepower[100][100], dano = 0.0
+     inteiro item[2][9] = 
+     {
+     	{1,2,3,4,5,6,7,8,9},{50,100,500,9999,55,100,350,500,750}
+     	
+     }
+     cadeia nome_item[9] = {"Poké Ball","Great ball","Ultra ball","Master ball","Poção","Super poção","Hyper poção","Poção Máxima","Reviver"}
+     inteiro inventario_item[9] = {0,0,0,0,0,0,0,0,0}
+     inteiro dinheiro = 155
      inteiro genero = -1
      cadeia  start
-     inteiro   seupkmn[6]   = {3,2,0,0,0,0}
+     inteiro seupkmn[6]   = {3,2,0,0,0,0}
      inteiro pkmninimigo[6] = {1,1,0,0,0,0}
      inteiro inventarioInimigoP = 0
      inteiro inventarioP = 0 // Variavel que mostra posicao atual do inventario, de 0 a 5
@@ -69,7 +77,7 @@ programa
 		//escreva("     ▐▌   ▐▌ ▐▌▐▙▄▄▖▗▄▄▞▘▗▄▄▞▘    ▗▄▄▞▘  █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
 		//leia(start)
 		//limpa()
-
+          itemmais()
 		regepokemon()
 		regeataques()
 		
@@ -116,6 +124,39 @@ programa
 	     seupkmn[5] = pegapokemon5
 	     	
 	     }
+
+     funcao itemmais()
+     {
+     	inteiro escolhacompra
+     	escreva("--------------LOJA DE ITENS--------------\n")
+     	escreva("0 - Poké Ball [$50]                      \n")
+     	escreva("1 - Great Ball [$100]                    \n")
+     	escreva("2 - Ultra Ball [$500]                    \n")
+     	escreva("3 - Master ball [$9999]                  \n")
+     	escreva("4 - Poção [$50]                          \n")
+     	escreva("5 - Super poção [$100]                   \n")
+     	escreva("6 - Hyper poção [$350]                   \n")
+     	escreva("7 - Poção Máxima [$500]                  \n")
+     	escreva("8 - Reviver [$750]                       \n")
+     	escreva("9 - Cancelar                             \n")
+     	escreva("-----------------------------------------\n")
+     	leia(escolhacompra)
+
+               se(escolhacompra != 9){
+               se(dinheiro>=item[1][escolhacompra]){	
+          	dinheiro = item[escolhacompra][escolhacompra]
+          	inventario_item[escolhacompra]++
+               }
+               senao{
+          	escreva("Você não tem dinheiro pra essa compra")
+               }
+               	
+               }
+               senao{
+               	escreva("Você cancelou a compra")
+               }
+     	
+     }
 	
      funcao regeseu()//Aqui vai regir os seus 6 pokemon, status, nome, tipagem.
      {
@@ -594,8 +635,12 @@ vida_pkmn[18] = 83.0
 		    
 		     
 				
-			   caso 2: escreva("Iten")
-			   	limpa()
+			   caso 2: escreva("Itens")
+			   Menu=8
+			   AttGraficos()
+			   Util.aguarde(2000)
+			   limpa()
+			   	
 			   	
 			           pare
 			   caso 3:
@@ -844,6 +889,48 @@ vida_pkmn[18] = 83.0
 				escrevaLento("Você ganhou...",media)
 			}
 		}
+		se(Menu==8){
+			se(linha==9){
+				
+				se(inventario_item[0] != 0){
+				escreva("[0]",nome_item[0])
+				}
+				se(inventario_item[1] != 0){
+				escreva("   [1]",nome_item[1])
+				}
+				se(inventario_item[2] != 0){
+				escreva("   [2]",nome_item[2])
+				}
+				
+			}
+			se(linha==11){
+				se(inventario_item[3] != 0){
+				escreva("[3]",nome_item[3])
+				}
+				se(inventario_item[4] != 0){
+				escreva(" [4]",nome_item[4])
+				}
+				se(inventario_item[5] != 0){
+				escreva("        [5]",nome_item[5])
+				}
+				
+			}
+			
+			se(linha==13){
+				se(inventario_item[6] != 0){
+				escreva("[6]",nome_item[6])
+				}
+				se(inventario_item[7] != 0){
+				escreva(" [7]",nome_item[7])
+				}
+				se(inventario_item[8] != 0){
+				escreva(" [8]",nome_item[8])
+				}
+			}
+			
+		}
+			
+		
 	}
 	funcao inteiro RegraD3(inteiro a,inteiro b, inteiro y)
 	{
@@ -1018,10 +1105,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 15803; 
- * @DOBRAMENTO-CODIGO = [95, 166, 177, 304, 448, 653, 659, 664, 708, 754, 757, 760, 763, 753, 767, 781, 791, 816, 821, 829, 828, 841, 847, 854, 942, 955, 966];
+ * @POSICAO-CURSOR = 7057; 
+ * @DOBRAMENTO-CODIGO = [103, 207, 218, 345, 489, 698, 704, 709, 753, 799, 802, 805, 808, 798, 812, 826, 861, 866, 874, 873, 886, 934, 941, 1029, 1042, 1053];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {inimigos_vivos, 9, 9, 14}-{inimigos_vivosN, 11, 9, 15};
+ * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
