@@ -5,18 +5,21 @@ programa
 	inclua biblioteca Util
 	inclua biblioteca Arquivos --> arq
 	inteiro Menu // variavel que define qual menu a funcao interface vai mostrar
-	logico  seupkmn_vivos[6]// variavel logica que define quais pokemons estao vivos
-	inteiro seupkmn_vivosN=0 // variavel que mostra a AQUANTIDADE de pokemons vivos
-     cadeia  nome_pkmn[151], nomeseu_pkmn[6], inimigo
-     real    vida_pkmn[151], vida_seu_pkmn[6], vida_inimigo
-     real    ataq_pkmn[151], ataq_seu_pkmn[6], ataq_inimigo
-     real    defesa_pkmn[151], defesa_seu_pkmn[6], defesa_inimigo
-     inteiro tipo_pkmn[161], tipo_seu_pkmn[6], tipo_inimigo
+	logico  seupkmn_vivos[6]  // variavel logica que define quais dos SEUS pokemons estao vivos
+	logico  inimigos_vivos[6] // variavel logica que define quais pokemons INIMIGOS estao vivos
+	inteiro seupkmn_vivosN=0  // variavel que mostra a AQUANTIDADE dos SEUS pokemons que estao vivos
+	inteiro inimigos_vivosN=0  // variavel que mostra a AQUANTIDADE de pokemons vivos do INIMIGO
+     cadeia  nome_pkmn[151], nomeseu_pkmn[6], nome_inimigos[6]
+     real    vida_pkmn[151], vida_seu_pkmn[6], vida_inimigo[6]
+     real    ataq_pkmn[151], ataq_seu_pkmn[6], ataq_inimigo[6]
+     real    defesa_pkmn[151], defesa_seu_pkmn[6], defesa_inimigo[6]
+     inteiro tipo_pkmn[161], tipo_seu_pkmn[6], tipo_inimigo[6]
      real    basepower[100][100], dano = 0.0
-     inteiro inipkmn
      inteiro genero = -1
      cadeia  start
-     inteiro seupkmn[6] = {10,2,0,0,0,0}
+     inteiro   seupkmn[6]   = {3,2,0,0,0,0}
+     inteiro pkmninimigo[6] = {1,1,0,0,0,0}
+     inteiro inventarioInimigoP = 0
      inteiro inventarioP = 0 // Variavel que mostra posicao atual do inventario, de 0 a 5
      cadeia inventario[6]// inventario da batalha
      inteiro seupkmn_atual = seupkmn[0]
@@ -116,13 +119,13 @@ programa
 	
      funcao regeseu()//Aqui vai regir os seus 6 pokemon, status, nome, tipagem.
      {
-           nomeseu_pkmn[0]   = nome_pkmn [seupkmn[0]]
+           nomeseu_pkmn[0]    = nome_pkmn [seupkmn[0]]
            vida_seu_pkmn[0]   = vida_pkmn [seupkmn[0]]
            ataq_seu_pkmn[0]   = ataq_pkmn [seupkmn[0]]
            defesa_seu_pkmn[0] = defesa_pkmn [seupkmn[0]]
            tipo_seu_pkmn[0]   = tipo_pkmn [seupkmn[0]]
 
-           nomeseu_pkmn[1]   = nome_pkmn [seupkmn[1]]
+           nomeseu_pkmn[1]    = nome_pkmn [seupkmn[1]]
            vida_seu_pkmn[1]   = vida_pkmn [seupkmn[1]]
            ataq_seu_pkmn[1]   = ataq_pkmn [seupkmn[1]]
            defesa_seu_pkmn[1] = defesa_pkmn [seupkmn[1]]
@@ -163,12 +166,13 @@ programa
 
      funcao regeenemy(inteiro quale)//Mesmo que de cima, só que pro seu inimigo nas batalhas.
      {
-     	 inipkmn 		 =              quale
-           inimigo        =nome_pkmn	[quale]
-           vida_inimigo   =vida_pkmn	[quale]
-           ataq_inimigo   =ataq_pkmn	[quale]
-           defesa_inimigo =defesa_pkmn  [quale]
-           tipo_inimigo	 =tipo_pkmn	[quale]
+         para(inteiro i=0;i<5;i++){
+          nome_inimigos [i] = nome_pkmn   [pkmninimigo[i]]
+          vida_inimigo  [i] = vida_pkmn   [pkmninimigo[i]]
+          ataq_inimigo  [i] = ataq_pkmn   [pkmninimigo[i]]
+          defesa_inimigo[i] = defesa_pkmn [pkmninimigo[i]]
+          tipo_inimigo  [i] = tipo_pkmn   [pkmninimigo[i]]
+         }
      }  
 
      funcao regepokemon() //Aqui é definido os atributos de cada pokemon, como se fosse a "pokedex".
@@ -461,28 +465,53 @@ vida_pkmn[18] = 83.0
 		
 		inteiro turno = Util.sorteia(0, 1)
 		Menu=0
-		pkmnvivos()
+		pkmnVivos()
 		se(seupkmn_vivosN>0){
           enquanto(acabou == falso)
           {
-          pkmnvivos()
+          pkmnVivos()
+         	pkmnInimigosVivos()
+
           	
 		se(turno %2 == 0)
 		{//Turno inimigo.
 		
-			regedanoinimigo(basepower[qual][inipkmn], tipo_seu_pkmn[inventarioP], tipo_ataq[qual][inipkmn])   //Ataque inimigo.
+			regedanoinimigo(basepower[qual][pkmninimigo[inventarioInimigoP]], tipo_seu_pkmn[inventarioP], tipo_ataq[qual][pkmninimigo[inventarioInimigoP]])   //Ataque inimigo.
 			vida_seu_pkmn[inventarioP] = vida_seu_pkmn[inventarioP] - dano
 			
 			se(vida_seu_pkmn[inventarioP]<=0){
-				seupkmn_vivosN--
+				
+				Menu=2
+				AttGraficos()
+				Util.aguarde(2000)
 				
 				se(seupkmn_vivosN<=0){
-					AttGraficos()
 					
 					acabou = verdadeiro
 					
 				}senao{
-					AttGraficos()
+					inteiro j
+					
+					se(inventarioP==0){
+						 j=1
+						
+					}senao{
+						
+						j=0
+						
+					}
+					para(inteiro i=0+j;i<=5;i++){
+						
+						se(seupkmn_vivos[i]==verdadeiro){
+							
+							inventarioP=i
+							Menu=4
+							AttGraficos()
+							Util.aguarde(2000)
+							
+							pare
+						}
+					}
 				}
 				
 			}
@@ -516,18 +545,48 @@ vida_pkmn[18] = 83.0
 				AttGraficos()
 				
 				leia(escolha_)
-				regedano(basepower[escolha_][seupkmn_atual], tipo_inimigo , tipo_ataq[escolha_][seupkmn_atual])  // Calculo seu dano
-				vida_inimigo = vida_inimigo - dano											//
-				
+				regedano(basepower[escolha_][seupkmn_atual], tipo_inimigo[inventarioInimigoP] , tipo_ataq[escolha_][seupkmn_atual])  // Calculo seu dano
+				vida_inimigo[inventarioInimigoP] = vida_inimigo[inventarioInimigoP] - dano											//
+				pkmnInimigosVivos()
 				
 			
-				se(vida_inimigo <= 0)
+				se(vida_inimigo[inventarioInimigoP] <= 0)
 				{
-					escrevaLento("\nVoce ganhou.", media)
-					acabou = verdadeiro
+					
+					se(inimigos_vivosN<=0){
+						
+						Menu=6
+						AttGraficos()
+						Util.aguarde(2000)
+						
+						Menu=7
+						AttGraficos()
+						acabou=verdadeiro
+						
+					}senao{
+						
+						para(inteiro i=0;i<5;i++){
+							
+							se(inimigos_vivos[i]==verdadeiro){
+
+								Menu=6
+								AttGraficos()
+								Util.aguarde(2000)
+								
+								inventarioInimigoP=i
+								Menu=5
+								AttGraficos()
+								Util.aguarde(2000)
+								turno++
+								pare
+							}
+						}
+					}
 				}
 				senao
 				{
+					Menu=6
+					AttGraficos()
 					Util.aguarde(2000)
 					turno++
 				}
@@ -595,13 +654,13 @@ vida_pkmn[18] = 83.0
 	funcao regedano(real quale, inteiro tipo, inteiro tipoataq)
 	{
 		multiplicador = tabela_fraquezas[tipoataq][tipo]
-		dano = ((ataq_seu_pkmn[inventarioP] / defesa_inimigo) * quale) * multiplicador
+		dano = ((ataq_seu_pkmn[inventarioP] / defesa_inimigo[inventarioInimigoP]) * quale) * multiplicador
 		
 	}
 	funcao regedanoinimigo(real quale, inteiro tipo, inteiro tipoataq)
 	{
 		multiplicador = tabela_fraquezas[tipoataq][tipo]
-		dano = (ataq_inimigo / defesa_seu_pkmn[inventarioP]) * quale * multiplicador
+		dano = (ataq_inimigo[inventarioInimigoP] / defesa_seu_pkmn[inventarioP]) * quale * multiplicador
 	}
      funcao desenharInimigo(cadeia nome,inteiro lp, inteiro lpt){
 		inteiro caminho = arq.abrir_arquivo("./sprites/"+nome+"/"+nome+"Front.txt", arq.MODO_LEITURA)
@@ -617,7 +676,11 @@ vida_pkmn[18] = 83.0
 			se( nLinha==7 ){
 				se(vida>vidatotal){
 					vida=vidatotal
-				}inteiro vidaGrafica=RegraD3(vida,vidatotal,50)
+				}
+				se(vida<0){
+					vida=0
+				}
+				inteiro vidaGrafica=RegraD3(vida,vidatotal,50)
 
 			
 				escreva("   ")
@@ -659,7 +722,11 @@ vida_pkmn[18] = 83.0
 			se( nLinha==7 ){
 				se(vida>vidatotal){
 					vida=vidatotal
-				}inteiro vidaGrafica= RegraD3(vida,vidatotal,50)
+				}
+				se(vida<0){
+					vida=0
+				}
+				inteiro vidaGrafica= RegraD3(vida,vidatotal,50)
 
 				escreva(" ")
 				para(inteiro i=0;i<vidaGrafica;i++){
@@ -712,12 +779,12 @@ vida_pkmn[18] = 83.0
 				escreva("[3]"+poder_p[3][seupkmn[inventarioP]])
 			}
 		}
-		se(Menu==2){ //menu do ataque do inimigo
+		se(Menu==2){ //menu que fala qual ataque seu INIMIGO usou
 			se(linha==12){
-					escrevaLento("Inimigo usou "+poder_p[qual][inipkmn],1)
+					escrevaLento("Inimigo usou "+poder_p[qual][pkmninimigo[inventarioInimigoP]],1)
 					
-					se(seupkmn_vivos[inventarioP]==falso){
-						escrevaLento(", "+seupkmn[inventarioP]+" desmaiou...",media)
+					se(vida_seu_pkmn[inventarioP]<=0){
+						escrevaLento(", "+nomeseu_pkmn[inventarioP]+" desmaiou...",media)
 						
 					}				
 			}
@@ -747,9 +814,34 @@ vida_pkmn[18] = 83.0
 				}
 			}	
 	}
-		se(Menu==4){
+		se(Menu==4){ //menu que fala qual pokemon VOCÊ troucou para
 			se(linha==12){
 				escrevaLento("Você trocou para o(a) "+nomeseu_pkmn[inventarioP],media)
+			}
+		}
+		se(Menu==5){ //menu que fal qual pokemon o INIMIGO trocou para
+			se(linha==12){
+				
+				escrevaLento("Inimigo trocou para o(a) "+nome_inimigos[inventarioInimigoP],media)
+				
+			}
+		}
+		se(Menu==6){ //menu que fala qual ataque VOCÊ usou
+			se(linha==12){
+				
+				escrevaLento(nomeseu_pkmn[inventarioP]+" usou "+poder_p[escolha_][seupkmn[inventarioP]],media)
+				
+					se(vida_inimigo[inventarioInimigoP]<=0){ //ve se o pokemon inimigo desmaiou e informa caso verdadeiro
+						
+						escrevaLento(" ... "+nome_inimigos[inventarioInimigoP]+" desmaiou.",media)
+			}
+			}
+			
+			
+		}
+		se(Menu==7){ //menu que fala que voce ganhou
+			se(linha==12){
+				escrevaLento("Você ganhou...",media)
 			}
 		}
 	}
@@ -892,17 +984,30 @@ escreva("Digite o número do Pokémon escolhido:\n")
 	funcao AttGraficos()
 	{
 		limpa()
-		desenharInimigo(inimigo,vida_inimigo,vida_pkmn[inipkmn])
+		desenharInimigo(nome_inimigos[inventarioInimigoP],vida_inimigo[inventarioInimigoP],vida_pkmn[pkmninimigo[inventarioInimigoP]])
           desenharPokemon(nomeseu_pkmn[inventarioP],vida_seu_pkmn[inventarioP],vida_pkmn[seupkmn[inventarioP]])
 	}
-	funcao vazio pkmnvivos()
+	funcao vazio pkmnVivos()
 	{
-		para(inteiro i=0;i<5;i++){
-			se(vida_seu_pkmn[i]==0){
+		seupkmn_vivosN=0
+		para(inteiro i=0;i<=5;i++){
+			se(vida_seu_pkmn[i]<=0){
 				seupkmn_vivos[i]=falso
 			}senao{
 				seupkmn_vivos[i]=verdadeiro
 				seupkmn_vivosN++
+			}
+		}
+	}
+	funcao vazio pkmnInimigosVivos()
+	{
+		inimigos_vivosN=0
+		para(inteiro i=0;i<=5;i++){
+			se(vida_inimigo[i]<=0){
+				inimigos_vivos[i]=falso
+			}senao{
+				inimigos_vivos[i]=verdadeiro
+				inimigos_vivosN++
 			}
 		}
 	}
@@ -913,10 +1018,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 806; 
- * @DOBRAMENTO-CODIGO = [56, 92, 116, 300, 444, 605, 645, 687, 690, 693, 696, 686, 700, 714, 724, 755, 762, 850, 863, 874];
+ * @POSICAO-CURSOR = 15803; 
+ * @DOBRAMENTO-CODIGO = [95, 166, 177, 304, 448, 653, 659, 664, 708, 754, 757, 760, 763, 753, 767, 781, 791, 816, 821, 829, 828, 841, 847, 854, 942, 955, 966];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {inimigos_vivos, 9, 9, 14}-{inimigos_vivosN, 11, 9, 15};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
