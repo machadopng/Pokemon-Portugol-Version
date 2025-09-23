@@ -22,8 +22,10 @@ programa
      }
      cadeia nome_item[9] = {"Poké Ball","Great ball","Ultra ball","Master ball","Poção","Super poção","Hyper poção","Poção Máxima","Reviver"}
      inteiro inventario_item[9] = {0,0,1,0,0,0,1,0,1}
-     inteiro dinheiro = 155
+     inteiro escolhaitem
+     inteiro dinheiro = 1000
      inteiro efeito_item[9] = {25,50,75,100,15,30,35,0,0}
+     inteiro curacurada = 0
      inteiro genero = -1
      cadeia  start
      inteiro seupkmn[6]   = {3,2,0,0,0,0}
@@ -126,6 +128,12 @@ programa
 	     	
 	     }
 
+     funcao cura(inteiro Escolha){
+     	se(inventario_item[Escolha] >= 1){
+     		vida_seu_pkmn[inventarioP] = vida_seu_pkmn[inventarioP]+curacurada
+     	}
+     }
+     
      funcao itemmais()
      {
      	inteiro escolhacompra
@@ -145,7 +153,7 @@ programa
 
                se(escolhacompra != 9){
                se(dinheiro>=item[1][escolhacompra]){	
-          	dinheiro = item[escolhacompra][escolhacompra]
+          	dinheiro = item[1][escolhacompra]
           	inventario_item[escolhacompra]++
                }
                senao{
@@ -639,8 +647,18 @@ vida_pkmn[18] = 83.0
 			   caso 2: escreva("Itens")
 			   Menu=8
 			   AttGraficos()
-			   Util.aguarde(8000)
+			   leia(escolhaitem)
+			   para(inteiro i=4; i <= 7; i++){
+			   	se(escolhaitem == i){
+			   	curacurada = efeito_item[escolhaitem]
+			   	cura(escolhaitem)
+                  	escreva("Você curou ", item[1][i], " de vida do seu pokemon!")
+                  	Util.aguarde(2000)
+                  }
+
+		        }			   
 			   limpa()
+			   
 			   	
 			   	
 			           pare
@@ -1083,10 +1101,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 1339; 
- * @DOBRAMENTO-CODIGO = [104, 208, 219, 346, 490, 699, 705, 710, 754, 800, 803, 806, 809, 799, 813, 827, 837, 862, 867, 875, 874, 887, 912, 919, 1007, 1020, 1031];
+ * @POSICAO-CURSOR = 19868; 
+ * @DOBRAMENTO-CODIGO = [106, 216, 227, 354, 498, 717, 723, 728, 772, 818, 821, 824, 827, 817, 831, 845, 855, 880, 885, 893, 892, 905, 930, 937, 1025, 1038, 1049];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {inventario_item, 24, 13, 15};
+ * @SIMBOLOS-INSPECIONADOS = {vida_seu_pkmn, 13, 29, 13};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
