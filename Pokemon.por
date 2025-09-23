@@ -21,8 +21,9 @@ programa
      	
      }
      cadeia nome_item[9] = {"Poké Ball","Great ball","Ultra ball","Master ball","Poção","Super poção","Hyper poção","Poção Máxima","Reviver"}
-     inteiro inventario_item[9] = {0,0,0,0,0,0,0,0,0}
+     inteiro inventario_item[9] = {0,0,1,0,0,0,1,0,1}
      inteiro dinheiro = 155
+     inteiro efeito_item[9] = {25,50,75,100,15,30,35,0,0}
      inteiro genero = -1
      cadeia  start
      inteiro seupkmn[6]   = {3,2,0,0,0,0}
@@ -638,7 +639,7 @@ vida_pkmn[18] = 83.0
 			   caso 2: escreva("Itens")
 			   Menu=8
 			   AttGraficos()
-			   Util.aguarde(2000)
+			   Util.aguarde(8000)
 			   limpa()
 			   	
 			   	
@@ -890,47 +891,24 @@ vida_pkmn[18] = 83.0
 			}
 		}
 		se(Menu==8){
-			se(linha==9){
-				
-				se(inventario_item[0] != 0){
-				escreva("[0]",nome_item[0])
-				}
-				se(inventario_item[1] != 0){
-				escreva("   [1]",nome_item[1])
-				}
-				se(inventario_item[2] != 0){
-				escreva("   [2]",nome_item[2])
-				}
-				
-			}
-			se(linha==11){
-				se(inventario_item[3] != 0){
-				escreva("[3]",nome_item[3])
-				}
-				se(inventario_item[4] != 0){
-				escreva(" [4]",nome_item[4])
-				}
-				se(inventario_item[5] != 0){
-				escreva("        [5]",nome_item[5])
-				}
-				
-			}
-			
-			se(linha==13){
-				se(inventario_item[6] != 0){
-				escreva("[6]",nome_item[6])
-				}
-				se(inventario_item[7] != 0){
-				escreva(" [7]",nome_item[7])
-				}
-				se(inventario_item[8] != 0){
-				escreva(" [8]",nome_item[8])
+				inteiro n=9
+				inteiro j=0
+				para(inteiro i=0;i<=8;i++){
+					se(inventario_item[i]!=0){
+						
+						se(linha==n){
+							escreva(" ["+i+"]"+nome_item[i]+" ")
+							
+						}j++
+						
+						se(j==3){
+							j=0
+							n=n+3
+						}
+						
+					}
 				}
 			}
-			
-		}
-			
-		
 	}
 	funcao inteiro RegraD3(inteiro a,inteiro b, inteiro y)
 	{
@@ -1105,10 +1083,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 7057; 
- * @DOBRAMENTO-CODIGO = [103, 207, 218, 345, 489, 698, 704, 709, 753, 799, 802, 805, 808, 798, 812, 826, 861, 866, 874, 873, 886, 934, 941, 1029, 1042, 1053];
+ * @POSICAO-CURSOR = 1339; 
+ * @DOBRAMENTO-CODIGO = [104, 208, 219, 346, 490, 699, 705, 710, 754, 800, 803, 806, 809, 799, 813, 827, 837, 862, 867, 875, 874, 887, 912, 919, 1007, 1020, 1031];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {inventario_item, 24, 13, 15};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
