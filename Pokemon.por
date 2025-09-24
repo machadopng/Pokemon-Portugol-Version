@@ -14,7 +14,7 @@ programa
      real    ataq_pkmn[151], ataq_seu_pkmn[6], ataq_inimigo[6]
      real    defesa_pkmn[151], defesa_seu_pkmn[6], defesa_inimigo[6]
      inteiro tipo_pkmn[161], tipo_seu_pkmn[6], tipo_inimigo[6]
-     real    basepower[100][100], dano = 0.0
+     real    basepower[4][151], dano = 0.0
      inteiro item[2][9] = 
      {
      	{1,2,3,4,5,6,7,8,9},{50,100,500,9999,55,100,350,500,750}
@@ -23,13 +23,14 @@ programa
      cadeia nome_item[9] = {"Poké Ball","Great ball","Ultra ball","Master ball","Poção","Super poção","Hyper poção","Poção Máxima","Reviver"}
      inteiro inventario_item[9] = {0,0,1,0,0,0,1,0,1}
      inteiro escolhaitem
+     inteiro Escolha
      inteiro dinheiro = 1000
      inteiro efeito_item[9] = {25,50,75,100,15,30,35,0,0}
      inteiro curacurada = 0
      inteiro genero = -1
      cadeia  start
-     inteiro seupkmn[6]   = {3,2,0,0,0,0}
-     inteiro pkmninimigo[6] = {1,1,0,0,0,0}
+     inteiro seupkmn[6]   
+     inteiro pkmninimigo[6] = {16,1,0,0,0,0}
      inteiro inventarioInimigoP = 0
      inteiro inventarioP = 0 // Variavel que mostra posicao atual do inventario, de 0 a 5
      cadeia inventario[6]// inventario da batalha
@@ -39,11 +40,11 @@ programa
      cadeia  nome_personagem = "nulo", rival = "nulo"
 	inteiro quantidade_carac
 	inteiro escolha_, escolha_1
-	cadeia  poder_p[100][100]
+	cadeia  poder_p[4][151]
 	inteiro media = 3
 	logico  acabou 
 	real    multiplicador
-	inteiro tipo_ataq[4][18] 
+	inteiro tipo_ataq[4][151] 
 	inteiro qual = Util.sorteia(0, 3)                   
 	real    tabela_fraquezas[18][18] = {
 	   //nor0 lut1 voa2 ven3 ter4 ped5 ins6 fan7 aço8 fog9 agu0 pla1 ele2 psi3 gel4 dra5 som6 fad7
@@ -70,16 +71,16 @@ programa
 	
 	funcao inicio() //Aqui é a parte "principal" do jogo, cada função será utilizada.
 	{
-		//escreva("▗▄▄▖      ▗▄▖     ▗▖ ▗▖    ▗▄▄▄▖    ▗▖  ▗▖     ▗▄▖     ▗▖  ▗▖\n")
-		//escreva("▐▌ ▐▌    ▐▌ ▐▌    ▐▌▗▞▘    ▐▌       ▐▛▚▞▜▌    ▐▌ ▐▌    ▐▛▚▖▐▌\n")
-		//escreva("▐▛▀▘     ▐▌ ▐▌    ▐▛▚▖     ▐▛▀▀▘    ▐▌  ▐▌    ▐▌ ▐▌    ▐▌ ▝▜▌\n")
-		//escreva("▐▌       ▝▚▄▞▘    ▐▌ ▐▌    ▐▙▄▄▖    ▐▌  ▐▌    ▝▚▄▞▘    ▐▌  ▐▌\n")
-		//escreva("\n\n\n     ▗▄▄▖ ▗▄▄▖ ▗▄▄▄▖ ▗▄▄▖ ▗▄▄▖     ▗▄▄▖▗▄▄▄▖▗▄▖ ▗▄▄▖▗▄▄▄▖\n")
-		//escreva("     ▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌   ▐▌       ▐▌     █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
-		//escreva("     ▐▛▀▘ ▐▛▀▚▖▐▛▀▀▘ ▝▀▚▖ ▝▀▚▖     ▝▀▚▖  █ ▐▛▀▜▌▐▛▀▚▖ █  \n")
-		//escreva("     ▐▌   ▐▌ ▐▌▐▙▄▄▖▗▄▄▞▘▗▄▄▞▘    ▗▄▄▞▘  █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
-		//leia(start)
-		//limpa()
+		escreva("▗▄▄▖      ▗▄▖     ▗▖ ▗▖    ▗▄▄▄▖    ▗▖  ▗▖     ▗▄▖     ▗▖  ▗▖\n")
+		escreva("▐▌ ▐▌    ▐▌ ▐▌    ▐▌▗▞▘    ▐▌       ▐▛▚▞▜▌    ▐▌ ▐▌    ▐▛▚▖▐▌\n")
+		escreva("▐▛▀▘     ▐▌ ▐▌    ▐▛▚▖     ▐▛▀▀▘    ▐▌  ▐▌    ▐▌ ▐▌    ▐▌ ▝▜▌\n")
+		escreva("▐▌       ▝▚▄▞▘    ▐▌ ▐▌    ▐▙▄▄▖    ▐▌  ▐▌    ▝▚▄▞▘    ▐▌  ▐▌\n")
+		escreva("\n\n\n     ▗▄▄▖ ▗▄▄▖ ▗▄▄▄▖ ▗▄▄▖ ▗▄▄▖     ▗▄▄▖▗▄▄▄▖▗▄▖ ▗▄▄▖▗▄▄▄▖\n")
+		escreva("     ▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌   ▐▌       ▐▌     █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
+		escreva("     ▐▛▀▘ ▐▛▀▚▖▐▛▀▀▘ ▝▀▚▖ ▝▀▚▖     ▝▀▚▖  █ ▐▛▀▜▌▐▛▀▚▖ █  \n")
+		escreva("     ▐▌   ▐▌ ▐▌▐▙▄▄▖▗▄▄▞▘▗▄▄▞▘    ▗▄▄▞▘  █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
+		leia(start)
+		limpa()
           itemmais()
 		regepokemon()
 		regeataques()
@@ -87,8 +88,9 @@ programa
 		//introducaoprofessor()
 	     limpa()
 	    
-	     regeseu()
 	     
+	     seupkmn[0]=16 seupkmn[1]=7 seupkmn[2]=9 seupkmn[3]=10 seupkmn[4]=11 seupkmn[5]=12
+	     regeseu()
           acabou = falso
           regeenemy(1)
           regepokemon()
@@ -128,9 +130,9 @@ programa
 	     	
 	     }
 
-     funcao cura(inteiro Escolha){
+     funcao cura(inteiro Escolha,inteiro Escolhapkmn){
      	se(inventario_item[Escolha] >= 1){
-     		vida_seu_pkmn[inventarioP] = vida_seu_pkmn[inventarioP]+curacurada
+     		vida_seu_pkmn[Escolhapkmn] = vida_seu_pkmn[Escolhapkmn]+curacurada
      	}
      }
      
@@ -169,6 +171,7 @@ programa
 	
      funcao regeseu()//Aqui vai regir os seus 6 pokemon, status, nome, tipagem.
      {
+	   	seupkmn_atual = seupkmn[0]          
            nomeseu_pkmn[0]    = nome_pkmn [seupkmn[0]]
            vida_seu_pkmn[0]   = vida_pkmn [seupkmn[0]]
            ataq_seu_pkmn[0]   = ataq_pkmn [seupkmn[0]]
@@ -176,7 +179,7 @@ programa
            tipo_seu_pkmn[0]   = tipo_pkmn [seupkmn[0]]
 
            nomeseu_pkmn[1]    = nome_pkmn [seupkmn[1]]
-           vida_seu_pkmn[1]   = vida_pkmn [seupkmn[1]]
+           vida_seu_pkmn[1]   = 3
            ataq_seu_pkmn[1]   = ataq_pkmn [seupkmn[1]]
            defesa_seu_pkmn[1] = defesa_pkmn [seupkmn[1]]
            tipo_seu_pkmn[1]   = tipo_pkmn [seupkmn[1]]
@@ -227,274 +230,209 @@ programa
 
      funcao regepokemon() //Aqui é definido os atributos de cada pokemon, como se fosse a "pokedex".
 	{
-// Pokémon 1 - Bulbasaur
-nome_pkmn[1] = "Bulbassaur"
-tipo_pkmn[1] = 11 // Planta/Veneno
-vida_pkmn[1] = 45.0
-ataq_pkmn[1] = 49.0
-defesa_pkmn[1] = 49.0
+// ==================== STATUS BASE ====================
 
-// Pokémon 2 - Ivysaur
-nome_pkmn[2] = "Ivysaur"
-tipo_pkmn[2] = 11
-vida_pkmn[2] = 60.0
-ataq_pkmn[2] = 62.0
-defesa_pkmn[2] = 63.0
+// Bulbasaur, Ivysaur, Venusaur
+nome_pkmn[1]="Bulbassaur"
+tipo_pkmn[1]=11
+vida_pkmn[1]=45.0
+ataq_pkmn[1]=49.0
+defesa_pkmn[1]=49.0
 
-// Pokémon 3 - Venusaur
-nome_pkmn[3] = "Venusaur"
-tipo_pkmn[3] = 11
-vida_pkmn[3] = 80.0
-ataq_pkmn[3] = 82.0
-defesa_pkmn[3] = 83.0
+nome_pkmn[2]="Ivysaur"
+tipo_pkmn[2]=11
+vida_pkmn[2]=60.0
+ataq_pkmn[2]=62.0
+defesa_pkmn[2]=63.0
 
-// Pokémon 4 - Charmander
-nome_pkmn[4] = "Charmander"
-tipo_pkmn[4] = 9 // Fogo
-vida_pkmn[4] = 39.0
-ataq_pkmn[4] = 52.0
-defesa_pkmn[4] = 43.0
+nome_pkmn[3]="Venusaur"
+tipo_pkmn[3]=11
+vida_pkmn[3]=80.0
+ataq_pkmn[3]=82.0
+defesa_pkmn[3]=83.0
 
-// Pokémon 5 - Charmeleon
-nome_pkmn[5] = "Charmeleon"
-tipo_pkmn[5] = 9
-vida_pkmn[5] = 58.0
-ataq_pkmn[5] = 64.0
-defesa_pkmn[5] = 58.0
+// Charmander, Charmeleon, Charizard
+nome_pkmn[4]="Charmander"
+tipo_pkmn[4]=9
+vida_pkmn[4]=39.0
+ataq_pkmn[4]=52.0
+defesa_pkmn[4]=43.0
 
-// Pokémon 6 - Charizard
-nome_pkmn[6] = "Charizard"
-tipo_pkmn[6] = 9
-vida_pkmn[6] = 78.0
-ataq_pkmn[6] = 84.0
-defesa_pkmn[6] = 78.0
+nome_pkmn[5]="Charmeleon"
+tipo_pkmn[5]=9
+vida_pkmn[5]=58.0
+ataq_pkmn[5]=64.0
+defesa_pkmn[5]=58.0
 
-// Pokémon 7 - Squirtle
-nome_pkmn[7] = "Squirtle"
-tipo_pkmn[7] = 10 // Água
-vida_pkmn[7] = 44.0
-ataq_pkmn[7] = 48.0
-defesa_pkmn[7] = 65.0
+nome_pkmn[6]="Charizard"
+tipo_pkmn[6]=9
+vida_pkmn[6]=78.0
+ataq_pkmn[6]=84.0
+defesa_pkmn[6]=78.0
 
-// Pokémon 8 - Wartortle
-nome_pkmn[8] = "Wartortle"
-tipo_pkmn[8] = 10
-vida_pkmn[8] = 59.0
-ataq_pkmn[8] = 63.0
-defesa_pkmn[8] = 80.0
+// Squirtle, Wartortle, Blastoise
+nome_pkmn[7]="Squirtle"
+tipo_pkmn[7]=10
+vida_pkmn[7]=44.0
+ataq_pkmn[7]=48.0
+defesa_pkmn[7]=65.0
 
-// Pokémon 9 - Blastoise
-nome_pkmn[9] = "Blastoise"
-tipo_pkmn[9] = 10
-vida_pkmn[9] = 79.0
-ataq_pkmn[9] = 83.0
-defesa_pkmn[9] = 100.0
+nome_pkmn[8]="Wartortle"
+tipo_pkmn[8]=10
+vida_pkmn[8]=59.0
+ataq_pkmn[8]=63.0
+defesa_pkmn[8]=80.0
 
-// Pokémon 10 - Caterpie
-nome_pkmn[10] = "Caterpie"
-tipo_pkmn[10] = 6 // Inseto
-vida_pkmn[10] = 45.0
-ataq_pkmn[10] = 30.0
-defesa_pkmn[10] = 35.0
+nome_pkmn[9]="Blastoise"
+tipo_pkmn[9]=10
+vida_pkmn[9]=79.0
+ataq_pkmn[9]=83.0
+defesa_pkmn[9]=100.0
 
-// Pokémon 11 - Metapod
-nome_pkmn[11] = "Metapod"
-tipo_pkmn[11] = 7  // Inseto
-vida_pkmn[11] = 50.0
-ataq_pkmn[11] = 20.0
-defesa_pkmn[11] = 55.0
+// Insetos de rotas iniciais
+// Caterpie, Metapod, Butterfree
+nome_pkmn[10]="Caterpie"
+tipo_pkmn[10]=6
+vida_pkmn[10]=45.0
+ataq_pkmn[10]=30.0
+defesa_pkmn[10]=35.0
 
-// Pokémon 12 - Butterfree
-nome_pkmn[12] = "Butterfree"
-tipo_pkmn[12] = 7
-vida_pkmn[12] = 60.0
-ataq_pkmn[12] = 45.0
-defesa_pkmn[12] = 50.0
+nome_pkmn[11]="Metapod"
+tipo_pkmn[11]=6
+vida_pkmn[11]=50.0
+ataq_pkmn[11]=20.0
+defesa_pkmn[11]=55.0
 
-// Pokémon 13 - Weedle
-nome_pkmn[13] = "Weedle"
-tipo_pkmn[13] = 7
-vida_pkmn[13] = 40.0
-ataq_pkmn[13] = 35.0
-defesa_pkmn[13] = 30.0
+nome_pkmn[12]="Butterfree"
+tipo_pkmn[12]=6
+vida_pkmn[12]=60.0
+ataq_pkmn[12]=45.0
+defesa_pkmn[12]=50.0
 
-// Pokémon 14 - Kakuna
-nome_pkmn[14] = "Kakuna"
-tipo_pkmn[14] = 7
-vida_pkmn[14] = 45.0
-ataq_pkmn[14] = 25.0
-defesa_pkmn[14] = 50.0
+// Weedle, Kakuna, Beedrill
+nome_pkmn[13]="Weedle"
+tipo_pkmn[13]=6
+vida_pkmn[13]=40.0
+ataq_pkmn[13]=35.0
+defesa_pkmn[13]=30.0
 
-// Pokémon 15 - Beedrill
-nome_pkmn[15] = "Beedrill"
-tipo_pkmn[15] = 7
-vida_pkmn[15] = 65.0
-ataq_pkmn[15] = 90.0
-defesa_pkmn[15] = 40.0
+nome_pkmn[14]="Kakuna"
+tipo_pkmn[14]=6
+vida_pkmn[14]=45.0
+ataq_pkmn[14]=25.0
+defesa_pkmn[14]=50.0
 
-// Pokémon 16 - Pidgey
-nome_pkmn[16] = "Pidgey"
-tipo_pkmn[16] = 1 // Voador (sugestão)
-vida_pkmn[16] = 40.0
-ataq_pkmn[16] = 45.0
-defesa_pkmn[16] = 40.0
+nome_pkmn[15]="Beedrill"
+tipo_pkmn[15]=6
+vida_pkmn[15]=65.0
+ataq_pkmn[15]=90.0
+defesa_pkmn[15]=40.0
 
-// Pokémon 17 - Pidgeotto
-nome_pkmn[17] = "Pidgeotto"
-tipo_pkmn[17] = 1
-vida_pkmn[17] = 63.0
-ataq_pkmn[17] = 60.0
-defesa_pkmn[17] = 55.0
+// Pidgey, Pidgeotto, Pidgeot
+nome_pkmn[16]="Pidgey"
+tipo_pkmn[16]=2
+vida_pkmn[16]=40.0
+ataq_pkmn[16]=45.0
+defesa_pkmn[16]=40.0
 
-// Pokémon 18 - Pidgeot
-nome_pkmn[18] = "Pidgeot"
-tipo_pkmn[18] = 1
-vida_pkmn[18] = 83.0			      
+nome_pkmn[17]="Pidgeotto"
+tipo_pkmn[17]=2
+vida_pkmn[17]=63.0
+ataq_pkmn[17]=60.0
+defesa_pkmn[17]=55.0
+
+nome_pkmn[18]="Pidgeot"
+tipo_pkmn[18]=2
+vida_pkmn[18]=83.0
+ataq_pkmn[18]=80.0
+defesa_pkmn[18]=75.0
+
+// Rattata, Raticate
+nome_pkmn[19]="Rattata"
+tipo_pkmn[19]=0
+vida_pkmn[19]=30.0
+ataq_pkmn[19]=56.0
+defesa_pkmn[19]=35.0
+
+nome_pkmn[20]="Raticate"
+tipo_pkmn[20]=0
+vida_pkmn[20]=55.0
+ataq_pkmn[20]=81.0
+defesa_pkmn[20]=60.0
+
+// Spearow, Fearow
+nome_pkmn[21]="Spearow"
+tipo_pkmn[21]=2
+vida_pkmn[21]=40.0
+ataq_pkmn[21]=60.0
+defesa_pkmn[21]=30.0
+
+nome_pkmn[22]="Fearow"
+tipo_pkmn[22]=2
+vida_pkmn[22]=65.0
+ataq_pkmn[22]=90.0
+defesa_pkmn[22]=65.0
+
+// Pikachu, Raichu
+nome_pkmn[25]="Pikachu"
+tipo_pkmn[25]=12
+vida_pkmn[25]=35.0
+ataq_pkmn[25]=55.0
+defesa_pkmn[25]=40.0
+
+nome_pkmn[26]="Raichu"
+tipo_pkmn[26]=12
+vida_pkmn[26]=60.0
+ataq_pkmn[26]=90.0
+defesa_pkmn[26]=55.0
+
+// Sandshrew, Sandslash
+nome_pkmn[27]="Sandshrew"
+tipo_pkmn[27]=4
+vida_pkmn[27]=50.0
+ataq_pkmn[27]=75.0
+defesa_pkmn[27]=85.0
+
+nome_pkmn[28]="Sandslash"
+tipo_pkmn[28]=4
+vida_pkmn[28]=75.0
+ataq_pkmn[28]=100.0
+defesa_pkmn[28]=110.0
+
+// Brock: Geodude, Graveler, Onix
+nome_pkmn[74]="Geodude"
+tipo_pkmn[74]=5
+vida_pkmn[74]=40.0
+ataq_pkmn[74]=80.0
+defesa_pkmn[74]=100.0
+
+nome_pkmn[75]="Graveler"
+tipo_pkmn[75]=5
+vida_pkmn[75]=55.0
+ataq_pkmn[75]=95.0
+defesa_pkmn[75]=115.0
+
+nome_pkmn[95]="Onix"
+tipo_pkmn[95]=5
+vida_pkmn[95]=35.0
+ataq_pkmn[95]=45.0
+defesa_pkmn[95]=160.0
+
+// Misty: Staryu, Starmie
+nome_pkmn[120]="Staryu"
+tipo_pkmn[120]=10
+vida_pkmn[120]=30.0
+ataq_pkmn[120]=45.0
+defesa_pkmn[120]=55.0
+
+nome_pkmn[121]="Starmie"
+tipo_pkmn[121]=10
+vida_pkmn[121]=60.0
+ataq_pkmn[121]=75.0
+defesa_pkmn[121]=85.0
+	      
 	}
 
-	funcao regeataques() //Aqui é definido os 4 ataques de cada pokemon.
-	{
-					//bulbassaur
-		 		   poder_p  [0][1] = "Tackle"
-			        basepower[0][1] = 40.0
-			        tipo_ataq[0][1] = 0
-			        
-			        poder_p  [1][1] = "Growl"
-			        
-			        poder_p  [2][1] = "Leech Seed"
-			        basepower[2][1] = 20.0
-			        tipo_ataq[2][1] = 11
-			        
-			        poder_p  [3][1] = "Vine Whip"
-			        basepower[3][1] = 40.0
-			        tipo_ataq[3][1] = 11     
-					//ivyssaur
-		 		   poder_p  [0][2] = "Tackle"
-			        basepower[0][2] = 40.0
-			        tipo_ataq[0][2] = 0
-			        
-			        poder_p  [1][2] = "Growl"
-			        
-			        poder_p  [2][2] = "Leech Seed"
-			        basepower[2][2] = 20.0
-			        tipo_ataq[2][2] = 11
-			        
-			        poder_p  [3][2] = "Vine Whip"
-			        basepower[3][2] = 40.0
-			        tipo_ataq[3][2] = 11  
-					//venussaur
-		 		   poder_p  [0][3] = "Tackle"
-			        basepower[0][3] = 40.0
-			        tipo_ataq[0][3] = 0
-			        
-			        poder_p  [1][3] = "Growl"
-			        
-			        poder_p  [2][3] = "Leech Seed"
-			        basepower[2][3] = 20.0
-			        tipo_ataq[2][3] = 11
-			        
-			        poder_p  [3][3] = "Vine Whip"
-			        basepower[3][3] = 40.0
-			        tipo_ataq[3][3] = 11  			        
-
-					//charmander
-			        poder_p  [0][4] = "Scratch"
-			        basepower[0][4] = 40.0
-			        tipo_ataq[0][4] = 0
-			        
-			        poder_p  [1][4] = "Ember"
-			        basepower[1][4] = 30.0
-			        tipo_ataq[1][4] = 9
-			        
-			        poder_p  [2][4] = "Dragon Breath"
-			        basepower[2][4] = 60.0
-			        tipo_ataq[2][4] = 15
-			        
-			        poder_p  [3][4] = "Bite"
-                       basepower[3][4] = 40.0
-                       tipo_ataq[3][4] = 16
-					//charmeleon
-			        poder_p  [0][5] = "Scratch"
-			        basepower[0][5] = 40.0
-			        tipo_ataq[0][5] = 0
-			        
-			        poder_p  [1][5] = "Ember"
-			        basepower[1][5] = 30.0
-			        tipo_ataq[1][5] = 9
-			        
-			        poder_p  [2][5] = "Dragon Breath"
-			        basepower[2][5] = 60.0
-			        tipo_ataq[2][5] = 15
-			        
-			        poder_p  [3][5] = "Bite"
-                       basepower[3][5] = 40.0
-                       tipo_ataq[3][5] = 16
-					//charizard
-			        poder_p  [0][6] = "Scratch"
-			        basepower[0][6] = 40.0
-			        tipo_ataq[0][6] = 0
-			        
-			        poder_p  [1][6] = "Ember"
-			        basepower[1][6] = 30.0
-			        tipo_ataq[1][6] = 9
-			        
-			        poder_p  [2][6] = "Dragon Breath"
-			        basepower[2][6] = 60.0
-			        tipo_ataq[2][6] = 15
-			        
-			        poder_p  [3][6] = "Bite"
-                       basepower[3][6] = 40.0
-                       tipo_ataq[3][6] = 16                            
-					//squirtle
-			        poder_p  [0][7] = "Tackle"
-			        basepower[0][7] = 40.0
-			        tipo_ataq[0][7] = 0
-			        
-			        poder_p  [1][7] = "Bubble"
-			        basepower[1][7] = 30.0
-			        tipo_ataq[1][7] = 100
-			        
-			        poder_p  [2][7] = "Water Gun"
-			        basepower[2][7] = 20.0
-			        tipo_ataq[2][7] = 10
-			        
-			        poder_p  [3][7] = "Hydro Pump"
-                       basepower[3][7] = 55.0
-                       tipo_ataq[3][7] = 10  
-					//wartotle
-			        poder_p  [0][8] = "Tackle"
-			        basepower[0][8] = 40.0
-			        tipo_ataq[0][8] = 0
-			        
-			        poder_p  [1][8] = "Bubble"
-			        basepower[1][8] = 30.0
-			        tipo_ataq[1][8] = 100
-			        
-			        poder_p  [2][8] = "Water Gun"
-			        basepower[2][8] = 20.0
-			        tipo_ataq[2][8] = 10
-			       
-			        poder_p  [3][8] = "Hydro Pump"
-                       basepower[3][8] = 55.0
-                       tipo_ataq[3][8] = 10  
-					//blastoise
-			        poder_p  [0][9] = "Tackle"
-			        basepower[0][9] = 40.0
-			        tipo_ataq[0][9] = 0
-			       
-			        poder_p  [1][9] = "Bubble"
-			        basepower[1][9] = 30.0
-			        tipo_ataq[1][9] = 100
-			        
-			        poder_p  [2][9] = "Water Gun"
-			        basepower[2][9] = 20.0
-			        tipo_ataq[2][9] = 10
-			       
-			        poder_p  [3][9] = "Hydro Pump"
-                       basepower[3][9] = 55.0
-                       tipo_ataq[3][9] = 10 
-                    
-	}
 
 	funcao escrevaLento(cadeia palavra, inteiro velocidade)//Função para escrever igual máquina de escrever.
 	{
@@ -533,7 +471,7 @@ vida_pkmn[18] = 83.0
 				
 				Menu=2
 				AttGraficos()
-				Util.aguarde(2000)
+				Util.aguarde(500)
 				
 				se(seupkmn_vivosN<=0){
 					
@@ -557,7 +495,7 @@ vida_pkmn[18] = 83.0
 							inventarioP=i
 							Menu=4
 							AttGraficos()
-							Util.aguarde(2000)
+							Util.aguarde(500)
 							
 							pare
 						}
@@ -649,13 +587,20 @@ vida_pkmn[18] = 83.0
 			   AttGraficos()
 			   leia(escolhaitem)
 			   para(inteiro i=4; i <= 7; i++){
+			   	
 			   	se(escolhaitem == i){
-			   	curacurada = efeito_item[escolhaitem]
-			   	cura(escolhaitem)
-                  	escreva("Você curou ", item[1][i], " de vida do seu pokemon!")
-                  	Util.aguarde(2000)
+			   		
+			   		Menu=3
+			   		AttGraficos()
+			   		leia(Escolha)
+			   		
+			   		curacurada = efeito_item[escolhaitem]
+			   		cura(escolhaitem,Escolha)
+			   		
+                  		Menu=9
+                  		AttGraficos()
+                  		Util.aguarde(2000)
                   }
-
 		        }			   
 			   limpa()
 			   
@@ -696,6 +641,7 @@ vida_pkmn[18] = 83.0
 		               
 		               }
 		               inventarioP=escolha_pokemon
+		               seupkmn_atual = seupkmn[escolha_pokemon]
 		               Menu=4
 		               AttGraficos()
 		               Util.aguarde(3000)
@@ -908,7 +854,7 @@ vida_pkmn[18] = 83.0
 				escrevaLento("Você ganhou...",media)
 			}
 		}
-		se(Menu==8){
+		se(Menu==8){ //menu que fala qual item vc tem
 				inteiro n=9
 				inteiro j=0
 				para(inteiro i=0;i<=8;i++){
@@ -927,6 +873,21 @@ vida_pkmn[18] = 83.0
 					}
 				}
 			}
+		se(Menu==9){
+			se(linha==12){
+				
+				escreva("Você usou "+nome_item[escolhaitem])
+				
+				para(inteiro i=4;i<=7;i++){
+					
+					se(escolhaitem==i){
+						
+						escreva(" em "+nomeseu_pkmn[Escolha])
+						
+					}
+				}
+			}
+		}
 	}
 	funcao inteiro RegraD3(inteiro a,inteiro b, inteiro y)
 	{
@@ -1094,6 +1055,429 @@ escreva("Digite o número do Pokémon escolhido:\n")
 			}
 		}
 	}
+	funcao regeataques() //Aqui é definido os 4 ataques de cada pokemon.
+	{   
+// ==================== ATAQUES ====================
+
+// Bulbasaur
+poder_p[0][1]="Tackle"
+basepower[0][1]=40.0
+tipo_ataq[0][1]=0
+poder_p[1][1]="Vine Whip"
+basepower[1][1]=35.0
+tipo_ataq[1][1]=11
+poder_p[2][1]="Leech Seed"
+basepower[2][1]=20.0
+tipo_ataq[2][1]=11
+poder_p[3][1]="Razor Leaf"
+basepower[3][1]=55.0
+tipo_ataq[3][1]=11
+
+// Ivysaur
+poder_p[0][2]="Tackle"
+basepower[0][2]=40.0
+tipo_ataq[0][2]=0
+poder_p[1][2]="Vine Whip"
+basepower[1][2]=45.0
+tipo_ataq[1][2]=11
+poder_p[2][2]="Seed Bomb"
+basepower[2][2]=40.0
+tipo_ataq[2][2]=11
+poder_p[3][2]="Leech Seed"
+basepower[3][2]=20.0
+tipo_ataq[3][2]=11
+
+// Venusaur
+poder_p[0][3]="Tackle"
+basepower[0][3]=40.0
+tipo_ataq[0][3]=0
+poder_p[1][3]="Vine Whip"
+basepower[1][3]=50.0
+tipo_ataq[1][3]=11
+poder_p[2][3]="Seed Bomb"
+basepower[2][3]=50.0
+tipo_ataq[2][3]=11
+poder_p[3][3]="Razor Leaf"
+basepower[3][3]=55.0
+tipo_ataq[3][3]=11
+
+// Charmander
+poder_p[0][4]="Scratch"
+basepower[0][4]=40.0
+tipo_ataq[0][4]=0
+poder_p[1][4]="Ember"
+basepower[1][4]=40.0
+tipo_ataq[1][4]=9
+poder_p[2][4]="Flame Charge"
+basepower[2][4]=50.0
+tipo_ataq[2][4]=9
+poder_p[3][4]="Bite"
+basepower[3][4]=60.0
+tipo_ataq[3][4]=0
+
+// Charmeleon
+poder_p[0][5]="Scratch"
+basepower[0][5]=40.0
+tipo_ataq[0][5]=0
+poder_p[1][5]="Ember"
+basepower[1][5]=50.0
+tipo_ataq[1][5]=9
+poder_p[2][5]="Flame Burst"
+basepower[2][5]=70.0
+tipo_ataq[2][5]=9
+poder_p[3][5]="Bite"
+basepower[3][5]=60.0
+tipo_ataq[3][5]=0
+
+// Charizard
+poder_p[0][6]="Flamethrower"
+basepower[0][6]=90.0
+tipo_ataq[0][6]=9
+poder_p[1][6]="Wing Attack"
+basepower[1][6]=60.0
+tipo_ataq[1][6]=2
+poder_p[2][6]="Fire Spin"
+basepower[2][6]=35.0
+tipo_ataq[2][6]=9
+poder_p[3][6]="Bite"
+basepower[3][6]=60.0
+tipo_ataq[3][6]=0
+
+// Squirtle
+poder_p[0][7]="Tackle"
+basepower[0][7]=40.0
+tipo_ataq[0][7]=0
+poder_p[1][7]="Water Gun"
+basepower[1][7]=40.0
+tipo_ataq[1][7]=10
+poder_p[2][7]="Bite"
+basepower[2][7]=60.0
+tipo_ataq[2][7]=0
+poder_p[3][7]="Rapid Spin"
+basepower[3][7]=50.0
+tipo_ataq[3][7]=0
+
+// Wartortle
+poder_p[0][8]="Tackle"
+basepower[0][8]=40.0
+tipo_ataq[0][8]=0
+poder_p[1][8]="Water Gun"
+basepower[1][8]=50.0
+tipo_ataq[1][8]=10
+poder_p[2][8]="Bite"
+basepower[2][8]=60.0
+tipo_ataq[2][8]=0
+poder_p[3][8]="Rapid Spin"
+basepower[3][8]=60.0
+tipo_ataq[3][8]=0
+
+// Blastoise
+poder_p[0][9]="Water Gun"
+basepower[0][9]=50.0
+tipo_ataq[0][9]=10
+poder_p[1][9]="Bite"
+basepower[1][9]=60.0
+tipo_ataq[1][9]=0
+poder_p[2][9]="Aqua Tail"
+basepower[2][9]=90.0
+tipo_ataq[2][9]=10
+poder_p[3][9]="Hydro Pump"
+basepower[3][9]=110.0
+tipo_ataq[3][9]=10
+
+// Insetos: Caterpie, Metapod, Butterfree
+poder_p[0][10]="Tackle"
+basepower[0][10]=30.0
+tipo_ataq[0][10]=0
+poder_p[1][10]="Bug Bite"
+basepower[1][10]=35.0
+tipo_ataq[1][10]=6
+poder_p[2][10]="String Shot"
+basepower[2][10]=10.0
+tipo_ataq[2][10]=6
+poder_p[3][10]="Wrap"
+basepower[3][10]=15.0
+tipo_ataq[3][10]=0
+
+poder_p[0][11]="Tackle"
+basepower[0][11]=35.0
+tipo_ataq[0][11]=0
+poder_p[1][11]="Bug Bite"
+basepower[1][11]=35.0
+tipo_ataq[1][11]=6
+poder_p[2][11]="Harden"
+basepower[2][11]=0
+tipo_ataq[2][11]=8
+poder_p[3][11]="String Shot"
+basepower[3][11]=10.0
+tipo_ataq[3][11]=6
+
+poder_p[0][12]="Confusion"
+basepower[0][12]=50.0
+tipo_ataq[0][12]=13
+poder_p[1][12]="Gust"
+basepower[1][12]=40.0
+tipo_ataq[1][12]=2
+poder_p[2][12]="Psybeam"
+basepower[2][12]=65.0
+tipo_ataq[2][12]=13
+poder_p[3][12]="Bug Buzz"
+basepower[3][12]=90.0
+tipo_ataq[3][12]=6
+
+poder_p[0][13]="Poison Sting"
+basepower[0][13]=15.0
+tipo_ataq[0][13]=6
+poder_p[1][13]="String Shot"
+basepower[1][13]=10.0
+tipo_ataq[1][13]=6
+poder_p[2][13]="Tackle"
+basepower[2][13]=30.0
+tipo_ataq[2][13]=0
+poder_p[3][13]="Wrap"
+basepower[3][13]=15.0
+tipo_ataq[3][13]=0
+
+poder_p[0][14]="Harden"
+basepower[0][14]=0
+tipo_ataq[0][14]=8
+poder_p[1][14]="Poison Sting"
+basepower[1][14]=15.0
+tipo_ataq[1][14]=6
+poder_p[2][14]="Tackle"
+basepower[2][14]=35.0
+tipo_ataq[2][14]=0
+poder_p[3][14]="String Shot"
+basepower[3][14]=10.0
+tipo_ataq[3][14]=6
+
+poder_p[0][15]="Twineedle"
+basepower[0][15]=25.0
+tipo_ataq[0][15]=6
+poder_p[1][15]="Poison Sting"
+basepower[1][15]=15.0
+tipo_ataq[1][15]=6
+poder_p[2][15]="Fury Attack"
+basepower[2][15]=30.0
+tipo_ataq[2][15]=0
+poder_p[3][15]="Slash"
+basepower[3][15]=70.0
+tipo_ataq[3][15]=0
+
+// Pidgey, Pidgeotto, Pidgeot
+poder_p[0][16]="Tackle"
+basepower[0][16]=35.0
+tipo_ataq[0][16]=0
+poder_p[1][16]="Gust"
+basepower[1][16]=40.0
+tipo_ataq[1][16]=2
+poder_p[2][16]="Quick Attack"
+basepower[2][16]=40.0
+tipo_ataq[2][16]=0
+poder_p[3][16]="Wing Attack"
+basepower[3][16]=60.0
+tipo_ataq[3][16]=2
+
+poder_p[0][17]="Tackle"
+basepower[0][17]=35.0
+tipo_ataq[0][17]=0
+poder_p[1][17]="Gust"
+basepower[1][17]=40.0
+tipo_ataq[1][17]=2
+poder_p[2][17]="Quick Attack"
+basepower[2][17]=40.0
+tipo_ataq[2][17]=0
+poder_p[3][17]="Wing Attack"
+basepower[3][17]=60.0
+tipo_ataq[3][17]=2
+
+poder_p[0][18]="Tackle"
+basepower[0][18]=35.0
+tipo_ataq[0][18]=0
+poder_p[1][18]="Gust"
+basepower[1][18]=40.0
+tipo_ataq[1][18]=2
+poder_p[2][18]="Quick Attack"
+basepower[2][18]=40.0
+tipo_ataq[2][18]=0
+poder_p[3][18]="Wing Attack"
+basepower[3][18]=60.0
+tipo_ataq[3][18]=2
+// Rattata, Raticate
+poder_p[0][19]="Tackle"
+basepower[0][19]=35.0
+tipo_ataq[0][19]=0
+poder_p[1][19]="Bite"
+basepower[1][19]=60.0
+tipo_ataq[1][19]=0
+poder_p[2][19]="Quick Attack"
+basepower[2][19]=40.0
+tipo_ataq[2][19]=0
+poder_p[3][19]="Hyper Fang"
+basepower[3][19]=80.0
+tipo_ataq[3][19]=0
+
+poder_p[0][20]="Tackle"
+basepower[0][20]=35.0
+tipo_ataq[0][20]=0
+poder_p[1][20]="Bite"
+basepower[1][20]=60.0
+tipo_ataq[1][20]=0
+poder_p[2][20]="Quick Attack"
+basepower[2][20]=40.0
+tipo_ataq[2][20]=0
+poder_p[3][20]="Hyper Fang"
+basepower[3][20]=80.0
+tipo_ataq[3][20]=0
+// Spearow, Fearow
+poder_p[0][21]="Peck"
+basepower[0][21]=35.0
+tipo_ataq[0][21]=2
+poder_p[1][21]="Quick Attack"
+basepower[1][21]=40.0
+tipo_ataq[1][21]=0
+poder_p[2][21]="Fury Attack"
+basepower[2][21]=25.0
+tipo_ataq[2][21]=0
+poder_p[3][21]="Aerial Ace"
+basepower[3][21]=60.0
+tipo_ataq[3][21]=2
+
+poder_p[0][22]="Peck"
+basepower[0][22]=35.0
+tipo_ataq[0][22]=2
+poder_p[1][22]="Quick Attack"
+basepower[1][22]=40.0
+tipo_ataq[1][22]=0
+poder_p[2][22]="Fury Attack"
+basepower[2][22]=25.0
+tipo_ataq[2][22]=0
+poder_p[3][22]="Aerial Ace"
+basepower[3][22]=60.0
+tipo_ataq[3][22]=2
+
+// Pikachu, Raichu
+poder_p[0][25]="Thunder Shock"
+basepower[0][25]=40.0
+tipo_ataq[0][25]=12
+poder_p[1][25]="Quick Attack"
+basepower[1][25]=40.0
+tipo_ataq[1][25]=0
+poder_p[2][25]="Electro Ball"
+basepower[2][25]=60.0
+tipo_ataq[2][25]=12
+poder_p[3][25]="Thunderbolt"
+basepower[3][25]=90.0
+tipo_ataq[3][25]=12
+
+poder_p[0][26]="Thunder Punch"
+basepower[0][26]=75.0
+tipo_ataq[0][26]=12
+poder_p[1][26]="Quick Attack"
+basepower[1][26]=40.0
+tipo_ataq[1][26]=0
+poder_p[2][26]="Thunderbolt"
+basepower[2][26]=90.0
+tipo_ataq[2][26]=12
+poder_p[3][26]="Agility"
+basepower[3][26]=0
+tipo_ataq[3][26]=0
+
+// Sandshrew, Sandslash
+poder_p[0][27]="Scratch"
+basepower[0][27]=40.0
+tipo_ataq[0][27]=0
+poder_p[1][27]="Slash"
+basepower[1][27]=70.0
+tipo_ataq[1][27]=0
+poder_p[2][27]="Fury Swipes"
+basepower[2][27]=18.0
+tipo_ataq[2][27]=0
+poder_p[3][27]="Dig"
+basepower[3][27]=80.0
+tipo_ataq[3][27]=4
+
+poder_p[0][28]="Slash"
+basepower[0][28]=70.0
+tipo_ataq[0][28]=0
+poder_p[1][28]="Fury Swipes"
+basepower[1][28]=18.0
+tipo_ataq[1][28]=0
+poder_p[2][28]="Dig"
+basepower[2][28]=80.0
+tipo_ataq[2][28]=4
+poder_p[3][28]="Crush Claw"
+basepower[3][28]=75.0
+tipo_ataq[3][28]=0
+
+// Brock: Geodude, Graveler, Onix
+poder_p[0][74]="Tackle"
+basepower[0][74]=40.0
+tipo_ataq[0][74]=0
+poder_p[1][74]="Rock Throw"
+basepower[1][74]=50.0
+tipo_ataq[1][74]=5
+poder_p[2][74]="Magnitude"
+basepower[2][74]=70.0
+tipo_ataq[2][74]=4
+poder_p[3][74]="Rollout"
+basepower[3][74]=30.0
+tipo_ataq[3][74]=5
+
+poder_p[0][75]="Rock Throw"
+basepower[0][75]=50.0
+tipo_ataq[0][75]=5
+poder_p[1][75]="Magnitude"
+basepower[1][75]=70.0
+tipo_ataq[1][75]=4
+poder_p[2][75]="Rollout"
+basepower[2][75]=30.0
+tipo_ataq[2][75]=5
+poder_p[3][75]="Rock Slide"
+basepower[3][75]=75.0
+tipo_ataq[3][75]=5
+
+poder_p[0][95]="Tackle"
+basepower[0][95]=35.0
+tipo_ataq[0][95]=0
+poder_p[1][95]="Rock Throw"
+basepower[1][95]=50.0
+tipo_ataq[1][95]=5
+poder_p[2][95]="Bind"
+basepower[2][95]=15.0
+tipo_ataq[2][95]=0
+poder_p[3][95]="Iron Tail"
+basepower[3][95]=100.0
+tipo_ataq[3][95]=8
+
+// Misty: Staryu, Starmie
+poder_p[0][120]="Tackle"
+basepower[0][120]=40.0
+tipo_ataq[0][120]=0
+poder_p[1][120]="Water Gun"
+basepower[1][120]=40.0
+tipo_ataq[1][120]=10
+poder_p[2][120]="Rapid Spin"
+basepower[2][120]=50.0
+tipo_ataq[2][120]=0
+poder_p[3][120]="Bubble Beam"
+basepower[3][120]=65.0
+tipo_ataq[3][120]=10
+
+poder_p[0][121]="Water Gun"
+basepower[0][121]=50.0
+tipo_ataq[0][121]=10
+poder_p[1][121]="Rapid Spin"
+basepower[1][121]=60.0
+tipo_ataq[1][121]=0
+poder_p[2][121]="Bubble Beam"
+basepower[2][121]=65.0
+tipo_ataq[2][121]=10
+poder_p[3][121]="Hydro Pump"
+basepower[3][121]=110.0
+tipo_ataq[3][121]=10
+	
+	}	
 }
 
 /* $$$ Portugol Studio $$$ 
@@ -1101,10 +1485,10 @@ escreva("Digite o número do Pokémon escolhido:\n")
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 19868; 
- * @DOBRAMENTO-CODIGO = [106, 216, 227, 354, 498, 717, 723, 728, 772, 818, 821, 824, 827, 817, 831, 845, 855, 880, 885, 893, 892, 905, 930, 937, 1025, 1038, 1049];
+ * @POSICAO-CURSOR = 4845; 
+ * @DOBRAMENTO-CODIGO = [108, 436, 663, 669, 764, 767, 770, 773, 763, 777, 791, 801, 826, 831, 839, 838, 851, 856, 891, 898, 986, 999, 1010];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {vida_seu_pkmn, 13, 29, 13};
+ * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
