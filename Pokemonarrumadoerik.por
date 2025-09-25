@@ -21,22 +21,20 @@ programa
      	
      }
      cadeia nome_item[9] = {"Poké Ball","Great ball","Ultra ball","Master ball","Poção","Super poção","Hyper poção","Poção Máxima","Reviver"}
-     inteiro inventario_item[9] = {0,0,1,0,0,0,1,0,1}
+     inteiro inventario_item[9] = {1,0,1,1,0,0,1,0,1}
      inteiro escolhaitem
      inteiro Escolha
      inteiro dinheiro = 1000
-     inteiro efeito_item[9] = {25,50,75,100,15,30,35,0,0}
-     inteiro curacurada = 0
+     inteiro efeito_item[9] = {10,7,3,1,15,30,35,0,0}
      inteiro genero = -1
      cadeia  start
-     inteiro seupkmn[6] = {0, 0, 0, 0, 0, 0}  
+     inteiro seupkmn[6] = {1, 4, 0, 5, 0, 0}  
      inteiro pkmninimigo[6] = {0, 0, 0, 0, 0, 0}  
      inteiro inventarioInimigoP = 0
      inteiro inventarioP = 0 // Variavel que mostra posicao atual do inventario, de 0 a 5
      cadeia inventario[6]// inventario da batalha
      inteiro seupkmn_atual = seupkmn[0]
      inteiro escolha_pokemon = 0
-     inteiro pokemoncapturado // pokemon que vc capturou
      cadeia  nome_personagem = "nulo", rival = "nulo"
 	inteiro quantidade_carac
 	inteiro escolha_, escolha_1
@@ -44,7 +42,8 @@ programa
 	inteiro media = 3
 	logico  acabou 
 	real    multiplicador
-	inteiro tipo_ataq[4][151] 
+	inteiro tipo_ataq[4][151]
+	inteiro chance 
 	inteiro qual = Util.sorteia(0, 3)                   
 	real    tabela_fraquezas[18][18] = {
 	   //nor0 lut1 voa2 ven3 ter4 ped5 ins6 fan7 aço8 fog9 agu0 pla1 ele2 psi3 gel4 dra5 som6 fad7
@@ -81,11 +80,11 @@ programa
 		escreva("     ▐▌   ▐▌ ▐▌▐▙▄▄▖▗▄▄▞▘▗▄▄▞▘    ▗▄▄▞▘  █ ▐▌ ▐▌▐▌ ▐▌ █  \n")
 		leia(start)
 		limpa()
-          itemmais()
+          //itemmais()
 		regepokemon()
 		regeataques()
 		
-		introducaoprofessor()
+		//introducaoprofessor()
 		regeseu()
 	     limpa()
 	    
@@ -94,7 +93,7 @@ programa
 	     regeenemy()
 	     regepokemon()
 	     regeseu()
-	     BatalhaPokemon()
+	     BatalhaPokemon(verdadeiro)
           acabou = falso
           regeenemy()
           regepokemon()
@@ -109,33 +108,44 @@ programa
 
 	}
 	
-	funcao capturapokemon()
+	funcao inteiro capturapokemon(inteiro valorChance)
 	     {
-	     inteiro pegapokemon1 = Util.sorteia(1, 18)
-	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon1])
-	     seupkmn[1] = pegapokemon1
 
-	     inteiro pegapokemon2 = Util.sorteia(1, 18)
-	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon2])
-	     seupkmn[2] = pegapokemon2
+			
+			se(valorChance!=1){
+				
+				chance = Util.sorteia(1, valorChance)
+				
+			}
 
-	     inteiro pegapokemon3 = Util.sorteia(1, 18)
-	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon3])
-	     seupkmn[3] = pegapokemon3
+			se(valorChance==1){// Se 
+				
+				chance = 1
+				
+			}
+			
+			se(chance==1){
 
-	     inteiro pegapokemon4 = Util.sorteia(1, 18)
-	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon4])
-	     seupkmn[4] = pegapokemon4
+				para(inteiro i=0;i<=5;i++){
+					
+					se(seupkmn[i]==0){
+						
+						seupkmn[i]=pkmninimigo[inventarioInimigoP] 
 
-	     inteiro pegapokemon5 = Util.sorteia(1, 18)
-	     escreva("O pokemon que você pegou foi o ", nome_pkmn[pegapokemon5])
-	     seupkmn[5] = pegapokemon5
-	     	
+						pare
+						
+					}
+				}
+			}
+			retorne chance
 	     }
 
      funcao cura(inteiro Escolha,inteiro Escolhapkmn){
      	se(inventario_item[Escolha] >= 1){
+     		inteiro curacurada = efeito_item[Escolha]
      		vida_seu_pkmn[Escolhapkmn] = vida_seu_pkmn[Escolhapkmn]+curacurada
+     		inventario_item[Escolha]--
+     		
      	}
      }
      
@@ -451,15 +461,18 @@ defesa_pkmn[121]=85.0
 		}
 
 	}
-	funcao BatalhaPokemon()//Autoexplicativo, aqui é o coração do jogo, a batalha.
+	funcao BatalhaPokemon(logico pokemonSelvagem)//Autoexplicativo, aqui é o coração do jogo, a batalha.
 	{
-		
+
 		inteiro turno = Util.sorteia(0, 1)
+		
 		Menu=0
 		pkmnVivos()
+		
 		se(seupkmn_vivosN>0){
           enquanto(acabou == falso)
           {
+          	
           pkmnVivos()
          	pkmnInimigosVivos()
 
@@ -480,15 +493,17 @@ defesa_pkmn[121]=85.0
 				
 				se(seupkmn_vivosN<=0){
 
-					Menu=10
+					Menu=7
 					AttGraficos()
 					Util.aguarde(500)
 					acabou = verdadeiro
 					
 				}senao{
+					
 					inteiro j
 					
 					se(inventarioP==0){
+						
 						 j=1
 						
 					}senao{
@@ -506,6 +521,7 @@ defesa_pkmn[121]=85.0
 							Util.aguarde(500)
 							
 							pare
+							
 						}
 					}
 				}
@@ -513,22 +529,27 @@ defesa_pkmn[121]=85.0
 			}
 			senao
 			{
+				
 				Menu=2
 				AttGraficos()
 				
 				Util.aguarde(5000)
 				turno++
+				
 			}
 		}//Fim turno inimigo
 		se(turno %2 != 0)
 		{//Seu turno
+			
 			Menu=0
 			AttGraficos()
 			leia(escolha_)
 
 			se(escolha_ != 1 e escolha_ !=2 e escolha_ != 3 e escolha_ != 4)
 		     {
+		     	
 				escrevaLento("Essa opção não existe.\n", media)
+				
 		     }
 
 
@@ -537,6 +558,7 @@ defesa_pkmn[121]=85.0
 			{
 			
 				caso 1:
+				
 				Menu=1
 				AttGraficos()
 				
@@ -545,7 +567,6 @@ defesa_pkmn[121]=85.0
 				vida_inimigo[inventarioInimigoP] = vida_inimigo[inventarioInimigoP] - dano											//
 				pkmnInimigosVivos()
 				
-			
 				se(vida_inimigo[inventarioInimigoP] <= 0)
 				{
 					
@@ -575,25 +596,29 @@ defesa_pkmn[121]=85.0
 								Util.aguarde(2000)
 								turno++
 								pare
+								
 							}
 						}
 					}
 				}
 				senao
 				{
+					
 					Menu=6
 					AttGraficos()
 					Util.aguarde(2000)
 					turno++
+					
 				}
-					pare
-		    
-		     
 				
+					pare
+
 			   caso 2: escreva("Itens")
+			   
 			   Menu=8
 			   AttGraficos()
 			   leia(escolhaitem)
+			   
 			   para(inteiro i=4; i <= 7; i++){
 			   	
 			   	se(escolhaitem == i){
@@ -602,14 +627,48 @@ defesa_pkmn[121]=85.0
 			   		AttGraficos()
 			   		leia(Escolha)
 			   		
-			   		curacurada = efeito_item[escolhaitem]
 			   		cura(escolhaitem,Escolha)
-			   		
                   		Menu=9
                   		AttGraficos()
                   		Util.aguarde(2000)
-                  }
-		        }			   
+                  		
+                  	}
+		        }
+		        
+		        para(inteiro i=0; i <= 3; i++){
+		        	
+			   	se(pokemonSelvagem==verdadeiro){
+			   		
+			   		se(escolhaitem == i){
+			   			
+			   			capturapokemon(efeito_item[escolhaitem])
+			   			Menu=9
+			   			AttGraficos()
+			   			Util.aguarde(2000)
+			   			
+			   			se(chance==1){
+			   				
+			   				Menu=7
+			   				AttGraficos()
+			   				Util.aguarde(2000)
+			   				acabou=verdadeiro
+			   				
+			   			}senao{
+			   				
+			   				turno++
+			   				
+			   			}
+			   			
+			   		
+                  		}
+		        	}senao{
+		        		chance=-1
+		        		Menu=9
+			   		AttGraficos()
+			   		Util.aguarde(2000) 
+		        		pare
+		        	}
+		        }
 			   limpa()
 			   
 			   	
@@ -857,9 +916,13 @@ defesa_pkmn[121]=85.0
 			
 			
 		}
-		se(Menu==7){ //menu que fala que voce ganhou
+		se(Menu==7){ //menu que fala se voce ganhou ou perdeu
 			se(linha==12){
-				escrevaLento("Você ganhou...",media)
+				se(seupkmn_vivosN>0){
+					escrevaLento("Você ganhou...",media)
+				}senao{
+					escrevaLento("Você perdeu...",media)
+				}
 			}
 		}
 		se(Menu==8){ //menu que fala qual item vc tem
@@ -884,21 +947,32 @@ defesa_pkmn[121]=85.0
 		se(Menu==9){ //menu que fala qual item vc usou
 			se(linha==12){
 				
-				escreva("Você usou "+nome_item[escolhaitem])
+				escreva("Você usou "+nome_item[escolhaitem]+" ")
 				
 				para(inteiro i=4;i<=7;i++){
 					
 					se(escolhaitem==i){
 						
-						escreva(" em "+nomeseu_pkmn[Escolha])
+						escreva("em "+nomeseu_pkmn[Escolha])
 						
 					}
 				}
-			}
-		}
-		se(Menu==10){
-			se(linha==12){
-				escreva("Você perdeu.")
+				para(inteiro i=0;i<=3;i++){
+					
+					se(escolhaitem==i){
+							se(chance==1){
+								escreva("voce capturou "+nome_inimigos[0])
+								
+							}senao{
+								escreva(" "+nome_inimigos[0]+" se soltou.")
+							
+							}
+							se(chance==-1){
+								escreva("voce nao pode usar esse item")
+							
+							}
+					}
+				}
 			}
 		}
 	}
@@ -1497,10 +1571,10 @@ tipo_ataq[3][121]=10
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 14667; 
- * @DOBRAMENTO-CODIGO = [111, 233, 439, 671, 677, 772, 775, 778, 781, 771, 785, 799, 809, 834, 839, 847, 846, 859, 864, 883, 904, 998, 1011, 1022];
+ * @POSICAO-CURSOR = 1463; 
+ * @DOBRAMENTO-CODIGO = [142, 151, 184, 232, 243, 449, 730, 736, 741, 785, 831, 834, 837, 840, 830, 844, 858, 868, 893, 898, 906, 905, 918, 927, 978, 985, 1072, 1085, 1096, 1113, 1119, 1131, 1143];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {seupkmn_vivos, 8, 9, 13}-{seupkmn_vivosN, 10, 9, 14};
+ * @SIMBOLOS-INSPECIONADOS = {seupkmn, 31, 13, 7}-{chance, 46, 9, 6};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
