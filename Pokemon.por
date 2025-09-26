@@ -21,7 +21,7 @@ programa
      	
      }
      cadeia nome_item[9] = {"Poké Ball","Great ball","Ultra ball","Master ball","Poção","Super poção","Hyper poção","Poção Máxima","Reviver"}
-     inteiro inventario_item[9] = {1,0,1,1,0,0,1,0,1}
+     inteiro inventario_item[9] = {1,0,1,0,0,0,1,0,1}
      inteiro escolhaitem
      inteiro Escolha
      inteiro dinheiro = 1000
@@ -44,7 +44,8 @@ programa
 	real    multiplicador
 	inteiro tipo_ataq[4][151]
 	inteiro chance 
-	inteiro qual = Util.sorteia(0, 3)                   
+	inteiro qual = Util.sorteia(0, 3)     
+	logico gameflow = verdadeiro              
 	real    tabela_fraquezas[18][18] = {
 	   //nor0 lut1 voa2 ven3 ter4 ped5 ins6 fan7 aço8 fog9 agu0 pla1 ele2 psi3 gel4 dra5 som6 fad7
 	    {1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 0.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0},
@@ -70,6 +71,7 @@ programa
 	
 	funcao inicio() //Aqui é a parte "principal" do jogo, cada função será utilizada.
 	{
+		enquanto(gameflow == verdadeiro){
 		escreva("▗▄▄▖      ▗▄▖     ▗▖ ▗▖    ▗▄▄▄▖    ▗▖  ▗▖     ▗▄▖     ▗▖  ▗▖\n")
 		escreva("▐▌ ▐▌    ▐▌ ▐▌    ▐▌▗▞▘    ▐▌       ▐▛▚▞▜▌    ▐▌ ▐▌    ▐▛▚▖▐▌\n")
 		escreva("▐▛▀▘     ▐▌ ▐▌    ▐▛▚▖     ▐▛▀▀▘    ▐▌  ▐▌    ▐▌ ▐▌    ▐▌ ▝▜▌\n")
@@ -98,26 +100,29 @@ programa
 		pospallet()
           
           
-          pkmninimigo[0]= 10
+          pkmninimigo[0]= 19
           regeenemy()
           BatalhaPokemon(verdadeiro)
           posprimeiroimpacto()
 	     regeseu()
+	     acabou = falso
 	     inteiro escolhaa = 0
 		enquanto(escolhaa != 1 ou escolhaa != 2){
 			
 		
 		se(escolhaa == 1)
 		{
-			escreva("\nProxima cidadeeeeeee")
+			escreva("\nVocê perdeu um encontro, a próxima batalha sera dificil.\n")
 		}
 		senao se(escolhaa == 2)
 		{
-			escreva("\nbunda morta")
+			pkmninimigo[0] = 16
+               regeenemy()
+			BatalhaPokemon(verdadeiro)
 		}
 		senao
 		{
-			escrevaLento("\nVoce quer ir para proxima cidade em segurança, ou enfrentar (e talvez capturar) um pokemon selvagem?\n(1) - Proxima cidade\n(2) - Entrar no mato", media)
+			escrevaLento("\nVoce quer ir para proxima cidade em segurança, ou enfrentar (e talvez capturar) um pokemon selvagem?\n(1) - Proxima cidade\n(2) - Entrar no mato\n", media)
 	     
 	     leia(escolhaa) 
 	     limpa()
@@ -126,7 +131,10 @@ programa
 	     
 	  
 	     
-
+		}
+		Util.aguarde(4000)
+		limpa()
+		escrevaLento("GAME OVER", 100)
 	}
 	
 	funcao inteiro capturapokemon(inteiro valorChance)
@@ -270,57 +278,57 @@ programa
 nome_pkmn[1]="Bulbassaur"
 tipo_pkmn[1]=11
 vida_pkmn[1]=45.0
-ataq_pkmn[1]=24.0
+ataq_pkmn[1]=12.0
 defesa_pkmn[1]=49.0
 
 nome_pkmn[2]="Ivysaur"
 tipo_pkmn[2]=11
 vida_pkmn[2]=60.0
-ataq_pkmn[2]=31.0
+ataq_pkmn[2]=15.0
 defesa_pkmn[2]=63.0
 
 nome_pkmn[3]="Venusaur"
 tipo_pkmn[3]=11
 vida_pkmn[3]=80.0
-ataq_pkmn[3]=41.0
+ataq_pkmn[3]=20.0
 defesa_pkmn[3]=83.0
 
 // Charmander, Charmeleon, Charizard
 nome_pkmn[4]="Charmander"
 tipo_pkmn[4]=9
 vida_pkmn[4]=39.0
-ataq_pkmn[4]=26.0
+ataq_pkmn[4]=13.0
 defesa_pkmn[4]=43.0
 
 nome_pkmn[5]="Charmeleon"
 tipo_pkmn[5]=9
 vida_pkmn[5]=58.0
-ataq_pkmn[5]=32.0
+ataq_pkmn[5]=16.0
 defesa_pkmn[5]=58.0
 
 nome_pkmn[6]="Charizard"
 tipo_pkmn[6]=9
 vida_pkmn[6]=78.0
-ataq_pkmn[6]=42.0
+ataq_pkmn[6]=21.0
 defesa_pkmn[6]=78.0
 
 // Squirtle, Wartortle, Blastoise
 nome_pkmn[7]="Squirtle"
 tipo_pkmn[7]=10
 vida_pkmn[7]=44.0
-ataq_pkmn[7]=24.0
+ataq_pkmn[7]=12.0
 defesa_pkmn[7]=65.0
 
 nome_pkmn[8]="Wartortle"
 tipo_pkmn[8]=10
 vida_pkmn[8]=59.0
-ataq_pkmn[8]=31.0
+ataq_pkmn[8]=15.0
 defesa_pkmn[8]=80.0
 
 nome_pkmn[9]="Blastoise"
 tipo_pkmn[9]=10
 vida_pkmn[9]=79.0
-ataq_pkmn[9]=41.0
+ataq_pkmn[9]=21.0
 defesa_pkmn[9]=100.0
 
 // Insetos de rotas iniciais
@@ -328,141 +336,141 @@ defesa_pkmn[9]=100.0
 nome_pkmn[10]="Caterpie"
 tipo_pkmn[10]=6
 vida_pkmn[10]=45.0
-ataq_pkmn[10]=30.0
+ataq_pkmn[10]=15.0
 defesa_pkmn[10]=35.0
 
 nome_pkmn[11]="Metapod"
 tipo_pkmn[11]=6
 vida_pkmn[11]=50.0
-ataq_pkmn[11]=20.0
+ataq_pkmn[11]=10.0
 defesa_pkmn[11]=55.0
 
 nome_pkmn[12]="Butterfree"
 tipo_pkmn[12]=6
 vida_pkmn[12]=60.0
-ataq_pkmn[12]=45.0
+ataq_pkmn[12]=22.0
 defesa_pkmn[12]=50.0
 
 // Weedle, Kakuna, Beedrill
 nome_pkmn[13]="Weedle"
 tipo_pkmn[13]=6
 vida_pkmn[13]=40.0
-ataq_pkmn[13]=35.0
+ataq_pkmn[13]=17.0
 defesa_pkmn[13]=30.0
 
 nome_pkmn[14]="Kakuna"
 tipo_pkmn[14]=6
-vida_pkmn[14]=45.0
+vida_pkmn[14]=22.0
 ataq_pkmn[14]=25.0
 defesa_pkmn[14]=50.0
 
 nome_pkmn[15]="Beedrill"
 tipo_pkmn[15]=6
 vida_pkmn[15]=65.0
-ataq_pkmn[15]=90.0
+ataq_pkmn[15]=45.0
 defesa_pkmn[15]=40.0
 
 // Pidgey, Pidgeotto, Pidgeot
 nome_pkmn[16]="Pidgey"
 tipo_pkmn[16]=2
 vida_pkmn[16]=40.0
-ataq_pkmn[16]=45.0
+ataq_pkmn[16]=22.0
 defesa_pkmn[16]=40.0
 
 nome_pkmn[17]="Pidgeotto"
 tipo_pkmn[17]=2
 vida_pkmn[17]=63.0
-ataq_pkmn[17]=60.0
+ataq_pkmn[17]=30.0
 defesa_pkmn[17]=55.0
 
 nome_pkmn[18]="Pidgeot"
 tipo_pkmn[18]=2
 vida_pkmn[18]=83.0
-ataq_pkmn[18]=80.0
+ataq_pkmn[18]=40.0
 defesa_pkmn[18]=75.0
 
 // Rattata, Raticate
 nome_pkmn[19]="Rattata"
 tipo_pkmn[19]=0
 vida_pkmn[19]=30.0
-ataq_pkmn[19]=56.0
+ataq_pkmn[19]=28.0
 defesa_pkmn[19]=35.0
 
 nome_pkmn[20]="Raticate"
 tipo_pkmn[20]=0
 vida_pkmn[20]=55.0
-ataq_pkmn[20]=81.0
+ataq_pkmn[20]=40.0
 defesa_pkmn[20]=60.0
 
 // Spearow, Fearow
 nome_pkmn[21]="Spearow"
 tipo_pkmn[21]=2
 vida_pkmn[21]=40.0
-ataq_pkmn[21]=60.0
+ataq_pkmn[21]=30.0
 defesa_pkmn[21]=30.0
 
 nome_pkmn[22]="Fearow"
 tipo_pkmn[22]=2
 vida_pkmn[22]=65.0
-ataq_pkmn[22]=90.0
+ataq_pkmn[22]=45.0
 defesa_pkmn[22]=65.0
 
 // Pikachu, Raichu
 nome_pkmn[25]="Pikachu"
 tipo_pkmn[25]=12
 vida_pkmn[25]=35.0
-ataq_pkmn[25]=55.0
+ataq_pkmn[25]=27.0
 defesa_pkmn[25]=40.0
 
 nome_pkmn[26]="Raichu"
 tipo_pkmn[26]=12
 vida_pkmn[26]=60.0
-ataq_pkmn[26]=90.0
+ataq_pkmn[26]=45.0
 defesa_pkmn[26]=55.0
 
 // Sandshrew, Sandslash
 nome_pkmn[27]="Sandshrew"
 tipo_pkmn[27]=4
 vida_pkmn[27]=50.0
-ataq_pkmn[27]=75.0
+ataq_pkmn[27]=35.0
 defesa_pkmn[27]=85.0
 
 nome_pkmn[28]="Sandslash"
 tipo_pkmn[28]=4
 vida_pkmn[28]=75.0
-ataq_pkmn[28]=100.0
+ataq_pkmn[28]=50.0
 defesa_pkmn[28]=110.0
 
 // Brock: Geodude, Graveler, Onix
 nome_pkmn[74]="Geodude"
 tipo_pkmn[74]=5
 vida_pkmn[74]=40.0
-ataq_pkmn[74]=80.0
+ataq_pkmn[74]=40.0
 defesa_pkmn[74]=100.0
 
 nome_pkmn[75]="Graveler"
 tipo_pkmn[75]=5
 vida_pkmn[75]=55.0
-ataq_pkmn[75]=95.0
+ataq_pkmn[75]=45.0
 defesa_pkmn[75]=115.0
 
 nome_pkmn[95]="Onix"
 tipo_pkmn[95]=5
 vida_pkmn[95]=35.0
-ataq_pkmn[95]=45.0
+ataq_pkmn[95]=20.0
 defesa_pkmn[95]=160.0
 
 // Misty: Staryu, Starmie
 nome_pkmn[120]="Staryu"
 tipo_pkmn[120]=10
 vida_pkmn[120]=30.0
-ataq_pkmn[120]=45.0
+ataq_pkmn[120]=27.0
 defesa_pkmn[120]=55.0
 
 nome_pkmn[121]="Starmie"
 tipo_pkmn[121]=10
 vida_pkmn[121]=60.0
-ataq_pkmn[121]=75.0
+ataq_pkmn[121]=37.0
 defesa_pkmn[121]=85.0
 	      
 	}
@@ -485,7 +493,7 @@ defesa_pkmn[121]=85.0
 	funcao BatalhaPokemon(logico pokemonSelvagem)//Autoexplicativo, aqui é o coração do jogo, a batalha.
 	{
 
-		inteiro turno = Util.sorteia(0, 1)
+		inteiro turno = 1
 		
 		Menu=0
 		pkmnVivos()
@@ -746,19 +754,19 @@ defesa_pkmn[121]=85.0
 		
 	     }
 		}senao{
-			escrevaLento("vc nao tem pokemons vivos", media)
+			escrevaLento("Game Over.", media)
 		}
 	}
 	funcao regedano(real quale, inteiro tipo, inteiro tipoataq)
 	{
 		multiplicador = tabela_fraquezas[tipoataq][tipo]
-		dano = ((ataq_seu_pkmn[inventarioP] / defesa_inimigo[inventarioInimigoP]) * quale) * multiplicador
+		dano = (((ataq_seu_pkmn[inventarioP] / defesa_inimigo[inventarioInimigoP]) * quale) * multiplicador) * 1.5
 		
 	}
 	funcao regedanoinimigo(real quale, inteiro tipo, inteiro tipoataq)
 	{
 		multiplicador = tabela_fraquezas[tipoataq][tipo]
-		dano = (ataq_inimigo[inventarioInimigoP] / defesa_seu_pkmn[inventarioP]) * quale * multiplicador
+		dano = ((ataq_inimigo[inventarioInimigoP] / defesa_seu_pkmn[inventarioP]) * quale * multiplicador) * 0.8
 	}
      funcao desenharInimigo(cadeia nome,inteiro lp, inteiro lpt){
 		inteiro caminho = arq.abrir_arquivo("./sprites/"+nome+"/"+nome+"Front.txt", arq.MODO_LEITURA)
@@ -1061,22 +1069,40 @@ defesa_pkmn[121]=85.0
 	Util.aguarde(1000)
 	limpa()
     escrevaLento("...\n", media)
-    escrevaLento("-Você acorda em seu quarto, em uma pequena cidade tranquila.\n", media)
-    escrevaLento("-Um videogame está ligado, mas você tem coisas mais importantes para fazer.\n", media)
-    escrevaLento("-Você desce as escadas e encontra sua mãe na sala.\n", media)
-    escrevaLento("Mãe: Bom dia, " + nome_personagem + "! O Professor Carvalho estava procurando por você.\n", media)
-    escrevaLento("Mãe: Parece que hoje é o dia em que você começará sua própria aventura Pokémon!\n", media)
-    escrevaLento("-Você sai de casa e vai em direção ao laboratório do Professor Carvalho.\n", media)
-    escrevaLento("-Dentro do laboratório, o Professor e " + rival + " já estão esperando.\n", media)
-    escrevaLento("Professor Carvalho: Ah, " + nome_personagem + "! Que bom que você chegou.\n", media)
-    escrevaLento("Professor Carvalho: Hoje você escolherá seu primeiro Pokémon.\n", media)
-    escrevaLento("-Na mesa, você vê três Pokébolas alinhadas, cada uma contendo um Pokémon diferente.\n", media)
-    escrevaLento("Professor Carvalho: Dentro dessas Pokébolas estão três Pokémon.\n", media)
-    escrevaLento("Professor Carvalho: Escolha um deles para ser seu parceiro!\n", media)
-    escrevaLento(rival + ": Heh! Eu vou escolher depois de você, " + nome_personagem + "!\n", media)
-    escrevaLento("Agora é sua escolha...\n", media)
-    limpa()
-    Util.aguarde(1000)
+    
+    escreva("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+    escrevaLento("~ Você acorda em seu quarto, em uma pequena cidade tranquila.        ~\n", media)
+    escrevaLento("~ Um videogame está ligado, mas você tem coisas mais importantes     ~\n", media)
+    escrevaLento("~ para fazer.                                                        ~\n", media)
+    escreva("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n")
+
+    escrevaLento("[Mãe]: Bom dia, " + nome_personagem + "! O Professor Carvalho estava procurando por você.\n", media)
+    escrevaLento("[Mãe]: Parece que hoje é o dia em que você começará sua própria aventura Pokémon!\n\n", media)
+
+    escreva("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+    escrevaLento("~ Você sai de casa e vai em direção ao laboratório do Professor.     ~\n", media)
+    escrevaLento("~ Dentro do laboratório, o Professor e " + rival + " já estão esperando. ~\n", media)
+    escreva("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n")
+
+    escrevaLento("[Prof. Carvalho]: Ah, " + nome_personagem + "! Que bom que você chegou.\n", media)
+    escrevaLento("[Prof. Carvalho]: Hoje você escolherá seu primeiro Pokémon.\n\n", media)
+
+    escreva("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+    escrevaLento("~ Na mesa, você vê três Pokébolas alinhadas, cada uma contendo um    ~\n", media)
+    escrevaLento("~ Pokémon diferente.                                                 ~\n", media)
+    escreva("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n")
+
+    escrevaLento("[Prof. Carvalho]: Dentro dessas Pokébolas estão três Pokémon.\n", media)
+    escrevaLento("[Prof. Carvalho]: Escolha um deles para ser seu parceiro!\n\n", media)
+
+    escrevaLento("[" + rival + "]: Heh! Eu vou escolher depois de você, " + nome_personagem + "!\n\n", media)
+
+    escrevaLento(">>> Agora é sua escolha... <<<\n", media)
+
+   
+   
+    Util.aguarde(3000)
+     limpa()
 	escreva("\nQue pokemon voce deseja?")
 	laboratorio()
 	    
@@ -1601,10 +1627,10 @@ tipo_ataq[3][121]=10
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 4938; 
- * @DOBRAMENTO-CODIGO = [163, 172, 205, 253, 264, 470, 751, 757, 762, 806, 852, 855, 858, 861, 851, 865, 879, 889, 914, 919, 927, 926, 939, 948, 967, 999, 1006, 1102, 1115, 1126, 1143, 1149, 1161, 1173];
+ * @POSICAO-CURSOR = 5750; 
+ * @DOBRAMENTO-CODIGO = [171, 180, 213, 261, 478, 759, 814, 860, 863, 866, 869, 859, 873, 887, 897, 922, 927, 935, 934, 947, 956, 975, 1007, 1014, 1141, 1152, 1169, 1175, 1187, 1199];
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {seupkmn, 31, 13, 7}-{chance, 46, 9, 6};
+ * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
